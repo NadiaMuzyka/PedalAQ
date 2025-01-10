@@ -16,6 +16,8 @@ public class Prenotazione {
     }
 
     public boolean controllaPrenotazione() {
+
+        //TODO controllare che la prenotazione sia ancora valida
         return true;
     }
 }

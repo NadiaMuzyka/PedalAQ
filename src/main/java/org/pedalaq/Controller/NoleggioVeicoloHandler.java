@@ -1,9 +1,6 @@
 package org.pedalaq.Controller;
 
-import org.pedalaq.Model.Citta;
-import org.pedalaq.Model.Cittadino;
-import org.pedalaq.Model.Stallo;
-import org.pedalaq.Model.Veicolo;
+import org.pedalaq.Model.*;
 
 import java.util.ArrayList;
 
@@ -29,5 +26,31 @@ public class NoleggioVeicoloHandler {
         return veicoli;
     }
 
+    public Prenotazione prenotaVeicolo(Veicolo veicolo, Stallo stallo, Cittadino cittadino) {
+
+        //Se il cittadino ha un abbonamento attivo
+        if (cittadino.controllaAbbonamento()) {
+
+            //Se il veicolo è stato bloccato con successo
+            if (stallo.bloccaVeicolo(veicolo)) {
+
+                return new Prenotazione(veicolo, cittadino);
+            }
+
+        }
+        return null;
+    }
+
+    public boolean noleggiaVeicolo(Prenotazione prenotazione) {
+
+
+        if(prenotazione.controllaPrenotazione()){
+            Noleggio noleggio = new Noleggio(prenotazione);
+
+            return true;
+        }
+
+        return false;
+    }
 
 }

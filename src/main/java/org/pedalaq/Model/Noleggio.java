@@ -10,6 +10,8 @@ public class Noleggio {
     private TariffaNoleggioStandard tariffaNoleggio;
 
     public Noleggio(Prenotazione prenotazione) {
+
+        //TODO il noleggio dovrebbe cambiare anche lo stato del veicolo
         this.prenotazione = prenotazione;
     }
 }

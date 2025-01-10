@@ -19,13 +19,13 @@ public class Stallo {
         return true;
     }
     public boolean bloccaVeicolo(Veicolo veicolo){
-        //tmp
-        return true;
+
+        return veicolo.bloccaVeicolo();
     }
 
-    public ArrayList<Veicolo> getVeicoliStallo(){
 
-        //TODO i veicoli restituiti devono avere stato "Disponibile"
+    public ArrayList<Veicolo> getVeicoliStallo() {
+         //TODO i veicoli restituiti devono avere stato "Disponibile"
         return this.veicoli ;
     }
 }
