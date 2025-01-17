@@ -3,6 +3,7 @@ package org.pedalaq;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.pedalaq.Model.Citta;
 import org.pedalaq.Model.Cittadino;
 
 public class Main {
@@ -21,8 +22,11 @@ public class Main {
             // Crea un nuovo utente
             Cittadino newCittadino = new Cittadino("Nadia", "Muzyka", "MZYNDA02P55A345F");
 
+            //nuova città
+            Citta LAquila = new Citta(42.3634408, 13.3445664);
             // Salva l'utente nel database
             session.save(newCittadino);
+            session.save(LAquila);
 
             // Commit della transazione
             session.getTransaction().commit();
