@@ -25,7 +25,7 @@ public class Main {
             //nuova città
             Citta LAquila = new Citta(42.3634408, 13.3445664);
             // Salva l'utente nel database
-            session.save(newCittadino);
+            //session.save(newCittadino);
             session.save(LAquila);
 
             // Commit della transazione

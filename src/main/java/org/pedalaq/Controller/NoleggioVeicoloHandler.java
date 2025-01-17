@@ -12,7 +12,7 @@ public class NoleggioVeicoloHandler {
 
         ArrayList<Stallo> stalli = new ArrayList<Stallo>();
 
-        stalli = citta.getStalliRaggio(lat, lon, raggio);
+        //stalli = citta.getStalliRaggio(lat, lon, raggio);
 
         return stalli;
     }

@@ -14,8 +14,7 @@ public class Citta {
     private String nome;
     private double lat;
     private double lon;
-    @ManyToOne
-    @JoinColumn(name = "")
+    /*
     private ArrayList<Stallo> stalli;
     private TariffaNoleggioStandard tariffaNoleggioAttiva;
     private static final double EARTH_RADIUS_KM = 6371.01;
@@ -35,7 +34,7 @@ public class Citta {
         Stallotest.setLat(42.1256317);
         Stallotest.setLon(10.1256317);
         stalli.add(Stallotest);
-        */
+        *'/
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<Stallo>();
         for (Stallo stallo : stalli){
             if(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine)<raggio){ //se la distanza è minore del raggio allora lo aggiungo
@@ -67,7 +66,7 @@ public class Citta {
     }
 
 
-
+*/
 
     public Citta(){}
 
