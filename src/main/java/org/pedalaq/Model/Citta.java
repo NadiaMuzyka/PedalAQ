@@ -1,11 +1,21 @@
 package org.pedalaq.Model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 
+@Entity
 public class Citta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nome;
     private double lat;
     private double lon;
+    @ManyToOne
+    @JoinColumn(name = "")
     private ArrayList<Stallo> stalli;
     private TariffaNoleggioStandard tariffaNoleggioAttiva;
     private static final double EARTH_RADIUS_KM = 6371.01;
@@ -59,15 +69,14 @@ public class Citta {
 
 
 
+    public Citta(){}
 
 
 
 
-    public Citta(){
-        this.nome = "L'Aquila";
-        this.lat = 42.1256317;
-        this.lon = 13.6362715;
-        //TODO decidere se applicare lo strategy pattern su TariffaNoleggio
+    public Citta(double lat, double lon){
+        this.lat = lat;
+        this.lon = lon;
     }
 
 
