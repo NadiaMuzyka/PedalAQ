@@ -14,19 +14,27 @@ public class Citta {
     private String nome;
     private double lat;
     private double lon;
-    /*
+
     private ArrayList<Stallo> stalli;
+    /*
     private TariffaNoleggioStandard tariffaNoleggioAttiva;
     private static final double EARTH_RADIUS_KM = 6371.01;
     // Raggio della Terra in chilometri
-
+     */
+/*
     public ArrayList<Stallo> getStalliRaggio(double latitudine, double longitudine, double raggio) {
+        //TODO gestire il metodo in modo che possa anche visualizzare tutti gli stalli dellà citta se non ci sono argomenti al metodo
 
-        return verificaStalli(latitudine, longitudine, raggio);
+        if(raggio == null){
+            return stalli;
+            }
+        else{
+            return verificaStalli(latitudine, longitudine, raggio);
+            }
     }
 
     private ArrayList<Stallo> verificaStalli(double latitudine, double longitudine, double raggio) {//IL RAGGIO è IN KM
-        //TODO da calcolare tutti i stalli che rientrano in un certo raggio. Da metterli in stalli.
+
 
         // Stallo Location
         /*
@@ -70,12 +78,10 @@ public class Citta {
 
     public Citta(){}
 
-
-
-
-    public Citta(double lat, double lon){
+    public Citta(double lat, double lon,String nome){
         this.lat = lat;
         this.lon = lon;
+        this.nome = nome;
     }
 
 

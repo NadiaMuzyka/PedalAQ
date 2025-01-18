@@ -1,6 +1,7 @@
 package org.pedalaq.Model;
 
 import jakarta.persistence.*;
+import java.util.regex.*;
 import org.pedalaq.Model.Abbonamento;
 
 @Entity
@@ -41,10 +42,59 @@ public class Cittadino extends Utente {
         this.lng = lng;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getCF() {
+        return CF;
+    }
+
     public boolean controllaAbbonamento(){
         if (!this.abbonamentoAttivo.validaAbbonamento()){
             this.abbonamentoAttivo = null;
             return false;
         }return true;
     }
+
+    //METODO per il controllo del codice fiscale
+    //dato un codice fiscale fornito come argomento ritorna "true" se valido, altrimenti "false"
+    public static boolean isValidCodiceFiscale(String codiceFiscale) {
+        // Controlla se il formato del codice fiscale è corretto
+        if (codiceFiscale == null || !codiceFiscale.matches("^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$")) {
+            return false;
+        }
+
+        // Calcola il carattere di controllo
+        char expectedCheckChar = calculateCheckCharacter(codiceFiscale.substring(0, 15));
+        char actualCheckChar = codiceFiscale.charAt(15);
+
+        // Confronta il carattere di controllo calcolato con quello fornito
+        return expectedCheckChar == actualCheckChar;
+    }
+
+    private static char calculateCheckCharacter(String codiceFiscalePartial) {
+        // Tabella dei valori pari e dispari secondo le regole del codice fiscale
+        int[] oddValues = {1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 1, 0, 5, 7, 9, 13};
+        int[] evenValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5};
+
+        int sum = 0;
+
+        for (int i = 0; i < codiceFiscalePartial.length(); i++) {
+            char c = codiceFiscalePartial.charAt(i);
+            if (i % 2 == 0) { // Posizioni dispari (0-based)
+                sum += oddValues[c - '0'];
+            } else { // Posizioni pari
+                sum += evenValues[c - '0'];
+            }
+        }
+
+        // Determina il carattere di controllo
+        return (char) ('A' + (sum % 26));
+    }
+
 }

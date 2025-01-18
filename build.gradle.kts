@@ -42,6 +42,16 @@ dependencies {
 
     // Per la crittografia
     implementation("org.springframework.security:spring-security-crypto:5.8.0")
+
+    //DI TEST QUESTE 3 (SERVIREBBERO PER LE QUERY CON CRITERIA)
+    // JPA API
+    implementation ("javax.persistence:javax.persistence-api:2.2")
+
+    // Hibernate as JPA provider
+    implementation ("org.hibernate:hibernate-core:5.5.6.Final")
+
+    // JDBC driver (example for MySQL)
+    implementation ("mysql:mysql-connector-java:8.0.26")
 }
 
 tasks.test {
