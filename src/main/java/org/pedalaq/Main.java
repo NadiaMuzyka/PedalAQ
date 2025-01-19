@@ -1,26 +1,28 @@
 package org.pedalaq;
 
-import jakarta.persistence.criteria.CriteriaDelete;
 import org.hibernate.NonUniqueResultException;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import org.hibernate.query.Query;
-
 import org.pedalaq.Model.*;
 
 import javax.persistence.NoResultException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
+
+
+        Properties password = HibernateUtil.getPassword();
+
+
         // Creazione della SessionFactory
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml") // Specifica il file di configurazione
-                .addAnnotatedClass(Cittadino.class) // Registra la classe Entity
+                .addProperties(password)
                 .buildSessionFactory();
 
         // Creazione della Session
