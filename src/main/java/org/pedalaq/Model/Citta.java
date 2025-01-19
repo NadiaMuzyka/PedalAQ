@@ -3,6 +3,8 @@ package org.pedalaq.Model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class Citta {
@@ -15,17 +17,55 @@ public class Citta {
     private double lat;
     private double lon;
 
-    private ArrayList<Stallo> stalli;
-    /*
-    private TariffaNoleggioStandard tariffaNoleggioAttiva;
+    @OneToMany
+    @JoinColumn(name = "id_citta")
+    private List<Stallo> stalli;
+
+    //private TariffaNoleggioStandard tariffaNoleggioAttiva; //da errore per il momento lasciare così
     private static final double EARTH_RADIUS_KM = 6371.01;
     // Raggio della Terra in chilometri
-     */
-/*
-    public ArrayList<Stallo> getStalliRaggio(double latitudine, double longitudine, double raggio) {
+
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public void addStallo(Stallo stallo) {
+        this.stalli.add(stallo);
+    }
+
+    public List<Stallo> getStalli() {
+        return stalli;
+    }
+
+    public void setStalli(List<Stallo> stalli) {
+        this.stalli = stalli;
+    }
+
+    public List<Stallo> getStalliRaggio(double latitudine, double longitudine, double raggio) {
         //TODO gestire il metodo in modo che possa anche visualizzare tutti gli stalli dellà citta se non ci sono argomenti al metodo
 
-        if(raggio == null){
+        if(raggio == 0){
             return stalli;
             }
         else{
@@ -37,12 +77,12 @@ public class Citta {
 
 
         // Stallo Location
-        /*
+
         Stallo Stallotest = new Stallo();
         Stallotest.setLat(42.1256317);
         Stallotest.setLon(10.1256317);
         stalli.add(Stallotest);
-        *'/
+
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<Stallo>();
         for (Stallo stallo : stalli){
             if(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine)<raggio){ //se la distanza è minore del raggio allora lo aggiungo
@@ -74,7 +114,7 @@ public class Citta {
     }
 
 
-*/
+
 
     public Citta(){}
 
@@ -82,6 +122,7 @@ public class Citta {
         this.lat = lat;
         this.lon = lon;
         this.nome = nome;
+        this.stalli = new ArrayList<>();
     }
 
 

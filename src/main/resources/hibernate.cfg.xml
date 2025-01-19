@@ -28,6 +28,7 @@
         <mapping class="org.pedalaq.Model.Cittadino"/>
         <mapping class="org.pedalaq.Model.Abbonamento"/>
         <mapping class="org.pedalaq.Model.TariffaAbbonamento"/>
+        <mapping class="org.pedalaq.Model.Stallo"/>
         <mapping class="org.pedalaq.Model.Citta"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -1,13 +1,30 @@
 package org.pedalaq.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.ArrayList;
 
+@Entity
 public class Stallo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private double lat;
     private double lon;
     private int maxPosti;
     private String descrizione;
     private ArrayList<Veicolo> veicoli;
+
+    public Stallo() {}
+
+    public Stallo(double lat, double lon, int maxPosti) {
+        this.lat = lat;
+        this.lon = lon;
+        this.maxPosti = maxPosti;
+    }
 
     public double getLat() {
         return lat;

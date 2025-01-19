@@ -34,7 +34,7 @@ public class Cittadino extends Utente {
     public Cittadino(String nome, String cognome, String CF) {
         this.nome = nome;
         this.cognome = cognome;
-        this.CF = CF; //TODO fare il controllo del codice fiscale
+        this.CF = CF;
     }
 
     public void setPosizione(double lat, double lng){
@@ -55,10 +55,13 @@ public class Cittadino extends Utente {
     }
 
     public boolean controllaAbbonamento(){
-        if (!this.abbonamentoAttivo.validaAbbonamento()){
+        if (this.abbonamentoAttivo == null) { //Se è null va gestito
+            return false;
+        } else if (!this.abbonamentoAttivo.validaAbbonamento()) { //se è scaduto si setta a null
             this.abbonamentoAttivo = null;
             return false;
-        }return true;
+        }
+        else return true; //altrimenti è valido
     }
 
     //METODO per il controllo del codice fiscale
