@@ -15,15 +15,9 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) {
 
-
-        Properties password = HibernateUtil.getPassword();
-
-
         // Creazione della SessionFactory
-        SessionFactory sessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml") // Specifica il file di configurazione
-                .addProperties(password)
-                .buildSessionFactory();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
 
         // Creazione della Session
         try (Session session = sessionFactory.openSession()) {
