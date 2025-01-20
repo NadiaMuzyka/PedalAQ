@@ -3,6 +3,7 @@ package org.pedalaq.Model;
 import jakarta.persistence.*;
 import java.util.regex.*;
 import org.pedalaq.Model.Abbonamento;
+import org.pedalaq.Services.Config;
 
 @Entity
 public class Cittadino extends Utente {
@@ -38,8 +39,8 @@ public class Cittadino extends Utente {
     }
 
     public void setPosizione(double lat, double lng){
-        this.lat = lat;
-        this.lng = lng;
+        this.lat = Config.LAT;
+        this.lng = Config.LNG;
     }
 
     public double getLat() {
