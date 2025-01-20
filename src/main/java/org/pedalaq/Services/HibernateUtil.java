@@ -1,4 +1,4 @@
-package org.pedalaq;
+package org.pedalaq.Services;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -28,7 +28,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-
+    //Recupero password da config.properties
     private static Properties getPassword() {
         Properties properties = new Properties();
         try (InputStream input = HibernateUtil.class.getClassLoader().getResourceAsStream("config.properties")) {

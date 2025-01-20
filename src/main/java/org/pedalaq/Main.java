@@ -4,13 +4,12 @@ import org.hibernate.NonUniqueResultException;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.pedalaq.Model.*;
+import org.pedalaq.Services.HibernateUtil;
 
 import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
