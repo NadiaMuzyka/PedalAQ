@@ -14,6 +14,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        /*   ESEMPIO DI MAIN FINALE
+        public class Main {
+            public static void main(String[] args) {
+                ConsoleManager consoleManager = new ConsoleManager();
+                consoleManager.start();
+                }
+        }
+         */
+
+
+
         // Creazione della SessionFactory
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
