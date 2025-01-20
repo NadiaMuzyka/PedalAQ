@@ -43,6 +43,23 @@ public class Cittadino extends Utente {
         this.lng = Config.LNG;
     }
 
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setPosizionetest(){//metodo utile al fine del testing
+        this.lat = 42.3506978;
+        this.lng = 13.3999338;
+    }
+
     public String getNome() {
         return nome;
     }

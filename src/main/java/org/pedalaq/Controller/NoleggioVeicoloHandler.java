@@ -3,17 +3,16 @@ package org.pedalaq.Controller;
 import org.pedalaq.Model.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NoleggioVeicoloHandler {
 
-    public List<Stallo> visualizzaListaStalli(double lat, double lon, double raggio, Citta citta, Cittadino cittadino) {
+    public ArrayList<Stallo> visualizzaListaStalli(double lat, double lon, double raggio, Citta citta, Cittadino cittadino) {
 
         cittadino.setPosizione(lat, lon);
 
-        List<Stallo> stalli = new ArrayList<Stallo>();
+        ArrayList<Stallo> stalli = new ArrayList<Stallo>();
 
-        stalli = citta.getStalliRaggio(lat, lon, raggio);
+        //stalli = citta.getStalliRaggio(lat, lon, raggio);
 
         return stalli;
     }
