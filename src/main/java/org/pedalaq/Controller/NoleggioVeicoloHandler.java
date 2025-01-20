@@ -8,11 +8,11 @@ public class NoleggioVeicoloHandler {
 
     public ArrayList<Stallo> visualizzaListaStalli(double lat, double lon, double raggio, Citta citta, Cittadino cittadino) {
 
-        cittadino.setPosizione(lat, lon);
+        cittadino.setPosizionetest();
 
-        ArrayList<Stallo> stalli = new ArrayList<Stallo>();
+        ArrayList<Stallo> stalli;
 
-        //stalli = citta.getStalliRaggio(lat, lon, raggio);
+        stalli = (ArrayList<Stallo>) citta.getStalliRaggio(cittadino.getLat(), cittadino.getLng(), raggio);
 
         return stalli;
     }

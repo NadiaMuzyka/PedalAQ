@@ -83,7 +83,7 @@ public class Citta {
         Stallotest.setLon(10.1256317);
         stalli.add(Stallotest);
 
-        ArrayList<Stallo> stalli_in_raggio = new ArrayList<Stallo>();
+        ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
         for (Stallo stallo : stalli){
             if(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine)<raggio){ //se la distanza è minore del raggio allora lo aggiungo
                 stalli_in_raggio.add(stallo);
