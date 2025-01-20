@@ -8,7 +8,7 @@ public class NoleggioVeicoloHandler {
 
     public ArrayList<Stallo> visualizzaListaStalli(double lat, double lon, double raggio, Citta citta, Cittadino cittadino) {
 
-        cittadino.setPosizionetest();
+        cittadino.setPosizione(lat, lon);
 
         ArrayList<Stallo> stalli;
 
