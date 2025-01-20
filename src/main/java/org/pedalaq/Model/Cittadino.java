@@ -1,6 +1,8 @@
 package org.pedalaq.Model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.regex.*;
 import org.pedalaq.Model.Abbonamento;
 import org.pedalaq.Services.Config;
@@ -20,6 +22,9 @@ public class Cittadino extends Utente {
     @OneToOne
     @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
+    @OneToMany
+    @JoinColumn(name = "id_cittadino")
+    private List<Prenotazione> prenotazioni;
 
     public Abbonamento getAbbonamentoAttivo() {
         return abbonamentoAttivo;

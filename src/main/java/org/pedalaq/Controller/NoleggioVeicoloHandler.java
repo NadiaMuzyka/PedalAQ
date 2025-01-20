@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class NoleggioVeicoloHandler {
 
+    //PUNTO 1 DEL CASO D'USO
     public ArrayList<Stallo> visualizzaListaStalli(double lat, double lon, double raggio, Citta citta, Cittadino cittadino) {
 
         cittadino.setPosizione(lat, lon);
@@ -17,6 +18,7 @@ public class NoleggioVeicoloHandler {
         return stalli;
     }
 
+    //PUNTO 2 DEL CASO D'USO
     public ArrayList<Veicolo> getVeicoli(Stallo stallo) {
 
         ArrayList<Veicolo> veicoli = new ArrayList<Veicolo>();
@@ -26,6 +28,7 @@ public class NoleggioVeicoloHandler {
         return veicoli;
     }
 
+    //PUNTO 3 DEL CASO D'USO
     public Prenotazione prenotaVeicolo(Veicolo veicolo, Stallo stallo, Cittadino cittadino) {
 
         //Se il cittadino ha un abbonamento attivo
@@ -44,12 +47,11 @@ public class NoleggioVeicoloHandler {
         return null; //gestire la situazione dove il cittadino è sprovvisto di abbonamento valido (attraverso view)
     }
 
+    //PUNTO 4 DEL CASO D'USO
     public boolean noleggiaVeicolo(Prenotazione prenotazione) {
-
 
         if(prenotazione.controllaPrenotazione()){
             Noleggio noleggio = new Noleggio(prenotazione);
-
             return true;
         }
 

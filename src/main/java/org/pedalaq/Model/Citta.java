@@ -20,6 +20,10 @@ public class Citta {
     @OneToMany
     @JoinColumn(name = "id_citta")
     private List<Stallo> stalli;
+    @OneToMany
+    @JoinColumn(name = "id_citta")
+    private List<InterfacciaTariffaNoleggio> tariffe;
+
 
     //private TariffaNoleggioStandard tariffaNoleggioAttiva; //da errore per il momento lasciare così
     private static final double EARTH_RADIUS_KM = 6371.01;

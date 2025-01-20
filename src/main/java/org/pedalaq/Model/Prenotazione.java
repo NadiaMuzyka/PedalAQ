@@ -2,6 +2,7 @@ package org.pedalaq.Model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime scadenza;
-    private Date data;
+    private Date data;//è necessario questo attributo?
     @OneToOne
     @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
@@ -29,9 +30,15 @@ public class Prenotazione {
     }
 
     public boolean controllaPrenotazione() {
-
-        //TODO controllare che la prenotazione sia ancora valida
-        return true;
+        //confronto tra la data di Inizio e quella di Fine
+        //Non viene considerato il tempo in quanto sono di tipo local date
+        //Possiamo pensare che se l'abbonamento scade il giorno stesso sia ancora valido
+        int comparisonResult = LocalDateTime.now().compareTo(this.scadenza);
+        //il metodo restituisce >0 se sono l'abbonamento è scaduto
+        if(comparisonResult > 0){
+            return false; //NON VALIDO
+        }
+        return true;    //VALIDO
     }
 
     public LocalDateTime getScadenza() {
@@ -65,4 +72,8 @@ public class Prenotazione {
     public void setCittadino(Cittadino cittadino) {
         this.cittadino = cittadino;
     }
+
+
 }
+
+
