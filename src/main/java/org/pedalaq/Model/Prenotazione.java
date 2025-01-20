@@ -1,9 +1,6 @@
 package org.pedalaq.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -13,10 +10,14 @@ public class Prenotazione {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    private Long id;
     private LocalDateTime scadenza;
     private Date data;
+    @OneToOne
+    @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
+    @OneToOne
+    @JoinColumn(name = "id_cittadino")
     private Cittadino cittadino;
 
 

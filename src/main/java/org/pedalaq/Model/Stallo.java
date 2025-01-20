@@ -1,11 +1,9 @@
 package org.pedalaq.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Stallo {
@@ -16,7 +14,9 @@ public class Stallo {
     private double lon;
     private int maxPosti;
     private String descrizione;
-    private ArrayList<Veicolo> veicoli;
+    @OneToMany
+    @JoinColumn(name = "id_stallo")
+    private List<Veicolo> veicoli;
 
     public Stallo() {}
 
@@ -64,7 +64,7 @@ public class Stallo {
 
     public ArrayList<Veicolo> getVeicoli(){
 
-        return this.veicoli;
+        return (ArrayList<Veicolo>) this.veicoli;
     }
 
     public boolean controllaPresenza(Veicolo veicolo){
@@ -79,6 +79,6 @@ public class Stallo {
 
     public ArrayList<Veicolo> getVeicoliStallo() {
          //TODO i veicoli restituiti devono avere stato "Disponibile"
-        return this.veicoli ;
+        return (ArrayList<Veicolo>) this.veicoli;
     }
 }

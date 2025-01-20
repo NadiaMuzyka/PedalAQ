@@ -36,9 +36,12 @@ public class NoleggioVeicoloHandler {
 
                 return new Prenotazione(veicolo, cittadino);
             }
+            else {
+                //gestire qui il caso di veicolo non disponibile al blocco (già bloccato o noleggiato attraverso view
+            }
 
         }
-        return null;
+        return null; //gestire la situazione dove il cittadino è sprovvisto di abbonamento valido (attraverso view)
     }
 
     public boolean noleggiaVeicolo(Prenotazione prenotazione) {

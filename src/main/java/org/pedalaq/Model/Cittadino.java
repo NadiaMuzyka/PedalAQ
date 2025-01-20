@@ -18,7 +18,7 @@ public class Cittadino extends Utente {
     private double lng = 0;
     private float saldo = 0;
     @OneToOne
-    @JoinColumn(name = "abbonamento_attivo_id")
+    @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
 
     public Abbonamento getAbbonamentoAttivo() {
