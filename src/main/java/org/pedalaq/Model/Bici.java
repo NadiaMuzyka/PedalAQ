@@ -6,4 +6,7 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("BICI")
 public class Bici extends Veicolo{
+
+    public Bici() {
+    }
 }

@@ -63,6 +63,10 @@ public class Stallo {
         this.veicoli = veicoli;
     }
 
+    public void addVeicolo(Veicolo veicolo) {
+        this.veicoli.add(veicolo);
+    }
+
     public ArrayList<Veicolo> getVeicoli(){
 
         return (ArrayList<Veicolo>) this.veicoli;

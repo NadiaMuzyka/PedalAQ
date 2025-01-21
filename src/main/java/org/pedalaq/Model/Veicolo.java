@@ -19,6 +19,10 @@ public abstract class Veicolo {
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
 
+    public Veicolo() {
+
+    }
+
     public String getStato() {
         return stato;
     }

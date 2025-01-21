@@ -118,6 +118,31 @@ public class Main {
             } catch (NonUniqueResultException e) {
                 //System.out.println("Multiple matches found.");
             }
+            Bici bici1 = new Bici();
+            bici1.setStato("Libero");
+            bici1.setCodiceSblocco("AA22CC");
+            BiciElettrica biciel1 = new BiciElettrica();
+            biciel1.setStato("Libero");
+            biciel1.setCodiceSblocco("AA22CC");
+            biciel1.setBatteria(78);
+            Monopattino mono1 = new Monopattino();
+            mono1.setStato("Libero");
+            mono1.setCodiceSblocco("AA22CC");
+            mono1.setBatteria(99);
+
+
+            Citta AQ = cittaList.get(0);
+            Stallo stallo1 = AQ.getStalli().get(0);
+            stallo1.addVeicolo(bici1);
+            stallo1.addVeicolo(biciel1);
+            stallo1.addVeicolo(mono1);
+
+            session.save(bici1);
+            session.save(biciel1);
+            session.save(mono1);
+            session.save(stallo1);
+
+
             session.getTransaction().commit();
             //TESTING
             //La prima query dal DB prende la città e a cascata carica
@@ -128,7 +153,7 @@ public class Main {
             //i noleggi collegati alle tariffe
             //le relative prenotazioni
             //se lasciamo così una query che prende una città caricherà tutto ciò a cui è correlata
-            Citta AQ = cittaList.get(0);
+//            Citta AQ = cittaList.get(0);
             //test localizzazione
 //            System.out.println("Posizione cittadino Lat: "+ loggato.getLat()+ " Lng: "+loggato.getLng());
 //            for (Stallo stallo: AQ.getStalli()){
