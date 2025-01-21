@@ -81,6 +81,10 @@ public class Stallo {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
     public ArrayList<Veicolo> getVeicolidisp_Stallo() {
         ArrayList<Veicolo> veicoli_disp = new ArrayList<>();
         for (Veicolo veicolo : veicoli) {
@@ -93,5 +97,14 @@ public class Stallo {
             }
         }
         return veicoli_disp;
+    }
+
+    public Veicolo veicolo_by_id(Long id) {
+        for (Veicolo veicolo : this.veicoli) {
+            if (veicolo.getId().equals(id)) {
+                return veicolo;
+            }
+        }
+        return null;
     }
 }

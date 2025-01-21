@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.StampedLock;
 
 @Entity
 public class Citta {
@@ -82,15 +83,17 @@ public class Citta {
 
         // Stallo Location
 
-        Stallo Stallotest = new Stallo();
-        Stallotest.setLat(42.1256317);
-        Stallotest.setLon(10.1256317);
-        stalli.add(Stallotest);
+        //Stallo Stallotest = new Stallo();
+        //Stallotest.setLat(42.1256317);
+        //Stallotest.setLon(10.1256317);
+        //stalli.add(Stallotest);
 
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
+        ArrayList<Double> distanze = new ArrayList<>();
         for (Stallo stallo : stalli){
             if(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine)<raggio){ //se la distanza è minore del raggio allora lo aggiungo
                 stalli_in_raggio.add(stallo);
+//                distanze.add(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine));
             }
         }
 
@@ -114,10 +117,19 @@ public class Citta {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         // Calcolo la distanza
+        //System.out.println(EARTH_RADIUS_KM * c + "KM");
         return EARTH_RADIUS_KM * c;
+
     }
 
-
+    public Stallo stallo_by_id(Long id) {
+        for (Stallo stallo : this.stalli) {
+            if (stallo.getId().equals(id)) {
+                return stallo;
+            }
+        }
+        return null;
+    }
 
 
     public Citta(){}

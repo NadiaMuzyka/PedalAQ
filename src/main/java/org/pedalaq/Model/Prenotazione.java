@@ -38,6 +38,10 @@ public class Prenotazione {
         return new Prenotazione();
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public boolean controllaPrenotazione() {
         //confronto tra la data di Inizio e quella di Fine
         //Non viene considerato il tempo in quanto sono di tipo local date

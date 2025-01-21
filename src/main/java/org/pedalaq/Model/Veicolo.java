@@ -21,6 +21,10 @@ public abstract class Veicolo {
         return stato;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setStato(String stato) {
         this.stato = stato;
     }
@@ -49,4 +53,6 @@ public abstract class Veicolo {
         }
         return false;
     }
+
+
 }

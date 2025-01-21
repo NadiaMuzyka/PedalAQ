@@ -118,4 +118,16 @@ public class Cittadino extends Utente {
         return (char) ('A' + (sum % 26));
     }
 
+    public Prenotazione prenotazione_by_id(Long id) {
+        for (Prenotazione prenotazione : this.prenotazioni) {
+            if (prenotazione.getId().equals(id)) {
+                return prenotazione;
+            }
+        }
+        return null;
+    }
+
+
+
+
 }
