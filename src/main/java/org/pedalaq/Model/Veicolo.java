@@ -17,8 +17,32 @@ public abstract class Veicolo {
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
 
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public String getCodiceSblocco() {
+        return codiceSblocco;
+    }
+
+    public void setCodiceSblocco(String codiceSblocco) {
+        this.codiceSblocco = codiceSblocco;
+    }
+
+    public List<Accessorio> getAccessori() {
+        return accessori;
+    }
+
+    public void setAccessori(List<Accessorio> accessori) {
+        this.accessori = accessori;
+    }
+
     public boolean bloccaVeicolo(){
-        if (Objects.equals(this.stato, "Libero"))  //sarebbe il controllapresenza()?
+        if (Objects.equals(this.stato, "Libero"))
         {
             this.stato = "Bloccato";
             return true;

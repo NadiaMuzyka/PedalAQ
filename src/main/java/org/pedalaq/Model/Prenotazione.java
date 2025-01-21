@@ -13,7 +13,7 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime scadenza;
-    private Date data;//è necessario questo attributo?
+    //private Date data;//è necessario questo attributo?
     @OneToOne
     @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
@@ -25,8 +25,17 @@ public class Prenotazione {
     public Prenotazione(){}
 
     public Prenotazione(Veicolo veicolo, Cittadino cittadino) {
+        this.scadenza = LocalDateTime.now().plusMinutes(10); //la prenotazione dura 10 minuti (spostabile nel config)
+        veicolo.setStato("Prenotato"); //bisogna implementare un meccanismo che riporta lo stato a libero
+        //sarebbe comodo inserirlo nel metodo che restituisce i veicoli liberi dello stallo
         this.veicolo = veicolo;
         this.cittadino = cittadino;
+    }
+
+    public Prenotazione getPrenotazioneby_veicolo(Veicolo veicolo) {
+        //probabilmente ci va una query che prende la prenotazione dall'id del veicolo dal db e poi la ritorna
+        //TODO FIXARE QUESTO METODO affinchè restituisca la prenotazione del veicolo inserito come argomento
+        return new Prenotazione();
     }
 
     public boolean controllaPrenotazione() {
@@ -49,13 +58,13 @@ public class Prenotazione {
         this.scadenza = scadenza;
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
+//    public Date getData() {
+//        return data;
+//    }
+//
+//    public void setData(Date data) {
+//        this.data = data;
+//    }
 
     public Veicolo getVeicolo() {
         return veicolo;

@@ -17,6 +17,7 @@ public class ConsoleManager {
             int choice = readInt("Inserisci la tua scelta: ");
             switch (choice) {
                 case 1:
+                    //passo 1 del controllore
                     System.out.println("Esegui operazione 1...");
                     break;
                 case 2:

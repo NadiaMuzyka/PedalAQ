@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Stallo {
@@ -72,13 +73,25 @@ public class Stallo {
         return true;
     }
     public boolean bloccaVeicolo(Veicolo veicolo){
-
-        return veicolo.bloccaVeicolo();
+        if(this.controllaPresenza(veicolo)){
+            boolean status = veicolo.bloccaVeicolo();  //torna true se è "bloccabile"
+            return status;
+        }
+        return false;
     }
 
 
-    public ArrayList<Veicolo> getVeicoliStallo() {
-         //TODO i veicoli restituiti devono avere stato "Disponibile"
-        return (ArrayList<Veicolo>) this.veicoli;
+    public ArrayList<Veicolo> getVeicolidisp_Stallo() {
+        ArrayList<Veicolo> veicoli_disp = new ArrayList<>();
+        for (Veicolo veicolo : veicoli) {
+            if(Objects.equals(veicolo.getStato(), "Libero")){
+                veicoli_disp.add(veicolo);
+            } else if (Objects.equals(veicolo.getStato(), "Prenotato")) {
+                //controllo se la prenotazione è scaduta (probabilmente va spostato)
+                //if(prenotazionescaduta){allora setta il veicolo come libero e aggiungilo all'array
+                //veicoli_disp.add(veicolo);
+            }
+        }
+        return veicoli_disp;
     }
 }
