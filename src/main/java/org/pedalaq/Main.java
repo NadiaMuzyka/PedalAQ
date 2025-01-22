@@ -1,5 +1,6 @@
 package org.pedalaq;
 
+import jakarta.transaction.UserTransaction;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -8,10 +9,13 @@ import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 import org.pedalaq.View.ConsoleManager;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +31,8 @@ public class Main {
 
         // Creazione della SessionFactory
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+
 
         // Creazione della Session
         try (Session session = sessionFactory.openSession()) {

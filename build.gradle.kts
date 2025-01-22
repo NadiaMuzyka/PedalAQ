@@ -52,6 +52,13 @@ dependencies {
 
     // JDBC driver (example for MySQL)
     implementation ("mysql:mysql-connector-java:8.0.26")
+
+    implementation ("javax.transaction:javax.transaction-api:1.3")
+    testImplementation ("org.testng:testng:7.8.0")
+
+    implementation ("org.openjdk.jmh:jmh-core:1.35")
+    implementation ("org.openjdk.jmh:jmh-generator-annprocess:1.35")
+
 }
 
 tasks.test {

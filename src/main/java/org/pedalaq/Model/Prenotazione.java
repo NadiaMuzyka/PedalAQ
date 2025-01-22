@@ -1,6 +1,10 @@
 package org.pedalaq.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.pedalaq.Services.HibernateUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +17,6 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime scadenza;
-    //private Date data;//è necessario questo attributo?
     @OneToOne
     @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
@@ -30,6 +33,8 @@ public class Prenotazione {
         //sarebbe comodo inserirlo nel metodo che restituisce i veicoli liberi dello stallo
         this.veicolo = veicolo;
         this.cittadino = cittadino;
+        //Salvo la prenotazione in persistenza
+        this.savePrenotazione();
     }
 
     public Prenotazione getPrenotazioneby_veicolo(Veicolo veicolo) {
@@ -84,6 +89,20 @@ public class Prenotazione {
 
     public void setCittadino(Cittadino cittadino) {
         this.cittadino = cittadino;
+    }
+
+    private void savePrenotazione(){
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(this); // Salva l'istanza corrente di Prenotazione
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback(); // Effettua il rollback in caso di errore
+            }
+            throw new RuntimeException("Errore durante il salvataggio della prenotazione: " + e.getMessage(), e);
+        }
     }
 
 
