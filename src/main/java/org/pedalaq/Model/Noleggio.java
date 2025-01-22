@@ -12,13 +12,9 @@ public class Noleggio {
     private long id;
     private LocalDateTime inizioCorsa;
     private LocalDateTime fineCorsa;
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @PrimaryKeyJoinColumn
+    @OneToOne
+    @JoinColumn(name = "id_prenotazione")
     private Prenotazione prenotazione;
-    private TariffaNoleggioStandard tariffaNoleggio;
 
     public Noleggio(Prenotazione prenotazione) {
 

@@ -1,6 +1,8 @@
 package org.pedalaq.Model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.regex.*;
 import org.pedalaq.Model.Abbonamento;
 import org.pedalaq.Services.Config;
@@ -18,8 +20,11 @@ public class Cittadino extends Utente {
     private double lng = 0;
     private float saldo = 0;
     @OneToOne
-    @JoinColumn(name = "abbonamento_attivo_id")
+    @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
+    @OneToMany
+    @JoinColumn(name = "id_cittadino")
+    private List<Prenotazione> prenotazioni;
 
     public Abbonamento getAbbonamentoAttivo() {
         return abbonamentoAttivo;
@@ -40,7 +45,7 @@ public class Cittadino extends Utente {
 
     public void setPosizione(double lat, double lng){
         this.lat = Config.LAT;
-        this.lng = Config.LNG;
+        this.lng = Config.LNG;  //per simulare la localizzazione
     }
 
     public double getLat() {
@@ -53,11 +58,6 @@ public class Cittadino extends Utente {
 
     public float getSaldo() {
         return saldo;
-    }
-
-    public void setPosizionetest(){//metodo utile al fine del testing
-        this.lat = 42.3506978;
-        this.lng = 13.3999338;
     }
 
     public String getNome() {
@@ -117,5 +117,17 @@ public class Cittadino extends Utente {
         // Determina il carattere di controllo
         return (char) ('A' + (sum % 26));
     }
+
+    public Prenotazione prenotazione_by_id(Long id) {
+        for (Prenotazione prenotazione : this.prenotazioni) {
+            if (prenotazione.getId().equals(id)) {
+                return prenotazione;
+            }
+        }
+        return null;
+    }
+
+
+
 
 }

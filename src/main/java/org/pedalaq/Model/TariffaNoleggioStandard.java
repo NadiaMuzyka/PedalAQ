@@ -1,11 +1,22 @@
 package org.pedalaq.Model;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
-public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
-     private float costoAlMinuto;
-     private LocalDate dataInizio;
-     private LocalDate dataFine;
+import java.time.LocalDate;
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("STANDARD")
+public class TariffaNoleggioStandard extends InterfacciaTariffaNoleggio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private float costoAlMinuto;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
+    @OneToMany
+    @JoinColumn(name = "id_tariffa")
+    private List<Noleggio> noleggi;
 
     @Override
     public float calcolaCosto(Citta citta) {

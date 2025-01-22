@@ -1,11 +1,10 @@
 package org.pedalaq.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Stallo {
@@ -16,7 +15,9 @@ public class Stallo {
     private double lon;
     private int maxPosti;
     private String descrizione;
-    private ArrayList<Veicolo> veicoli;
+    @OneToMany
+    @JoinColumn(name = "id_stallo")
+    private List<Veicolo> veicoli;
 
     public Stallo() {}
 
@@ -62,9 +63,13 @@ public class Stallo {
         this.veicoli = veicoli;
     }
 
+    public void addVeicolo(Veicolo veicolo) {
+        this.veicoli.add(veicolo);
+    }
+
     public ArrayList<Veicolo> getVeicoli(){
 
-        return this.veicoli;
+        return (ArrayList<Veicolo>) this.veicoli;
     }
 
     public boolean controllaPresenza(Veicolo veicolo){
@@ -72,13 +77,38 @@ public class Stallo {
         return true;
     }
     public boolean bloccaVeicolo(Veicolo veicolo){
-
-        return veicolo.bloccaVeicolo();
+        if(this.controllaPresenza(veicolo)){
+            boolean status = veicolo.bloccaVeicolo();  //torna true se è "bloccabile"
+            return status;
+        }
+        return false;
     }
 
 
-    public ArrayList<Veicolo> getVeicoliStallo() {
-         //TODO i veicoli restituiti devono avere stato "Disponibile"
-        return this.veicoli ;
+    public Long getId() {
+        return id;
+    }
+
+    public ArrayList<Veicolo> getVeicolidisp_Stallo() {
+        ArrayList<Veicolo> veicoli_disp = new ArrayList<>();
+        for (Veicolo veicolo : veicoli) {
+            if(Objects.equals(veicolo.getStato(), "Libero")){
+                veicoli_disp.add(veicolo);
+            } else if (Objects.equals(veicolo.getStato(), "Prenotato")) {
+                //controllo se la prenotazione è scaduta (probabilmente va spostato)
+                //if(prenotazionescaduta){allora setta il veicolo come libero e aggiungilo all'array
+                //veicoli_disp.add(veicolo);
+            }
+        }
+        return veicoli_disp;
+    }
+
+    public Veicolo veicolo_by_id(Long id) {
+        for (Veicolo veicolo : this.veicoli) {
+            if (veicolo.getId().equals(id)) {
+                return veicolo;
+            }
+        }
+        return null;
     }
 }

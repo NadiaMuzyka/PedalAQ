@@ -15,7 +15,7 @@ public class Abbonamento {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     @ManyToOne
-    @JoinColumn(name = "tariffa_abbonamento_id")
+    @JoinColumn(name = "id_tariffa_abbonamento")
     private TariffaAbbonamento tariffaAbbonamento;
 
     public TariffaAbbonamento getTariffaAbbonamento() {
