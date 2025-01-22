@@ -73,6 +73,7 @@ public class Main {
             //session.beginTransaction();
 
             ConsoleManager consoleManager = new ConsoleManager();
+
             consoleManager.start(citta_sel,loggato);
 
             //TENTO IL RECUPERO DI UNA CITTà ED I RELATIVI STALLI DAL DB

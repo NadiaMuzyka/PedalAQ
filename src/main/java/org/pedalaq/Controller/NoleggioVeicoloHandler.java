@@ -25,9 +25,10 @@ public class NoleggioVeicoloHandler {
 
     //PUNTO 3 DEL CASO D'USO
     public static Prenotazione prenotaVeicolo(Veicolo veicolo, Stallo stallo, Cittadino cittadino) {
-
+        //System.out.println("veicolo_sel + stallo_sel + utente_loggato");
         //Se il cittadino ha un abbonamento attivo
         if (cittadino.controllaAbbonamento()) {
+            System.out.println("Bloccato");
             //Se il cittadino possiede un abbonamento valido
             //Consolemanager.abbonamento_presente()
             if (stallo.bloccaVeicolo(veicolo)) {
