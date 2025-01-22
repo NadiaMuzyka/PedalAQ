@@ -52,9 +52,11 @@ public abstract class Veicolo {
     }
 
     public boolean bloccaVeicolo(){
+        System.out.println("Bloccato1");
         if (Objects.equals(this.stato, "Libero"))
         {
             this.stato = "Bloccato";
+            System.out.println("Bloccato");
             return true;
         }
         return false;

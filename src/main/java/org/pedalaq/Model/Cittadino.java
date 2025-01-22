@@ -73,6 +73,7 @@ public class Cittadino extends Utente {
     }
 
     public boolean controllaAbbonamento(){
+        System.out.println(this.abbonamentoAttivo);
         if (this.abbonamentoAttivo == null) { //Se è null va gestito
             return false;
         } else if (!this.abbonamentoAttivo.validaAbbonamento()) { //se è scaduto si setta a null

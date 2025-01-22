@@ -35,8 +35,8 @@ public class ConsoleManager {
                     for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
                                         citta_selezionata,utente_loggato)) {
                         System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " distante "
-                                + Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
-                                stallo.getLat(),stallo.getLon()) + " Km da te");
+                                + this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+                                stallo.getLat(),stallo.getLon()))) + " Km da te");
                     }
                     //QUI SI SCEGLIE LO STALLO
                     Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
@@ -47,16 +47,21 @@ public class ConsoleManager {
                         System.out.println(veicolo.getId()+ ") "); //TODO DA AGGIUNGERE TESTO
                     }
                     Long id_veicolo = readLong("Inserire il codice numerico del veicolo desiderato: ");
+
                     Veicolo veicolo_sel = stallo_sel.veicolo_by_id(id_veicolo);
                     //PASSO 3 SI CREA LA PRENOTAZIONE
+                    System.out.println(veicolo_sel);
+                    System.out.println(stallo_sel);
+                    System.out.println(utente_loggato);
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {
                         System.out.println("codice prenotazione:" + nuova_prenotazione.getId() +
-                                            "codice veicolo: " + veicolo_sel.getId() +
-                                            "codice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
-                                            "scadenza prenotazione: " + nuova_prenotazione.getScadenza() +
+                                            "\ncodice veicolo: " + veicolo_sel.getId() +
+                                            "\ncodice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
+                                            "\nscadenza prenotazione: " + nuova_prenotazione.getScadenza() +
                                             "\nProcedi al veicolo e completa il noleggio");
+                        //session.save(nuova_prenotazione);  TODO DA METTERE QUESTO SALVATAGGIO
                     }
                     else{
                         System.out.println("Errore prenotazione"); //TODO gestire in qualche modo questo errore
@@ -118,7 +123,12 @@ public class ConsoleManager {
 
     public String TruncateString(String input) {
         int decimalPlaces = 3;
-        return String.format("%." + decimalPlaces + "f", input);
+        try {
+            double number = Double.parseDouble(input); // Parse input as double
+            return String.format("%." + decimalPlaces + "f", number); // Format with precision
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid numeric input: " + input);
+        }
     }
 
 //this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
