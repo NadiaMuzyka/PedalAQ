@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2025 at 02:43 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Creato il: Gen 22, 2025 alle 17:36
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `abbonamento`
+-- Struttura della tabella `abbonamento`
 --
 
 CREATE TABLE `abbonamento` (
@@ -36,7 +36,7 @@ CREATE TABLE `abbonamento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `abbonamento`
+-- Dump dei dati per la tabella `abbonamento`
 --
 
 INSERT INTO `abbonamento` (`id`, `dataFine`, `dataInizio`, `tariffa_abbonamento_id`, `id_tariffa_abbonamento`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `abbonamento` (`id`, `dataFine`, `dataInizio`, `tariffa_abbonamento_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accessorio`
+-- Struttura della tabella `accessorio`
 --
 
 CREATE TABLE `accessorio` (
@@ -59,7 +59,7 @@ CREATE TABLE `accessorio` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `citta`
+-- Struttura della tabella `citta`
 --
 
 CREATE TABLE `citta` (
@@ -71,7 +71,7 @@ CREATE TABLE `citta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `citta`
+-- Dump dei dati per la tabella `citta`
 --
 
 INSERT INTO `citta` (`id`, `lat`, `lon`, `nome`, `stalli`) VALUES
@@ -83,7 +83,7 @@ INSERT INTO `citta` (`id`, `lat`, `lon`, `nome`, `stalli`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cittadino`
+-- Struttura della tabella `cittadino`
 --
 
 CREATE TABLE `cittadino` (
@@ -94,23 +94,22 @@ CREATE TABLE `cittadino` (
   `lng` double NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `saldo` float NOT NULL,
-  `abbonamento_attivo_id` bigint(20) DEFAULT NULL,
   `id_abbonamento_attivo` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `cittadino`
+-- Dump dei dati per la tabella `cittadino`
 --
 
-INSERT INTO `cittadino` (`id`, `CF`, `cognome`, `lat`, `lng`, `nome`, `saldo`, `abbonamento_attivo_id`, `id_abbonamento_attivo`) VALUES
-(1, 'DSMNRL01P27A345T', 'Di Simone', 42.372549, 13.357023, 'Andrea Luca', 0, 1, NULL),
-(2, 'MZYNDA02P55A345F', 'Muzyka', 42.363443, 13.3445664, 'Nadia', 0, 2, NULL),
-(3, 'NNTNDR02M12C632G', 'Iannotti', 42.36828, 13.332279, 'Andrea', 0, 3, NULL);
+INSERT INTO `cittadino` (`id`, `CF`, `cognome`, `lat`, `lng`, `nome`, `saldo`, `id_abbonamento_attivo`) VALUES
+(1, 'DSMNRL01P27A345T', 'Di Simone', 42.372549, 13.357023, 'Andrea Luca', 0, 1),
+(2, 'MZYNDA02P55A345F', 'Muzyka', 42.363443, 13.3445664, 'Nadia', 0, 2),
+(3, 'NNTNDR02M12C632G', 'Iannotti', 42.36828, 13.332279, 'Andrea', 0, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `interfacciatariffanoleggio`
+-- Struttura della tabella `interfacciatariffanoleggio`
 --
 
 CREATE TABLE `interfacciatariffanoleggio` (
@@ -126,7 +125,7 @@ CREATE TABLE `interfacciatariffanoleggio` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `noleggio`
+-- Struttura della tabella `noleggio`
 --
 
 CREATE TABLE `noleggio` (
@@ -140,7 +139,7 @@ CREATE TABLE `noleggio` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prenotazione`
+-- Struttura della tabella `prenotazione`
 --
 
 CREATE TABLE `prenotazione` (
@@ -154,7 +153,7 @@ CREATE TABLE `prenotazione` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stallo`
+-- Struttura della tabella `stallo`
 --
 
 CREATE TABLE `stallo` (
@@ -168,7 +167,7 @@ CREATE TABLE `stallo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `stallo`
+-- Dump dei dati per la tabella `stallo`
 --
 
 INSERT INTO `stallo` (`id`, `descrizione`, `lat`, `lon`, `maxPosti`, `veicoli`, `id_citta`) VALUES
@@ -180,7 +179,7 @@ INSERT INTO `stallo` (`id`, `descrizione`, `lat`, `lon`, `maxPosti`, `veicoli`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tariffaabbonamento`
+-- Struttura della tabella `tariffaabbonamento`
 --
 
 CREATE TABLE `tariffaabbonamento` (
@@ -191,7 +190,7 @@ CREATE TABLE `tariffaabbonamento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tariffaabbonamento`
+-- Dump dei dati per la tabella `tariffaabbonamento`
 --
 
 INSERT INTO `tariffaabbonamento` (`id`, `costo`, `dataFine`, `dataInizio`) VALUES
@@ -201,7 +200,7 @@ INSERT INTO `tariffaabbonamento` (`id`, `costo`, `dataFine`, `dataInizio`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `veicolo`
+-- Struttura della tabella `veicolo`
 --
 
 CREATE TABLE `veicolo` (
@@ -214,7 +213,7 @@ CREATE TABLE `veicolo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `veicolo`
+-- Dump dei dati per la tabella `veicolo`
 --
 
 INSERT INTO `veicolo` (`id`, `codiceSblocco`, `stato`, `id_stallo`, `VEICOLO_TYPE`, `batteria`) VALUES
@@ -226,11 +225,11 @@ INSERT INTO `veicolo` (`id`, `codiceSblocco`, `stato`, `id_stallo`, `VEICOLO_TYP
 (6, 'FF22CC', 'Libero', 4, 'MONOPATTINO', 42);
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `abbonamento`
+-- Indici per le tabelle `abbonamento`
 --
 ALTER TABLE `abbonamento`
   ADD PRIMARY KEY (`id`),
@@ -238,35 +237,34 @@ ALTER TABLE `abbonamento`
   ADD KEY `FKqy8di27e5deyw6t63ka7x8c47` (`id_tariffa_abbonamento`);
 
 --
--- Indexes for table `accessorio`
+-- Indici per le tabelle `accessorio`
 --
 ALTER TABLE `accessorio`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKi9avlqyicj37di1qc9sox5tyo` (`id_veicolo`);
 
 --
--- Indexes for table `citta`
+-- Indici per le tabelle `citta`
 --
 ALTER TABLE `citta`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cittadino`
+-- Indici per le tabelle `cittadino`
 --
 ALTER TABLE `cittadino`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK8yrqfarg2qf4ox1fp0br7vpsp` (`abbonamento_attivo_id`),
   ADD UNIQUE KEY `UKgiqh2hff5frc5wy7xyynposn5` (`id_abbonamento_attivo`);
 
 --
--- Indexes for table `interfacciatariffanoleggio`
+-- Indici per le tabelle `interfacciatariffanoleggio`
 --
 ALTER TABLE `interfacciatariffanoleggio`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKd3yfh5hclc4tt5t5jntvoeud3` (`id_citta`);
 
 --
--- Indexes for table `noleggio`
+-- Indici per le tabelle `noleggio`
 --
 ALTER TABLE `noleggio`
   ADD PRIMARY KEY (`id`),
@@ -274,7 +272,7 @@ ALTER TABLE `noleggio`
   ADD KEY `FKd8nmwwpr2jpacsobjd94t23tr` (`id_tariffa`);
 
 --
--- Indexes for table `prenotazione`
+-- Indici per le tabelle `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD PRIMARY KEY (`id`),
@@ -282,141 +280,140 @@ ALTER TABLE `prenotazione`
   ADD UNIQUE KEY `UK95wp5h66gxav6j1jtnn559xer` (`id_veicolo`);
 
 --
--- Indexes for table `stallo`
+-- Indici per le tabelle `stallo`
 --
 ALTER TABLE `stallo`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKfjkl5ow0nh19gmwjey8ott3ml` (`id_citta`);
 
 --
--- Indexes for table `tariffaabbonamento`
+-- Indici per le tabelle `tariffaabbonamento`
 --
 ALTER TABLE `tariffaabbonamento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `veicolo`
+-- Indici per le tabelle `veicolo`
 --
 ALTER TABLE `veicolo`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK5rcbuft5ghwnex52qw6rj848i` (`id_stallo`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `abbonamento`
+-- AUTO_INCREMENT per la tabella `abbonamento`
 --
 ALTER TABLE `abbonamento`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `accessorio`
+-- AUTO_INCREMENT per la tabella `accessorio`
 --
 ALTER TABLE `accessorio`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `citta`
+-- AUTO_INCREMENT per la tabella `citta`
 --
 ALTER TABLE `citta`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `cittadino`
+-- AUTO_INCREMENT per la tabella `cittadino`
 --
 ALTER TABLE `cittadino`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `interfacciatariffanoleggio`
+-- AUTO_INCREMENT per la tabella `interfacciatariffanoleggio`
 --
 ALTER TABLE `interfacciatariffanoleggio`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `noleggio`
+-- AUTO_INCREMENT per la tabella `noleggio`
 --
 ALTER TABLE `noleggio`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `prenotazione`
+-- AUTO_INCREMENT per la tabella `prenotazione`
 --
 ALTER TABLE `prenotazione`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `stallo`
+-- AUTO_INCREMENT per la tabella `stallo`
 --
 ALTER TABLE `stallo`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tariffaabbonamento`
+-- AUTO_INCREMENT per la tabella `tariffaabbonamento`
 --
 ALTER TABLE `tariffaabbonamento`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `veicolo`
+-- AUTO_INCREMENT per la tabella `veicolo`
 --
 ALTER TABLE `veicolo`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Limiti per le tabelle scaricate
 --
 
 --
--- Constraints for table `abbonamento`
+-- Limiti per la tabella `abbonamento`
 --
 ALTER TABLE `abbonamento`
   ADD CONSTRAINT `FKl1o4f9corswfwuy7byg02ej6r` FOREIGN KEY (`tariffa_abbonamento_id`) REFERENCES `tariffaabbonamento` (`id`),
   ADD CONSTRAINT `FKqy8di27e5deyw6t63ka7x8c47` FOREIGN KEY (`id_tariffa_abbonamento`) REFERENCES `tariffaabbonamento` (`id`);
 
 --
--- Constraints for table `accessorio`
+-- Limiti per la tabella `accessorio`
 --
 ALTER TABLE `accessorio`
   ADD CONSTRAINT `FKi9avlqyicj37di1qc9sox5tyo` FOREIGN KEY (`id_veicolo`) REFERENCES `veicolo` (`id`);
 
 --
--- Constraints for table `cittadino`
+-- Limiti per la tabella `cittadino`
 --
 ALTER TABLE `cittadino`
-  ADD CONSTRAINT `FK8dv45ftntfvgoyccv896xilh1` FOREIGN KEY (`abbonamento_attivo_id`) REFERENCES `abbonamento` (`id`),
   ADD CONSTRAINT `FKs1udbmyydq6fv7b4vcfw3ycr5` FOREIGN KEY (`id_abbonamento_attivo`) REFERENCES `abbonamento` (`id`);
 
 --
--- Constraints for table `interfacciatariffanoleggio`
+-- Limiti per la tabella `interfacciatariffanoleggio`
 --
 ALTER TABLE `interfacciatariffanoleggio`
   ADD CONSTRAINT `FKd3yfh5hclc4tt5t5jntvoeud3` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
 
 --
--- Constraints for table `noleggio`
+-- Limiti per la tabella `noleggio`
 --
 ALTER TABLE `noleggio`
   ADD CONSTRAINT `FK7ec5gc3dm4l3jk41bjgg35uh2` FOREIGN KEY (`id_prenotazione`) REFERENCES `prenotazione` (`id`),
   ADD CONSTRAINT `FKd8nmwwpr2jpacsobjd94t23tr` FOREIGN KEY (`id_tariffa`) REFERENCES `interfacciatariffanoleggio` (`id`);
 
 --
--- Constraints for table `prenotazione`
+-- Limiti per la tabella `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD CONSTRAINT `FK2kddd5rw6gfsj1g4xlp0ly7qd` FOREIGN KEY (`id_veicolo`) REFERENCES `veicolo` (`id`),
   ADD CONSTRAINT `FKrl3pe7i6vy7v0rou5ncyqarli` FOREIGN KEY (`id_cittadino`) REFERENCES `cittadino` (`id`);
 
 --
--- Constraints for table `stallo`
+-- Limiti per la tabella `stallo`
 --
 ALTER TABLE `stallo`
   ADD CONSTRAINT `FKfjkl5ow0nh19gmwjey8ott3ml` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
 
 --
--- Constraints for table `veicolo`
+-- Limiti per la tabella `veicolo`
 --
 ALTER TABLE `veicolo`
   ADD CONSTRAINT `FK5rcbuft5ghwnex52qw6rj848i` FOREIGN KEY (`id_stallo`) REFERENCES `stallo` (`id`);
