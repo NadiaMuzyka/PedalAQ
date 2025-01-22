@@ -14,13 +14,13 @@ public class ConsoleManager {
 
     //dato per scontato che sono già state selezionate la città ed il cittadino che usa l'applicazione
     // METODO GET CITTADINO BY ID dal database
-    Citta citta_selezionata = new Citta();
+    //Citta citta_selezionata = new Citta();
     // METODO GET CITTA BY ID dal database
-    Cittadino utente_loggato = new Cittadino();
+    //Cittadino utente_loggato = new Cittadino();
 
 
 
-    public void start() {
+    public void start(Citta citta_selezionata, Cittadino utente_loggato) {
         System.out.println("Benvenuto!");
         boolean running = true;
 
@@ -30,13 +30,13 @@ public class ConsoleManager {
             switch (choice) {
                 case 1:
                     //passo 1 del controllore
-                    System.out.println("Esegui operazione 1...");
+                    //System.out.println("Esegui operazione 1...");
                     int raggio = readInt("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
                     for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
                                         citta_selezionata,utente_loggato)) {
                         System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " distante "
                                 + Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
-                                stallo.getLat(),stallo.getLon()) + "Km da te");
+                                stallo.getLat(),stallo.getLon()) + " Km da te");
                     }
                     //QUI SI SCEGLIE LO STALLO
                     Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
@@ -115,4 +115,13 @@ public class ConsoleManager {
         System.out.print(prompt);
         return scanner.next();
     }
+
+    public String TruncateString(String input) {
+        int decimalPlaces = 3;
+        return String.format("%." + decimalPlaces + "f", input);
+    }
+
+//this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+//                                stallo.getLat(),stallo.getLon())))
+
 }
