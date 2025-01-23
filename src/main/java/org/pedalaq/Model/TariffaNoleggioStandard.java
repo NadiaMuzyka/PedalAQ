@@ -14,7 +14,7 @@ public class TariffaNoleggioStandard extends InterfacciaTariffaNoleggio {
     private float costoAlMinuto;
     private LocalDate dataInizio;
     private LocalDate dataFine;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
     private List<Noleggio> noleggi;
 

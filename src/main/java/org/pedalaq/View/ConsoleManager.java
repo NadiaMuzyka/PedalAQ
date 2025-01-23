@@ -2,6 +2,7 @@ package org.pedalaq.View;
 import org.hibernate.type.descriptor.jdbc.internal.DelayedStructJdbcType;
 import org.pedalaq.Controller.NoleggioVeicoloHandler;
 import org.pedalaq.Model.*;
+import org.pedalaq.Services.HibernateUtil;
 
 import java.util.Scanner;
 //ConsoleManager si occupa solo di input/output.
@@ -50,9 +51,9 @@ public class ConsoleManager {
 
                     Veicolo veicolo_sel = stallo_sel.veicolo_by_id(id_veicolo);
                     //PASSO 3 SI CREA LA PRENOTAZIONE
-                    System.out.println(veicolo_sel);
-                    System.out.println(stallo_sel);
-                    System.out.println(utente_loggato);
+                    //System.out.println(veicolo_sel);
+                    //System.out.println(stallo_sel);
+                    //System.out.println(utente_loggato);
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {
@@ -72,7 +73,8 @@ public class ConsoleManager {
                     //PASSO 4 DEL CONTROLLORE
                     Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
                     //ricerco la prenotazione tra quelle del cittadino
-                    Prenotazione prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
+                    //Prenotazione prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
+                    Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
                     if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){
                         System.out.println("Noleggio iniziato, il veicolo è sbloccato");
                     }
@@ -131,7 +133,5 @@ public class ConsoleManager {
         }
     }
 
-//this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
-//                                stallo.getLat(),stallo.getLon())))
 
 }

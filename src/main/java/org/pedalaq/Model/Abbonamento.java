@@ -14,7 +14,7 @@ public class Abbonamento {
     private Long id;
     private LocalDate dataInizio;
     private LocalDate dataFine;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa_abbonamento")
     private TariffaAbbonamento tariffaAbbonamento;
 

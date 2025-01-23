@@ -18,7 +18,7 @@ public abstract class Veicolo {
     protected Long id;
     protected String stato; //Lo stato può essere "Libero", "Prenotato", "Noleggiato"
     protected String codiceSblocco;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
 
@@ -55,16 +55,30 @@ public abstract class Veicolo {
     }
 
     public boolean bloccaVeicolo(){
-        System.out.println("Bloccato1");
+        //System.out.println("Bloccato1");
         if (Objects.equals(this.stato, "Libero"))
         {
-            this.stato = "Bloccato";
-            System.out.println("Bloccato");
+            this.stato = "Prenotato";
+            System.out.println("Prenotato");
             this.aggiornaVeicolo();
             return true;
         }
         return false;
     }
+
+
+    public boolean NoleggiaVeicolo(){
+        //System.out.println("Bloccato1");
+        if (Objects.equals(this.stato, "Prenotato"))
+        {
+            this.stato = "Noleggiato";
+            System.out.println("Noleggiato");
+            this.aggiornaVeicolo();
+            return true;
+        }
+        return false;
+    }
+
 
     private void aggiornaVeicolo(){
         Transaction transaction = null;

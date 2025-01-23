@@ -16,7 +16,7 @@ public class TariffaNoleggioPromozione extends InterfacciaTariffaNoleggio{
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private String codice;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
     private List<Noleggio> noleggi;
 

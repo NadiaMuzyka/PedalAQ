@@ -22,7 +22,7 @@ public class Cittadino extends Utente {
     @OneToOne
     @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cittadino")
     private List<Prenotazione> prenotazioni;
 

@@ -34,7 +34,7 @@ public class Prenotazione {
         this.veicolo = veicolo;
         this.cittadino = cittadino;
         //Salvo la prenotazione in persistenza
-        this.savePrenotazione();
+        //this.savePrenotazione();  //TODO metodo rilocato
     }
 
     public Prenotazione getPrenotazioneby_veicolo(Veicolo veicolo) {

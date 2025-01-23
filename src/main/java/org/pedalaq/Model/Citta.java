@@ -18,10 +18,10 @@ public class Citta {
     private double lat;
     private double lon;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private List<Stallo> stalli;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private List<InterfacciaTariffaNoleggio> tariffe;
 

@@ -15,7 +15,7 @@ public class Stallo {
     private double lon;
     private int maxPosti;
     private String descrizione;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_stallo")
     private List<Veicolo> veicoli;
 
