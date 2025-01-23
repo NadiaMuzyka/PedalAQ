@@ -17,7 +17,7 @@ public class Noleggio {
     private Prenotazione prenotazione;
 
     public Noleggio(Prenotazione prenotazione) {
-
+        this.inizioCorsa = LocalDateTime.now();
         //TODO il noleggio dovrebbe cambiare anche lo stato del veicolo
         this.prenotazione = prenotazione;
     }
