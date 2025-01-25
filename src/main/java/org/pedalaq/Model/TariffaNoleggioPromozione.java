@@ -6,8 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("PROMO")
-public class TariffaNoleggioPromozione extends InterfacciaTariffaNoleggio{
+public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +18,11 @@ public class TariffaNoleggioPromozione extends InterfacciaTariffaNoleggio{
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
     private List<Noleggio> noleggi;
+
+
+    //Questo metodo non dovrebbe incorporare solo la variabilità del costo orario, ma anche la possibilità
+    //di avere uno sconto di un valore flat se il costo totale supera una certa cifra
+    //vedere se aggiungere attributi
 
     @Override
     public float calcolaCosto(Citta citta) {

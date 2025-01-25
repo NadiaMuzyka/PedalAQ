@@ -29,8 +29,14 @@ public class Main {
         }
          */
 
-        // Creazione della SessionFactory
-        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        // Per il test e la ricreazione del db
+//        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.getTransaction().commit();
+//        }
+
+
 
         Citta citta_sel = HibernateUtil.getcittafromnome("L'Aquila");
         //System.out.println(citta_sel + "aaa");
@@ -38,6 +44,6 @@ public class Main {
         //System.out.println(loggato + "bbb");
         ConsoleManager consoleManager = new ConsoleManager();
         consoleManager.start(citta_sel,loggato);
-        //sessionFactory.close();
+
     }
 }

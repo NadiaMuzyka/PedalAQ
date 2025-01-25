@@ -38,7 +38,6 @@
         <mapping class="org.pedalaq.Model.Noleggio"/>
         <mapping class="org.pedalaq.Model.TariffaNoleggioStandard"/>
         <mapping class="org.pedalaq.Model.TariffaNoleggioPromozione"/>
-        <mapping class="org.pedalaq.Model.InterfacciaTariffaNoleggio"/>
         <mapping class="org.pedalaq.Model.Citta"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2025 at 07:52 PM
+-- Generation Time: Jan 25, 2025 at 09:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,22 +107,6 @@ INSERT INTO `cittadino` (`id`, `CF`, `cognome`, `lat`, `lng`, `nome`, `saldo`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `interfacciatariffanoleggio`
---
-
-CREATE TABLE `interfacciatariffanoleggio` (
-  `id` bigint(20) NOT NULL,
-  `TARIFFA_TYPE` varchar(31) NOT NULL,
-  `costoAlMinuto` float DEFAULT NULL,
-  `dataFine` date DEFAULT NULL,
-  `dataInizio` date DEFAULT NULL,
-  `codice` varchar(255) DEFAULT NULL,
-  `id_citta` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `noleggio`
 --
 
@@ -197,6 +181,35 @@ INSERT INTO `tariffaabbonamento` (`id`, `costo`, `dataFine`, `dataInizio`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tariffanoleggiopromozione`
+--
+
+CREATE TABLE `tariffanoleggiopromozione` (
+  `id` bigint(20) NOT NULL,
+  `codice` varchar(255) DEFAULT NULL,
+  `costoAlMinuto` float NOT NULL,
+  `dataFine` date DEFAULT NULL,
+  `dataInizio` date DEFAULT NULL,
+  `id_citta` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tariffanoleggiostandard`
+--
+
+CREATE TABLE `tariffanoleggiostandard` (
+  `id` bigint(20) NOT NULL,
+  `costoAlMinuto` float NOT NULL,
+  `dataFine` date DEFAULT NULL,
+  `dataInizio` date DEFAULT NULL,
+  `id_citta` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `veicolo`
 --
 
@@ -253,13 +266,6 @@ ALTER TABLE `cittadino`
   ADD UNIQUE KEY `UKgiqh2hff5frc5wy7xyynposn5` (`id_abbonamento_attivo`);
 
 --
--- Indexes for table `interfacciatariffanoleggio`
---
-ALTER TABLE `interfacciatariffanoleggio`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKd3yfh5hclc4tt5t5jntvoeud3` (`id_citta`);
-
---
 -- Indexes for table `noleggio`
 --
 ALTER TABLE `noleggio`
@@ -287,6 +293,20 @@ ALTER TABLE `stallo`
 --
 ALTER TABLE `tariffaabbonamento`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tariffanoleggiopromozione`
+--
+ALTER TABLE `tariffanoleggiopromozione`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKscnjx5d50oajaog22y4y542dg` (`id_citta`);
+
+--
+-- Indexes for table `tariffanoleggiostandard`
+--
+ALTER TABLE `tariffanoleggiostandard`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKb0a6ulii0sgjrrhf600kv1f9l` (`id_citta`);
 
 --
 -- Indexes for table `veicolo`
@@ -324,22 +344,16 @@ ALTER TABLE `cittadino`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `interfacciatariffanoleggio`
---
-ALTER TABLE `interfacciatariffanoleggio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `noleggio`
 --
 ALTER TABLE `noleggio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `stallo`
@@ -352,6 +366,18 @@ ALTER TABLE `stallo`
 --
 ALTER TABLE `tariffaabbonamento`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tariffanoleggiopromozione`
+--
+ALTER TABLE `tariffanoleggiopromozione`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tariffanoleggiostandard`
+--
+ALTER TABLE `tariffanoleggiostandard`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `veicolo`
@@ -382,17 +408,11 @@ ALTER TABLE `cittadino`
   ADD CONSTRAINT `FKs1udbmyydq6fv7b4vcfw3ycr5` FOREIGN KEY (`id_abbonamento_attivo`) REFERENCES `abbonamento` (`id`);
 
 --
--- Constraints for table `interfacciatariffanoleggio`
---
-ALTER TABLE `interfacciatariffanoleggio`
-  ADD CONSTRAINT `FKd3yfh5hclc4tt5t5jntvoeud3` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
-
---
 -- Constraints for table `noleggio`
 --
 ALTER TABLE `noleggio`
   ADD CONSTRAINT `FK7ec5gc3dm4l3jk41bjgg35uh2` FOREIGN KEY (`id_prenotazione`) REFERENCES `prenotazione` (`id`),
-  ADD CONSTRAINT `FKd8nmwwpr2jpacsobjd94t23tr` FOREIGN KEY (`id_tariffa`) REFERENCES `interfacciatariffanoleggio` (`id`);
+  ADD CONSTRAINT `FKl6ouong92tejq8kx5sha0s1ka` FOREIGN KEY (`id_tariffa`) REFERENCES `tariffanoleggiopromozione` (`id`);
 
 --
 -- Constraints for table `prenotazione`
@@ -406,6 +426,18 @@ ALTER TABLE `prenotazione`
 --
 ALTER TABLE `stallo`
   ADD CONSTRAINT `FKfjkl5ow0nh19gmwjey8ott3ml` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
+
+--
+-- Constraints for table `tariffanoleggiopromozione`
+--
+ALTER TABLE `tariffanoleggiopromozione`
+  ADD CONSTRAINT `FKscnjx5d50oajaog22y4y542dg` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
+
+--
+-- Constraints for table `tariffanoleggiostandard`
+--
+ALTER TABLE `tariffanoleggiostandard`
+  ADD CONSTRAINT `FKb0a6ulii0sgjrrhf600kv1f9l` FOREIGN KEY (`id_citta`) REFERENCES `citta` (`id`);
 
 --
 -- Constraints for table `veicolo`

@@ -6,8 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("STANDARD")
-public class TariffaNoleggioStandard extends InterfacciaTariffaNoleggio {
+public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

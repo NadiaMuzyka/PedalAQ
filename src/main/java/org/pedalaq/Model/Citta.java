@@ -3,9 +3,7 @@ package org.pedalaq.Model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.locks.StampedLock;
 
 @Entity
 public class Citta {
@@ -23,7 +21,10 @@ public class Citta {
     private List<Stallo> stalli;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
-    private List<InterfacciaTariffaNoleggio> tariffe;
+    private List<TariffaNoleggioStandard> tariffa_standard;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_citta")
+    private List<TariffaNoleggioPromozione> tariffe_promo;
 
 
     //private TariffaNoleggioStandard tariffaNoleggioAttiva; //da errore per il momento lasciare così

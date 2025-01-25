@@ -76,7 +76,7 @@ public class ConsoleManager {
                     //Prenotazione prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
                     Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
                     if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){
-                        System.out.println("Noleggio iniziato, il veicolo è sbloccato");
+                        System.out.println("Noleggio iniziato, il veicolo \u00E8 sbloccato");
                     }
                     else{
                         System.out.println("Errore nel noleggio"); //TODO da gestire
@@ -97,6 +97,7 @@ public class ConsoleManager {
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
         System.out.println("2. Effettua il noleggio di un veicolo (ho già effettuato la prenotazione):");
+        //-Dfile.encoding=UTF-8 nella VM options per sistemare i caratteri non visibili
         System.out.println("3. Esci");
     }
 
