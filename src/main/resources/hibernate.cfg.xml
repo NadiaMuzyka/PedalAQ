@@ -21,9 +21,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
 
         <!-- Show SQL in Console -->
-        <!--        <property name="hibernate.show_sql">true</property>-->
-        <!--        <property name="hibernate.format_sql">true</property>-->
-        <!--        <property name="hibernate.highlight_sql">true</property>-->
+<!--                <property name="hibernate.show_sql">true</property>-->
+<!--                <property name="hibernate.format_sql">true</property>-->
+<!--                <property name="hibernate.highlight_sql">true</property>-->
 
         <mapping class="org.pedalaq.Model.Cittadino"/>
         <mapping class="org.pedalaq.Model.Abbonamento"/>

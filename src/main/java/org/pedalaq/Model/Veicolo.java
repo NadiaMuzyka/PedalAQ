@@ -21,6 +21,10 @@ public abstract class Veicolo {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
+    @OneToOne(mappedBy = "veicolo") // This side is the inverse of the relationship
+    private Prenotazione prenotazione;
+
+
 
     public Veicolo() {
 

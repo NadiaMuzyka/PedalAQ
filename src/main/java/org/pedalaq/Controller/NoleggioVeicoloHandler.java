@@ -16,7 +16,8 @@ public class NoleggioVeicoloHandler {
     }
 
     //PUNTO 2 DEL CASO D'USO
-    //todo l'accesso al db per controllare le prenotazioni scadute
+    //todo l'accesso al db per controllare le prenotazioni scadute, non dovrebbe servire il db
+    //todo checko in ram e in caso aggiorno il db dopo aver cambiato il valore in ram
     public static ArrayList<Veicolo> getVeicoli(Stallo stallo) {
         ArrayList<Veicolo> veicoli = new ArrayList<>();
         veicoli = stallo.getVeicolidisp_Stallo(); //gli passiamo solo i veicoli disponibili per l'uso
@@ -59,5 +60,19 @@ public class NoleggioVeicoloHandler {
         //qui ci dovrebbe essere solo la prenotazione scaduta da gestire
         return false;
     }
+
+    //GESTIONE CANCELLAZIONE PRENOTAZIONI
+    public static boolean cancellaprenotazione(Prenotazione prenotazione) {
+        HibernateUtil.deleteWithTransaction(prenotazione);
+        return true;
+    }
+
+    //GESTIONE AGGIORNAMENTO VEICOLI
+    public static boolean aggiornaveicolo(Veicolo veicolo) {
+        HibernateUtil.saveOrUpdateWithTransaction(veicolo);
+        return true;
+    }
+
+
 
 }

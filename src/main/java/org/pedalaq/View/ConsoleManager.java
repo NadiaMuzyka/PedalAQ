@@ -35,16 +35,17 @@ public class ConsoleManager {
                     int raggio = readInt("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
                     for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
                                         citta_selezionata,utente_loggato)) {
-                        System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " distante "
-                                + this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+                        System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
+                                + (long) stallo.getVeicolidisp_Stallo().size() + " veicoli disponibili, "
+                                + "distante " +this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
                                 stallo.getLat(),stallo.getLon()))) + " Km da te");
                     }
                     //QUI SI SCEGLIE LO STALLO
                     Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
                     //ricerca lineare sull'array di stalli della città
                     Stallo stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
+
                     //PASSO 2 DEL CASO D'USO
-                    //todo importante, l'accesso al db per controllare la scadenza delle prenotazioni
                     for (Veicolo veicolo : NoleggioVeicoloHandler.getVeicoli(stallo_sel)) {
                         System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo()); //TODO DA AGGIUNGERE TESTO
                     }
@@ -81,7 +82,7 @@ public class ConsoleManager {
                     Prenotazione prenotazione_noleggio = HibernateUtil.findByParameter(
                             Prenotazione.class,"Id",id_prenotazione);
                     if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){
-                        System.out.println("Noleggio iniziato, il veicolo \u00E8 sbloccato");
+                        System.out.println("Noleggio iniziato, il veicolo è sbloccato");
                     }
                     else{
                         System.out.println("Errore nel noleggio"); //TODO da gestire

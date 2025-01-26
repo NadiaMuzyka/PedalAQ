@@ -1,7 +1,10 @@
 package org.pedalaq.Model;
 
 import jakarta.persistence.*;
+import org.pedalaq.Controller.NoleggioVeicoloHandler;
+import org.pedalaq.Services.HibernateUtil;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -96,12 +99,20 @@ public class Stallo {
                 veicoli_disp.add(veicolo);
             } else if (Objects.equals(veicolo.getStato(), "Prenotato")) {
                 //controllo se la prenotazione è scaduta (probabilmente va spostato)
-                //if(prenotazionescaduta){allora setta il veicolo come libero e aggiungilo all'array
-                //veicoli_disp.add(veicolo);
+
+                Prenotazione prenotazione_da_controllare = HibernateUtil.getprenotazionefromidveicolo(veicolo.getId());
+                if(!prenotazione_da_controllare.controllaPrenotazione())
+                {//allora setta il veicolo come libero e aggiungilo all'array
+                    NoleggioVeicoloHandler.cancellaprenotazione(HibernateUtil.getprenotazionefromidveicolo(veicolo.getId()));
+                    veicolo.setStato("Libero");
+                    NoleggioVeicoloHandler.aggiornaveicolo(veicolo);
+                    veicoli_disp.add(veicolo);
+                }
             }
         }
         return veicoli_disp;
     }
+
 
     public Veicolo veicolo_by_id(Long id) {
         for (Veicolo veicolo : this.veicoli) {

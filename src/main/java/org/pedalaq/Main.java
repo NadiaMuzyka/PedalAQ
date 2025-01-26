@@ -37,7 +37,7 @@ public class Main {
 //        }
 
 
-
+        //Prenotazione prenotazione_da_controllare = HibernateUtil.findByParameter(Prenotazione.class, "id", 1);
         //Citta citta_sel = HibernateUtil.getcittafromnome("L'Aquila");
         Citta citta_sel = HibernateUtil.findByParameter(Citta.class,"nome","L'Aquila");
         //System.out.println(citta_sel + "aaa");
