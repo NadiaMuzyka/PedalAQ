@@ -94,4 +94,8 @@ public abstract class Veicolo {
         }
     }
 
+    public String displayveicolo(){
+        return "";
+    }
+
 }

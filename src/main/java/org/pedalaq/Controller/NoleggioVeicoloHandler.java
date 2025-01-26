@@ -16,6 +16,7 @@ public class NoleggioVeicoloHandler {
     }
 
     //PUNTO 2 DEL CASO D'USO
+    //todo l'accesso al db per controllare le prenotazioni scadute
     public static ArrayList<Veicolo> getVeicoli(Stallo stallo) {
         ArrayList<Veicolo> veicoli = new ArrayList<>();
         veicoli = stallo.getVeicolidisp_Stallo(); //gli passiamo solo i veicoli disponibili per l'uso

@@ -10,7 +10,7 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private float costoAlMinuto;
+    private double costoAlMinuto;
     private LocalDate dataInizio;
     private LocalDate dataFine;
     @OneToMany(fetch = FetchType.EAGER)
@@ -18,7 +18,8 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     private List<Noleggio> noleggi;
 
     @Override
-    public float calcolaCosto(Citta citta) {
-        return 0;
+    public double calcolaCosto(Citta citta, double tempo) {
+        double costo = tempo * this.costoAlMinuto;
+        return costo;
     }
 }

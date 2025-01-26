@@ -7,5 +7,5 @@ public interface InterfacciaTariffaNoleggio {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //private Long id;
 
-    public float calcolaCosto(Citta citta);
+    public double calcolaCosto(Citta citta,double tempo);
 }

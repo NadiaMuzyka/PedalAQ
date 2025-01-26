@@ -9,4 +9,9 @@ public class Bici extends Veicolo{
 
     public Bici() {
     }
+
+    @Override
+    public String displayveicolo() {
+        return "Bici";
+    }
 }

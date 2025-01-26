@@ -8,6 +8,11 @@ import jakarta.persistence.Entity;
 public class BiciElettrica extends Veicolo{
     private int batteria;
 
+    @Override
+    public String displayveicolo() {
+        return "Bici Elettrica batteria al " + this.getBatteria() + "%";
+    }
+
     public BiciElettrica() {
     }
 
@@ -23,4 +28,6 @@ public class BiciElettrica extends Veicolo{
     public void setBatteria(int batteria) {
         this.batteria = batteria;
     }
+
+
 }

@@ -25,7 +25,12 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     //vedere se aggiungere attributi
 
     @Override
-    public float calcolaCosto(Citta citta) {
-        return 0;
+    public double calcolaCosto(Citta citta, double tempo) {
+        double costo = tempo * this.costoAlMinuto;
+        if(tempo > 60){  //Possiamo mettere che se usa il veicolo per più di 1 ora si ha uno sconto flat
+            //oppure una riduzione del costo orario
+            costo = costo - 10;  //questo 10 può essere messo come attributo della tariffa noleggio
+        }
+        return costo;
     }
 }

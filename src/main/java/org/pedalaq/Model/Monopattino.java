@@ -8,6 +8,11 @@ import jakarta.persistence.Entity;
 public class Monopattino extends Veicolo{
     private int batteria;
 
+    @Override
+    public String displayveicolo() {
+        return "Monopattino batteria al " + this.getBatteria() + "%";
+    }
+
     public Monopattino() {
     }
 
@@ -18,4 +23,6 @@ public class Monopattino extends Veicolo{
     public void setBatteria(int batteria) {
         this.batteria = batteria;
     }
+
+
 }

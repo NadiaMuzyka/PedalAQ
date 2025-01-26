@@ -44,8 +44,9 @@ public class ConsoleManager {
                     //ricerca lineare sull'array di stalli della città
                     Stallo stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
                     //PASSO 2 DEL CASO D'USO
+                    //todo importante, l'accesso al db per controllare la scadenza delle prenotazioni
                     for (Veicolo veicolo : NoleggioVeicoloHandler.getVeicoli(stallo_sel)) {
-                        System.out.println(veicolo.getId()+ ") "); //TODO DA AGGIUNGERE TESTO
+                        System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo()); //TODO DA AGGIUNGERE TESTO
                     }
                     Long id_veicolo = readLong("Inserire il codice numerico del veicolo desiderato: ");
 
@@ -74,7 +75,11 @@ public class ConsoleManager {
                     Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
                     //ricerco la prenotazione tra quelle del cittadino
                     //Prenotazione prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
-                    Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
+
+                    //TEST
+                    //Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
+                    Prenotazione prenotazione_noleggio = HibernateUtil.findByParameter(
+                            Prenotazione.class,"Id",id_prenotazione);
                     if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){
                         System.out.println("Noleggio iniziato, il veicolo \u00E8 sbloccato");
                     }
