@@ -4,6 +4,7 @@ import org.pedalaq.Controller.NoleggioVeicoloHandler;
 import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 //ConsoleManager si occupa solo di input/output.
 public class ConsoleManager {
@@ -33,29 +34,42 @@ public class ConsoleManager {
                     //passo 1 del controllore
                     //System.out.println("Esegui operazione 1...");
                     int raggio = readInt("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
-                    for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
-                                        citta_selezionata,utente_loggato)) {
-                        System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
-                                + (long) stallo.getVeicolidisp_Stallo().size() + " veicoli disponibili, "
-                                + "distante " +this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
-                                stallo.getLat(),stallo.getLon()))) + " Km da te");
-                    }
+
                     //QUI SI SCEGLIE LO STALLO
-                    Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
+                    Stallo stallo_sel = null;
+                    while(stallo_sel == null){
+
+                        for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
+                                citta_selezionata,utente_loggato)) {
+                            System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
+                                    + (long) stallo.getVeicolidisp_Stallo().size() + " veicoli disponibili, "
+                                    + "distante " +this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+                                    stallo.getLat(),stallo.getLon()))) + " Km da te");
+                        }
+                        Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
+                        stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
+                        if(stallo_sel == null){
+                            System.out.println("!!!Inserire il codice di uno stallo tra quelli disponibili!!!");
+                        }
+                    }
+
                     //ricerca lineare sull'array di stalli della città
-                    Stallo stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
+
 
                     //PASSO 2 DEL CASO D'USO
-                    for (Veicolo veicolo : NoleggioVeicoloHandler.getVeicoli(stallo_sel)) {
-                        System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo()); //TODO DA AGGIUNGERE TESTO
+                    Veicolo veicolo_sel = null;
+                    while(veicolo_sel == null){
+                        for (Veicolo veicolo : NoleggioVeicoloHandler.getVeicoli(stallo_sel)) {
+                        System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo());
+                        }
+                        Long id_veicolo = readLong("Inserire il codice numerico del veicolo desiderato: ");
+                        veicolo_sel = NoleggioVeicoloHandler.selezionaveicolo(stallo_sel, id_veicolo);
+                        if(veicolo_sel == null){
+                            System.out.println("!!!Inserire il codice di un veicolo tra quelli disponibili!!!");
+                        }
                     }
-                    Long id_veicolo = readLong("Inserire il codice numerico del veicolo desiderato: ");
 
-                    Veicolo veicolo_sel = stallo_sel.veicolo_by_id(id_veicolo);
                     //PASSO 3 SI CREA LA PRENOTAZIONE
-                    //System.out.println(veicolo_sel);
-                    //System.out.println(stallo_sel);
-                    //System.out.println(utente_loggato);
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {

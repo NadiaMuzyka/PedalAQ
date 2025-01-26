@@ -73,7 +73,7 @@ public class HibernateUtil {
     }
 
     public static Prenotazione getprenotazionefromidveicolo(Long id_veicolo) {
-        System.out.println("id_veicolo: " + id_veicolo);
+        //System.out.println("id_veicolo: " + id_veicolo);
         Prenotazione prenotazione_sel = new Prenotazione();
         //SessionFactory sessionFactory1 = HibernateUtil.getSessionFactory();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

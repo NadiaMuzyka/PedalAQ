@@ -4,24 +4,46 @@ import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NoleggioVeicoloHandler {
 
     //PUNTO 1 DEL CASO D'USO
     public static ArrayList<Stallo> visualizzaListaStalli(double raggio, Citta citta, Cittadino cittadino) {
         //cittadino.setPosizione(lat, lon);
+        if(raggio <= 0){
+            raggio = 0.000001;
+        }
         ArrayList<Stallo> stalli;
         stalli = (ArrayList<Stallo>) citta.getStalliRaggio(cittadino.getLat(), cittadino.getLng(), raggio);
         return stalli;
     }
 
+    public static Stallo selezionastallo(Citta citta, Long id_stallo) {
+        Stallo stallo_sel = citta.stallo_by_id(id_stallo);
+        if(null != stallo_sel) {
+            return null;
+        }
+        else {
+            return stallo_sel;
+        }
+    }
+
     //PUNTO 2 DEL CASO D'USO
-    //todo l'accesso al db per controllare le prenotazioni scadute, non dovrebbe servire il db
-    //todo checko in ram e in caso aggiorno il db dopo aver cambiato il valore in ram
     public static ArrayList<Veicolo> getVeicoli(Stallo stallo) {
         ArrayList<Veicolo> veicoli = new ArrayList<>();
         veicoli = stallo.getVeicolidisp_Stallo(); //gli passiamo solo i veicoli disponibili per l'uso
         return veicoli;
+    }
+
+    public static Veicolo selezionaveicolo(Stallo stallo, Long id_veicolo) {
+        Veicolo veicolo_sel = stallo.veicolo_by_id(id_veicolo);
+        if (veicolo_sel != null && !Objects.equals(veicolo_sel.getStato(), "Libero")) {
+            return null;
+        }
+        else {
+            return veicolo_sel;
+        }
     }
 
     //PUNTO 3 DEL CASO D'USO

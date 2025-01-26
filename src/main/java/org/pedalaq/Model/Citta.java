@@ -3,6 +3,8 @@ package org.pedalaq.Model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -81,23 +83,26 @@ public class Citta {
 
     private ArrayList<Stallo> verificaStalli(double latitudine, double longitudine, double raggio) {//IL RAGGIO è IN KM
 
-
-        // Stallo Location
-
-        //Stallo Stallotest = new Stallo();
-        //Stallotest.setLat(42.1256317);
-        //Stallotest.setLon(10.1256317);
-        //stalli.add(Stallotest);
-
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
-        ArrayList<Double> distanze = new ArrayList<>();
+        ArrayList<Double> distances = new ArrayList<>();
         for (Stallo stallo : stalli){
-            if(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine)<raggio){ //se la distanza è minore del raggio allora lo aggiungo
+            int index = stalli.indexOf(stallo);
+            double dist = calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine);
+            distances.add(dist);
+            if(dist<raggio){
+                //se la distanza è minore del raggio allora lo aggiungo
                 stalli_in_raggio.add(stallo);
-//                distanze.add(calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine));
             }
         }
-
+        double min = distances.stream()
+                .min(Comparator.naturalOrder())
+                .get();
+        int minindex = distances.indexOf(min);
+        if(stalli_in_raggio.isEmpty()){
+            System.out.println("Nessuno stallo presente nel raggio inserito, questo è lo stallo più vicino" +
+                    " alla sua posizione: ");
+            stalli_in_raggio.add(stalli.get(minindex));
+        }
         return stalli_in_raggio;
     }
 
