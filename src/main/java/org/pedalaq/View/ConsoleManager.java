@@ -1,6 +1,7 @@
 package org.pedalaq.View;
 import org.pedalaq.Controller.NoleggioVeicoloHandler;
 import org.pedalaq.Model.*;
+import org.pedalaq.Services.DistanceUtil;
 import org.pedalaq.Services.HibernateUtil;
 
 import java.time.format.DateTimeFormatter;
@@ -37,12 +38,11 @@ public class ConsoleManager {
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
                     while(stallo_sel == null){
-
                         for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
                                 citta_selezionata,utente_loggato)) {
                             System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
                                     + (long) stallo.getVeicolidisp_Stallo().size() + " veicoli disponibili, "
-                                    + "distante " +this.TruncateString(String.valueOf(Citta.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+                                    + "distante " +this.TruncateString(String.valueOf(DistanceUtil.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
                                     stallo.getLat(),stallo.getLon()))) + " Km da te");
                         }
                         Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato: ");
@@ -109,16 +109,6 @@ public class ConsoleManager {
                             }
                         }
                     }
-
-//                    Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
-//                            Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
-//                    Stallo stallo_partenza = veicolo_noleggio.getStallo();
-//                    if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
-//                        System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
-//                    }
-//                    else{
-//                        System.out.println("Errore nel noleggio"); //TODO da gestire
-//                    }
                     break;
                 case 3:
                     System.out.println("Uscita dal programma.");
@@ -131,10 +121,10 @@ public class ConsoleManager {
     }
 
     private void showMenu() {
+        //SHOW MENU DOVREBBE DIVENTARE UNA FUNZIONE DINAMICA SULL'UTENTE
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
         System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
-        //-Dfile.encoding=UTF-8 nella VM options per sistemare i caratteri non visibili
         System.out.println("3. Esci");
     }
 

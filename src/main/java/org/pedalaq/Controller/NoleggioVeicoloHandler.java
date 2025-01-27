@@ -12,10 +12,13 @@ public class NoleggioVeicoloHandler {
     public static ArrayList<Stallo> visualizzaListaStalli(double raggio, Citta citta, Cittadino cittadino) {
         //cittadino.setPosizione(lat, lon);
         if(raggio <= 0){
-            raggio = 0.000001;
+            raggio = 1000000;
         }
         ArrayList<Stallo> stalli;
         stalli = (ArrayList<Stallo>) citta.getStalliRaggio(cittadino.getLat(), cittadino.getLng(), raggio);
+        if(stalli.isEmpty()){  //il controllo potrebbe essere aggiunto alla view per una maggiore usabilità
+            stalli = (ArrayList<Stallo>) citta.getStalli();
+        }
         return stalli;
     }
 
@@ -81,12 +84,6 @@ public class NoleggioVeicoloHandler {
         }
         //qui ci dovrebbe essere solo la prenotazione scaduta da gestire
         return false;
-    }
-
-    //GESTIONE CANCELLAZIONE PRENOTAZIONI
-    public static boolean cancellaprenotazione(Prenotazione prenotazione) {
-        HibernateUtil.deleteWithTransaction(prenotazione);
-        return true;
     }
 
     //GESTIONE AGGIORNAMENTO VEICOLI
