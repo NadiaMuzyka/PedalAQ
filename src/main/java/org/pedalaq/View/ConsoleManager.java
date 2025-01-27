@@ -27,7 +27,7 @@ public class ConsoleManager {
         boolean running = true;
 
         while (running) {
-            showMenu();
+            showMenu(utente_loggato);
             int choice = readInt("Seleziona la tua scelta: ");
             switch (choice) {
                 case 1:
@@ -93,10 +93,10 @@ public class ConsoleManager {
                                 Prenotazione.class,"Id",id_prenotazione);
                         if(prenotazione_noleggio == null) {
                             System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
+                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())){
+                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
                         } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
                             System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
-                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())) {
-                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
                         } else {
                             Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
                                     Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
@@ -111,6 +111,31 @@ public class ConsoleManager {
                     }
                     break;
                 case 3:
+//                    Prenotazione prenotazione_noleggio = null;
+//                    while(prenotazione_noleggio == null){
+//                        Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
+//                        prenotazione_noleggio = HibernateUtil.findByParameter(
+//                                Prenotazione.class,"Id",id_prenotazione);
+//                        if(prenotazione_noleggio == null) {
+//                            System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
+//                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())){
+//                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
+//                        } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
+//                            System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
+//                        } else {
+//                            Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
+//                                    Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
+//                            Stallo stallo_partenza = veicolo_noleggio.getStallo();
+//                            if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
+//                                System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
+//                            }
+//                            else{
+//                                System.out.println("Errore nel noleggio"); //TODO da gestire
+//                            }
+//                        }
+//                    }
+                    break;
+                case 4:
                     System.out.println("Uscita dal programma.");
                     running = false;
                     break;
@@ -120,12 +145,16 @@ public class ConsoleManager {
         }
     }
 
-    private void showMenu() {
+    private void showMenu(Cittadino utente_loggato) {
         //SHOW MENU DOVREBBE DIVENTARE UNA FUNZIONE DINAMICA SULL'UTENTE
+
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
-        System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
-        System.out.println("3. Esci");
+        if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){
+            System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
+        }
+        System.out.println("3. Effettua la restituzione di un veicolo"); //TODO CONTROLLO MENU DINAMICO
+        System.out.println("4. Esci");
     }
 
     private int readInt(String prompt) {

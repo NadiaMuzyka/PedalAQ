@@ -28,12 +28,18 @@ public class RestituisciVeicoloHandler {
 
             if(stalloPartenza.rimuoviVeicolo(veicolo)){
                 stalloArrivo.aggiungiVeicolo(veicolo);
-            }
+                noleggio.setStalloArrivo(stalloArrivo);
 
-            noleggio.setStalloArrivo(stalloArrivo);
+            }else return false;
 
             return true;
         }
         return false;
     }
+
+
+
+
+
+
 }
