@@ -15,7 +15,7 @@ public class NoleggioVeicoloHandler {
             raggio = 1000000;
         }
         ArrayList<Stallo> stalli;
-        stalli = (ArrayList<Stallo>) citta.getStalliRaggio(cittadino.getLat(), cittadino.getLng(), raggio);
+        stalli = (ArrayList<Stallo>) citta.getStalliRaggioPrenotazione(cittadino.getLat(), cittadino.getLng(), raggio);
         if(stalli.isEmpty()){  //il controllo potrebbe essere aggiunto alla view per una maggiore usabilità
             stalli = (ArrayList<Stallo>) citta.getStalli();
         }

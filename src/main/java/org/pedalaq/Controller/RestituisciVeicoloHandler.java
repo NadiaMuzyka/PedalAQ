@@ -2,13 +2,12 @@ package org.pedalaq.Controller;
 
 import org.pedalaq.Model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestituisciVeicoloHandler {
 
-    public List<Stallo> listaStalliRestituzione(double raggio, double lat, double lon, Citta citta) {
-        return citta.getStalliDisponibili(lat, lon, raggio);
+    public List<Stallo> listaStalliRestituzione(double raggio,Citta citta, Cittadino cittadino) {
+        return citta.getStalliRaggioParcheggio(cittadino.getLat(), cittadino.getLng(),raggio);
     }
 
     public boolean selezionaStallo(Stallo stallo, Veicolo veicolo) {

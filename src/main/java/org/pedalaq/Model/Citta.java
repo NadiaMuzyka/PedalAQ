@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import org.pedalaq.Services.DistanceUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -65,11 +63,7 @@ public class Citta {
         this.stalli = stalli;
     }
 
-    public List<Stallo> getStalliRaggio(double latitudine, double longitudine, double raggio) {
-        return verificaStalli(latitudine, longitudine, raggio);
-    }
-
-    private ArrayList<Stallo> verificaStalli(double latitudine, double longitudine, double raggio) {//IL RAGGIO è IN KM
+    public List<Stallo> getStalliRaggioPrenotazione(double latitudine, double longitudine, double raggio) {
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
         for (Stallo stallo : stalli){
             double dist = DistanceUtil.calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine);
@@ -80,6 +74,18 @@ public class Citta {
         }
         return stalli_in_raggio;
     }
+
+//    private ArrayList<Stallo> verificaStalli(double latitudine, double longitudine, double raggio) {//IL RAGGIO è IN KM
+//        ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
+//        for (Stallo stallo : stalli){
+//            double dist = DistanceUtil.calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine);
+//            if(dist<raggio && !(stallo.getVeicolidisp_Stallo().isEmpty())){ //c'è anche un controllo sulla presenza dei veicoli
+//                //se la distanza è minore del raggio e ha dei veicoli disponibili allora lo aggiungo
+//                stalli_in_raggio.add(stallo);
+//            }
+//        }
+//        return stalli_in_raggio;
+//    }
 
     public TariffaNoleggioStandard getTariffa_standard() {
         return tariffa_standard;
@@ -103,11 +109,11 @@ public class Citta {
         this.stalli = new ArrayList<>();
     }
 
-    public List<Stallo> getStalliDisponibili(double latitudine, double longitudine, double raggio) {
+    public List<Stallo> getStalliRaggioParcheggio(double latitudine, double longitudine, double raggio) {
         ArrayList<Stallo> stalli_in_raggio = new ArrayList<>();
         for (Stallo stallo : stalli){
             double dist = DistanceUtil.calculateDistance(stallo.getLat(),stallo.getLon(),latitudine,longitudine);
-            if(dist<raggio && stallo.getVeicolidisp_Stallo().size()<stallo.getMaxPosti()){ //c'è anche un controllo sulla presenza dei veicoli
+            if(dist<raggio && stallo.getVeicoli().size()<stallo.getMaxPosti()){ //c'è anche un controllo sulla presenza dei veicoli
                 //se la distanza è minore del raggio e ha dei posti disponibili allora lo aggiungo
                 stalli_in_raggio.add(stallo);
             }
