@@ -43,6 +43,10 @@ public class Cittadino extends Utente {
         this.CF = CF;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setPosizione(double lat, double lng){
         this.lat = Config.LAT;
         this.lng = Config.LNG;  //per simulare la localizzazione

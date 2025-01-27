@@ -24,6 +24,17 @@ public abstract class Veicolo {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_veicolo")
     protected List<Prenotazione> prenotazioni;
+    @ManyToOne
+    @JoinColumn(name = "id_stallo")
+    private Stallo stallo;
+
+    public Stallo getStallo() {
+        return stallo;
+    }
+
+    public void setStallo(Stallo stallo) {
+        this.stallo = stallo;
+    }
 
     public Veicolo() {
 

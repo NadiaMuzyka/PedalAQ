@@ -60,12 +60,11 @@ public class HibernateUtil {
 
     }
 
-    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo, Prenotazione prenotazione) {
+    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(veicolo); //merge è l'update
-            //session.delete(prenotazione); //TODO da sistemare l'integrità referenziale
             session.save(noleggio);
             session.getTransaction().commit();
         }

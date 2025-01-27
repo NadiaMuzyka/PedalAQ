@@ -13,7 +13,7 @@ public class Noleggio {
     private LocalDateTime inizioCorsa;
     private LocalDateTime fineCorsa;
     @ManyToOne
-    @JoinColumn(name = "stallo_partenza_id")
+    @JoinColumn(name = "id_stallo_partenza")
     private Stallo stalloPartenza;
     @OneToOne
     @JoinColumn(name = "id_prenotazione")

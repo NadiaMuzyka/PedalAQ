@@ -75,7 +75,7 @@ public class NoleggioVeicoloHandler {
             //se la prenotazione non è scaduta creiamo un noleggio
             Noleggio noleggio = new Noleggio(prenotazione, stalloPartenza);
             prenotazione.getVeicolo().NoleggiaVeicolo();
-            HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo(), prenotazione);
+            HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo());
             //SALVATAGGIO NOLEGGIO E CAMBIO DI STATO DEL VEICOLO
             return true;
         }
