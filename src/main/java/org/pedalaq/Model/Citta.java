@@ -3,6 +3,7 @@ package org.pedalaq.Model;
 import jakarta.persistence.*;
 import org.pedalaq.Services.DistanceUtil;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,11 @@ public class Citta {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private TariffaNoleggioStandard tariffa_standard;
+
+    public List<TariffaNoleggioPromozione> getTariffe_promo() {
+        return tariffe_promo;
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private List<TariffaNoleggioPromozione> tariffe_promo;
@@ -121,5 +127,12 @@ public class Citta {
         return stalli_in_raggio;
     }
 
+    public List<InterfacciaTariffaNoleggio> getTariffe_promo_attive(){
+        List<InterfacciaTariffaNoleggio> tariffe_promo_attive = new ArrayList<>();
+        for (InterfacciaTariffaNoleggio t : this.tariffe_promo){
+            if (t.getDataFine().isAfter(LocalDate.now())) tariffe_promo_attive.add(t);
+        }
+        return tariffe_promo_attive;
+    }
 
 }

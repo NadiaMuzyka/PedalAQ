@@ -13,6 +13,11 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     private long id;
     private float costoAlMinuto;
     private LocalDate dataInizio;
+
+    public LocalDate getDataFine() {
+        return dataFine;
+    }
+
     private LocalDate dataFine;
     private String codice;
     private int puntiRichiesti; //TODO vedere dove settare
@@ -27,8 +32,7 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
 
     @Override
     public double calcolaCosto() {
-        //TODO da implementare
-        return 0;
+        return costoAlMinuto;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class Noleggio {
     public double calcolaCosto(int punti, Citta citta) {
         TariffaNoleggioFactory tnf = TariffaNoleggioFactory.getInstance();
 
-        double costo = tnf.creaCompositeTariffa(citta.getTariffa_standard(), punti);
+        double costo = tnf.creaCompositeTariffa(citta.getTariffa_standard(), punti, Citta citta);
 
         Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
         double totale  = costo * durata.toMinutes();

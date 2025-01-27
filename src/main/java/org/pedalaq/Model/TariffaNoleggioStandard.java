@@ -12,6 +12,12 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     private long id;
     private double costoAlMinuto;
     private LocalDate dataInizio;
+
+    @Override
+    public LocalDate getDataFine() {
+        return dataFine;
+    }
+
     private LocalDate dataFine;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
@@ -20,11 +26,12 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     @Override
     public double calcolaCosto() {
         //TODO da implementare
-        return 0;
+        return costoAlMinuto;
     }
 
     @Override
     public int getPuntiRichiesti(){
         return 0;
     }
+
 }
