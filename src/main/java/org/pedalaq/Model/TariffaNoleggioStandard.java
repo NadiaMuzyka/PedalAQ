@@ -18,8 +18,13 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     private List<Noleggio> noleggi;
 
     @Override
-    public double calcolaCosto(Citta citta, double tempo) {
-        double costo = tempo * this.costoAlMinuto;
-        return costo;
+    public double calcolaCosto() {
+        //TODO da implementare
+        return 0;
+    }
+
+    @Override
+    public int getPuntiRichiesti(){
+        return 0;
     }
 }

@@ -18,7 +18,9 @@ public class Cittadino extends Utente {
     private String CF;
     private double lat = 0;
     private double lng = 0;
-    private float saldo = 0;
+    private double saldo = 0;
+    private int puntiClassifica; //TODO vedere dove settare
+    private int puntiUtilizzabili;
     @OneToOne
     @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
@@ -56,7 +58,7 @@ public class Cittadino extends Utente {
         return lng;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
@@ -70,6 +72,10 @@ public class Cittadino extends Utente {
 
     public String getCF() {
         return CF;
+    }
+
+    public int getPuntiClassifica() {
+        return puntiClassifica;
     }
 
     public boolean controllaAbbonamento(){
@@ -128,7 +134,31 @@ public class Cittadino extends Utente {
         return null;
     }
 
+    public boolean sottraiSaldo(double totale, int puntiUtilizzabili){
 
+        if (scalaSaldo(puntiUtilizzabili, totale)) {
+            this.scalaPunti(puntiUtilizzabili);
+            return true;
+        }
+        return false;
+    }
+
+    private void scalaPunti(int punti){
+        this.puntiUtilizzabili = this.puntiUtilizzabili - punti;
+    }
+
+    private boolean scalaSaldo(int punti, double totale){
+
+        //Calcolo totale senza punti
+        double tot = totale - (punti / 1000);
+
+        //Se ho abbastanza soldi pago
+        if (tot <= this.saldo) {
+            this.saldo = this.saldo - tot;
+            return true;
+        }
+        return false;
+    }
 
 
 }

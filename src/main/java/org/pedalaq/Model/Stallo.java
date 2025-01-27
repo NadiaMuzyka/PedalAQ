@@ -122,4 +122,28 @@ public class Stallo {
         }
         return null;
     }
+
+    public boolean verificaVeicolo(Veicolo veicolo) {
+        return this.verificaPosizione(veicolo.getLat(), veicolo.getLon());
+    }
+
+    private boolean verificaPosizione(double lat, double lon) {
+        //TODO fare la verifica della posizione
+
+        return true;
+    }
+
+    //TODO da implementare
+    public boolean rimuoviVeicolo(Veicolo veicolo) {
+        return true;
+    }
+
+    //TODO da implementare
+    public boolean aggiungiVeicolo(Veicolo veicolo) {
+
+        //TODO Aggiunge veicolo alla lista
+
+
+        return veicolo.rendiDisponibile();
+    }
 }

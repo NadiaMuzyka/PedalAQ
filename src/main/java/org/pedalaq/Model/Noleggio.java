@@ -2,7 +2,9 @@ package org.pedalaq.Model;
 
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 @Entity
 public class Noleggio {
@@ -34,5 +36,15 @@ public class Noleggio {
         this.prenotazione = prenotazione;
         this.stalloPartenza = stalloPartenza;
 
+    }
+
+    public double calcolaCosto(int punti, Citta citta) {
+        TariffaNoleggioFactory tnf = TariffaNoleggioFactory.getInstance();
+
+        double costo = tnf.creaCompositeTariffa(citta.getTariffa_standard(), punti);
+
+        Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
+        double totale  = costo * durata.toMinutes();
+        return totale;
     }
 }

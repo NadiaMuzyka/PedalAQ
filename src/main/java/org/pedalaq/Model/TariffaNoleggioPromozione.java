@@ -15,6 +15,7 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private String codice;
+    private int puntiRichiesti; //TODO vedere dove settare
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
     private List<Noleggio> noleggi;
@@ -25,12 +26,13 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     //vedere se aggiungere attributi
 
     @Override
-    public double calcolaCosto(Citta citta, double tempo) {
-        double costo = tempo * this.costoAlMinuto;
-        if(tempo > 60){  //Possiamo mettere che se usa il veicolo per più di 1 ora si ha uno sconto flat
-            //oppure una riduzione del costo orario
-            costo = costo - 10;  //questo 10 può essere messo come attributo della tariffa noleggio
-        }
-        return costo;
+    public double calcolaCosto() {
+        //TODO da implementare
+        return 0;
+    }
+
+    @Override
+    public int getPuntiRichiesti(){
+        return this.puntiRichiesti;
     }
 }

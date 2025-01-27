@@ -18,6 +18,8 @@ public abstract class Veicolo {
     protected Long id;
     protected String stato; //Lo stato può essere "Libero", "Prenotato", "Noleggiato"
     protected String codiceSblocco;
+    protected double lat; //TODO vedere dove settare questi parametri
+    protected double lon;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
@@ -44,6 +46,23 @@ public abstract class Veicolo {
 
     public String getCodiceSblocco() {
         return codiceSblocco;
+    }
+
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public void setCodiceSblocco(String codiceSblocco) {
@@ -100,6 +119,11 @@ public abstract class Veicolo {
 
     public String displayveicolo(){
         return "";
+    }
+
+    public boolean rendiDisponibile(){
+        this.stato = "Disponibile";
+        return true;
     }
 
 }

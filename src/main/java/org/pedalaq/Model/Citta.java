@@ -21,9 +21,9 @@ public class Citta {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private List<Stallo> stalli;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
-    private List<TariffaNoleggioStandard> tariffa_standard;
+    private TariffaNoleggioStandard tariffa_standard;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_citta")
     private List<TariffaNoleggioPromozione> tariffe_promo;
@@ -106,6 +106,10 @@ public class Citta {
         return stalli_in_raggio;
     }
 
+    public TariffaNoleggioStandard getTariffa_standard() {
+        return tariffa_standard;
+    }
+
     // calcolo della distanza con la formula dell'emisenoverso
     public static double calculateDistance(Double lat1, Double lon1,Double lat2, Double lon2) {
         double lat1Rad = Math.toRadians(lat1);
@@ -145,6 +149,10 @@ public class Citta {
         this.lon = lon;
         this.nome = nome;
         this.stalli = new ArrayList<>();
+    }
+
+    public List<Stallo> getStalliDisponibili(double lat, double lon, double raggio) {
+        return null;
     }
 
 
