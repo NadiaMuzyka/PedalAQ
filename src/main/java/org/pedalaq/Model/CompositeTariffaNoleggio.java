@@ -1,23 +1,26 @@
 package org.pedalaq.Model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CompositeTariffaNoleggio implements InterfacciaTariffaNoleggio {
 
-    private List<InterfacciaTariffaNoleggio> tariffa;
+    private ArrayList<InterfacciaTariffaNoleggio> tariffe = new ArrayList<>();
 
     public void aggiungiTariffa(InterfacciaTariffaNoleggio tariffa) {
-        this.tariffa.add(tariffa);
+        this.tariffe.add(tariffa);
     }
 
     public CompositeTariffaNoleggio(TariffaNoleggioStandard tariffaStandard) {
-        this.tariffa.add(tariffaStandard);
+        this.aggiungiTariffa(tariffaStandard);
     }
 
     @Override
     public double calcolaCosto() {
-        //TODO da implementare
-        return 0;
+        double min_costo = 99999999; //decidere una tariffa di default
+        for (InterfacciaTariffaNoleggio tariffa : tariffe){
+            min_costo = Math.min(tariffa.calcolaCosto(), min_costo);
+        }
+        return min_costo;
     }
 
     @Override

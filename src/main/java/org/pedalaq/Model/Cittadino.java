@@ -138,31 +138,21 @@ public class Cittadino extends Utente {
         return null;
     }
 
-    public boolean sottraiSaldo(double totale, int puntiUtilizzabili){
-
-        if (scalaSaldo(puntiUtilizzabili, totale)) {
-            this.scalaPunti(puntiUtilizzabili);
-            return true;
-        }
-        return false;
-    }
-
-    private void scalaPunti(int punti){
-        this.puntiUtilizzabili = this.puntiUtilizzabili - punti;
-    }
-
-    private boolean scalaSaldo(int punti, double totale){
+    public boolean sottraiSaldo(double totale, int puntiDaScalare){
 
         //Calcolo totale senza punti
-        double tot = totale - (punti / 1000);
+        double tot = totale - (puntiDaScalare / Config.SCONTO);
 
         //Se ho abbastanza soldi pago
         if (tot <= this.saldo) {
             this.saldo = this.saldo - tot;
+
+            //Aggiorno i punti
+            this.puntiUtilizzabili -= puntiDaScalare;
+
             return true;
         }
         return false;
     }
-
 
 }

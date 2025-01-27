@@ -133,16 +133,16 @@ public class Stallo {
         return (dist<0.015);//True se è vicino allo stallo
     }
 
-    //TODO da implementare
+
     public boolean rimuoviVeicolo(Veicolo veicolo) {
+
+        this.veicoli.remove(veicolo);
         return true;
     }
 
-    //TODO da implementare
     public boolean aggiungiVeicolo(Veicolo veicolo) {
 
-        //TODO Aggiunge veicolo alla lista
-
+        this.veicoli.add(veicolo);
 
         return veicolo.rendiDisponibile();
     }
