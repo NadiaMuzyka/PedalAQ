@@ -103,7 +103,7 @@ public class Stallo {
                 Prenotazione prenotazione_da_controllare = HibernateUtil.getprenotazionefromidveicolo(veicolo.getId());
                 if(!prenotazione_da_controllare.controllaPrenotazione())
                 {//allora setta il veicolo come libero e aggiungilo all'array
-                    NoleggioVeicoloHandler.cancellaprenotazione(HibernateUtil.getprenotazionefromidveicolo(veicolo.getId()));
+                    //NoleggioVeicoloHandler.cancellaprenotazione(HibernateUtil.getprenotazionefromidveicolo(veicolo.getId()));
                     veicolo.setStato("Libero");
                     NoleggioVeicoloHandler.aggiornaveicolo(veicolo);
                     veicoli_disp.add(veicolo);

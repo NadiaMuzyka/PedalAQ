@@ -55,14 +55,14 @@ public class NoleggioVeicoloHandler {
             //Se il cittadino possiede un abbonamento valido
             if (stallo.bloccaVeicolo(veicolo)) {
                 //Se il veicolo è stato bloccato con successo
-                Prenotazione p = new Prenotazione(veicolo, cittadino);
+                Prenotazione p = new Prenotazione(veicolo, cittadino); //questa non ha l'id
                 HibernateUtil.saveprenotazione_bloccaveicolo(p,veicolo);
-                //System.out.println(p.getVeicolo().getId());
-                //p = HibernateUtil.getprenotazionefromidveicolo(p.getVeicolo().getId());
+                //Ora la riprendo dal db per poter mostrare all'utente il codice della prenotazione
+                p = HibernateUtil.getprenotazionefromidveicolo(p.getVeicolo().getId()); //questa ha l'id
                 return p;
             }
             else {
-                //gestire qui il caso di veicolo non disponibile al blocco (già bloccato o noleggiato attraverso view
+                //gestire qui il caso di veicolo non disponibile al blocco (già bloccato o noleggiato attraverso view)
             }
         }
         return null; //gestire la situazione dove il cittadino è sprovvisto di abbonamento valido (attraverso view)

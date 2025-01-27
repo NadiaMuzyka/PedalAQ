@@ -17,7 +17,7 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime scadenza;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
     @OneToOne
