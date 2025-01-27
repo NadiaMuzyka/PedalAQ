@@ -4,20 +4,23 @@ import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class NoleggioVeicoloHandler {
 
     //PUNTO 1 DEL CASO D'USO
-    public static ArrayList<Stallo> visualizzaListaStalli(double raggio, Citta citta, Cittadino cittadino) {
+    public static List<Stallo> visualizzaListaStalli(double raggio, Citta citta, Cittadino cittadino) {
         //cittadino.setPosizione(lat, lon);
+        List<Stallo> stalli;
         if(raggio <= 0){
-            raggio = 1000000;
+            raggio = 0.0000001;
         }
-        ArrayList<Stallo> stalli;
-        stalli = (ArrayList<Stallo>) citta.getStalliRaggioPrenotazione(cittadino.getLat(), cittadino.getLng(), raggio);
-        if(stalli.isEmpty()){  //il controllo potrebbe essere aggiunto alla view per una maggiore usabilità
-            stalli = (ArrayList<Stallo>) citta.getStalli();
+        if(raggio == 999999){//Caso particolare
+            stalli = citta.getStalli();
+        }
+        else{
+            stalli = citta.getStalliRaggioPrenotazione(cittadino.getLat(), cittadino.getLng(), raggio);
         }
         return stalli;
     }

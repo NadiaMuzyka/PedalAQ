@@ -6,6 +6,7 @@ import org.pedalaq.Services.DistanceUtil;
 import org.pedalaq.Services.HibernateUtil;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 //ConsoleManager si occupa solo di input/output.
 public class ConsoleManager {
@@ -39,8 +40,16 @@ public class ConsoleManager {
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
                     while(stallo_sel == null){
-                        for (Stallo stallo : NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
-                                citta_selezionata,utente_loggato)) {
+                        List<Stallo> stalli;
+                        stalli = NoleggioVeicoloHandler.visualizzaListaStalli(raggio,
+                                citta_selezionata, utente_loggato);
+                        if(stalli.isEmpty()){
+                            System.out.println("Nessuno stallo presente nel raggio indicato, " +
+                                    "verranno visualizzati tutti gli stalli");
+                            stalli = NoleggioVeicoloHandler.visualizzaListaStalli(999999,
+                                    citta_selezionata, utente_loggato);
+                        }
+                        for (Stallo stallo : stalli) {
                             System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
                                     + (long) stallo.getVeicolidisp_Stallo().size() + " veicoli disponibili, "
                                     + "distante " +this.TruncateString(String.valueOf(DistanceUtil.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
