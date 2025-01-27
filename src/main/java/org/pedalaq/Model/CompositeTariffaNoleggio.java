@@ -1,5 +1,6 @@
 package org.pedalaq.Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CompositeTariffaNoleggio implements InterfacciaTariffaNoleggio {
@@ -27,4 +28,11 @@ public class CompositeTariffaNoleggio implements InterfacciaTariffaNoleggio {
     public int getPuntiRichiesti(){
         return 0;
     }
+
+    @Override
+    public LocalDate getDataFine() {
+        return null;
+    }
+
+
 }
