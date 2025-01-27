@@ -87,54 +87,68 @@ public class ConsoleManager {
                     break;
                 case 2:
                     //PASSO 4 DEL CONTROLLORE
-                    Prenotazione prenotazione_noleggio = null;
-                    while(prenotazione_noleggio == null){
-                        Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
-                        prenotazione_noleggio = HibernateUtil.findByParameter(
-                                Prenotazione.class,"Id",id_prenotazione);
-                        if(prenotazione_noleggio == null) {
-                            System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
-                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())){
-                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
-                        } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
-                            System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
-                        } else {
-                            Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
-                                    Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
-                            Stallo stallo_partenza = veicolo_noleggio.getStallo();
-                            if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
-                                System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
-                            }
-                            else{
-                                System.out.println("Errore nel noleggio"); //TODO da gestire
+                    if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){
+                        Prenotazione prenotazione_noleggio = null;
+                        while(prenotazione_noleggio == null) {
+                            Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
+                            prenotazione_noleggio = HibernateUtil.findByParameter(
+                                    Prenotazione.class, "Id", id_prenotazione);
+                            if (prenotazione_noleggio == null) {
+                                System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
+                            } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())) {
+                                System.out.println("!!!Inserire il codice della propria prenotazione!!!");
+                            } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
+                                System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
+                            } else {
+                                Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
+                                        Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
+                                Stallo stallo_partenza = veicolo_noleggio.getStallo();
+                                if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza)) { //TODO aggiungere stallo partenza
+                                    System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
+                                } else {
+                                    System.out.println("Errore nel noleggio"); //TODO da gestire
+                                }
                             }
                         }
                     }
+                    else System.out.println("\n!!!Effettua una prenotazione prima di effettuare il noleggio!!!");
                     break;
                 case 3:
-//                    Prenotazione prenotazione_noleggio = null;
-//                    while(prenotazione_noleggio == null){
-//                        Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
-//                        prenotazione_noleggio = HibernateUtil.findByParameter(
-//                                Prenotazione.class,"Id",id_prenotazione);
-//                        if(prenotazione_noleggio == null) {
-//                            System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
-//                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())){
-//                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
-//                        } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
-//                            System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
-//                        } else {
-//                            Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
-//                                    Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
-//                            Stallo stallo_partenza = veicolo_noleggio.getStallo();
-//                            if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
-//                                System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
-//                            }
-//                            else{
-//                                System.out.println("Errore nel noleggio"); //TODO da gestire
-//                            }
-//                        }
-//                    }
+                    if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)) {
+                        //PASSAGGIO PRELIMINARE (Ho bisogno del veicolo)
+                        //Scelta del veicolo da restituire
+
+
+
+
+
+
+                        //PASSO 2.1
+                        double raggio = readDouble("Inserisci la distanza massima alla quale vuoi " +
+                                "effettuare la restituzione del veicolo noleggiato (Km): ");
+                        //QUI SI SCEGLIE LO STALLO
+                        Stallo stallo_rest = null;
+                        while(stallo_rest == null){
+                            for (Stallo stallo : RestituisciVeicoloHandler.listaStalliRestituzione(raggio,
+                                    citta_selezionata,utente_loggato)) {
+                                System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
+                                        + (long)(stallo.getMaxPosti() - stallo.getVeicolidisp_Stallo().size())  + " posti disponibili per la restituzione, "
+                                        + "distante " +this.TruncateString(String.valueOf(DistanceUtil.calculateDistance(utente_loggato.getLat(),utente_loggato.getLng(),
+                                        stallo.getLat(),stallo.getLon()))) + " Km da te");
+                            }
+                            Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato per la riconsegna: ");
+                            stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
+                            if(stallo_sel == null){
+                                System.out.println("!!!Inserire il codice di uno stallo tra quelli disponibili!!!");
+                            }
+                        }
+
+                        //PASSO 2.2
+                        //Mi serve il veicolo, ma lo posso prendere al massimo dal codice del noleggio
+                        //Bisogna istanziarlo prima
+
+                    }
+                    else System.out.println("\n!!!Inizia un noleggio prima di effettuare la restituzione del veicolo!!!");
                     break;
                 case 4:
                     System.out.println("Uscita dal programma.");

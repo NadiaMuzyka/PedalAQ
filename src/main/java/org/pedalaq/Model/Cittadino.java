@@ -161,10 +161,22 @@ public class Cittadino extends Utente {
         for (Prenotazione prenotazione : this.prenotazioni) {
             if(HibernateUtil.findByParameter(Noleggio.class,"prenotazione",prenotazione) == null
                 && prenotazione.controllaPrenotazione()){
-                return true;
+                return true;  //PRENOTAZIONE ASSOCIATA
             }
         }
-        System.out.println("Prenotazione non trovato");
+        //System.out.println("Prenotazione non trovato");
+        return false;
+    }
+
+    //controllo se ha almeno una prenotazione non associata ad un noleggio
+    public boolean getveicolinoleggiati(){
+        for (Prenotazione prenotazione : this.prenotazioni) {
+            if(HibernateUtil.findByParameter(Noleggio.class,"prenotazione",prenotazione) == null
+                    && prenotazione.controllaPrenotazione()){
+                return true;  //PRENOTAZIONE ASSOCIATA
+            }
+        }
+        //System.out.println("Prenotazione non trovato");
         return false;
     }
 
