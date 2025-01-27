@@ -79,7 +79,7 @@ public class HibernateUtil {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String sql = "SELECT id FROM prenotazione WHERE id_veicolo = :id"; // Esempio di query SQL
+            String sql = "SELECT id FROM prenotazione WHERE id_veicolo = :id ORDER BY scadenza DESC LIMIT 1"; // Esempio di query SQL
             Query query = session.createNativeQuery(sql);
             query.setParameter("id", id_veicolo);  // Impostazione del parametro
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2025 at 09:06 PM
+-- Generation Time: Jan 27, 2025 at 12:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -115,7 +115,8 @@ CREATE TABLE `noleggio` (
   `fineCorsa` datetime(6) DEFAULT NULL,
   `inizioCorsa` datetime(6) DEFAULT NULL,
   `id_prenotazione` bigint(20) DEFAULT NULL,
-  `id_tariffa` bigint(20) DEFAULT NULL
+  `id_tariffa` bigint(20) DEFAULT NULL,
+  `stallo_partenza_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -126,7 +127,6 @@ CREATE TABLE `noleggio` (
 
 CREATE TABLE `prenotazione` (
   `id` bigint(20) NOT NULL,
-  `data` datetime(6) DEFAULT NULL,
   `scadenza` datetime(6) DEFAULT NULL,
   `id_cittadino` bigint(20) DEFAULT NULL,
   `id_veicolo` bigint(20) DEFAULT NULL
@@ -271,15 +271,16 @@ ALTER TABLE `cittadino`
 ALTER TABLE `noleggio`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UKoaaqf6mw28mq5f5py4d0lc5k7` (`id_prenotazione`),
-  ADD KEY `FKd8nmwwpr2jpacsobjd94t23tr` (`id_tariffa`);
+  ADD KEY `FKd8nmwwpr2jpacsobjd94t23tr` (`id_tariffa`),
+  ADD KEY `FKp7wsaj9irlpaooysrieufe8nh` (`stallo_partenza_id`);
 
 --
 -- Indexes for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UKfwg4xvtg5kcqplr6cqsend931` (`id_cittadino`),
-  ADD UNIQUE KEY `UK95wp5h66gxav6j1jtnn559xer` (`id_veicolo`);
+  ADD KEY `UK95wp5h66gxav6j1jtnn559xer` (`id_veicolo`) USING BTREE,
+  ADD KEY `UKfwg4xvtg5kcqplr6cqsend931` (`id_cittadino`) USING BTREE;
 
 --
 -- Indexes for table `stallo`
@@ -347,13 +348,13 @@ ALTER TABLE `cittadino`
 -- AUTO_INCREMENT for table `noleggio`
 --
 ALTER TABLE `noleggio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `stallo`
@@ -412,7 +413,8 @@ ALTER TABLE `cittadino`
 --
 ALTER TABLE `noleggio`
   ADD CONSTRAINT `FK7ec5gc3dm4l3jk41bjgg35uh2` FOREIGN KEY (`id_prenotazione`) REFERENCES `prenotazione` (`id`),
-  ADD CONSTRAINT `FKl6ouong92tejq8kx5sha0s1ka` FOREIGN KEY (`id_tariffa`) REFERENCES `tariffanoleggiopromozione` (`id`);
+  ADD CONSTRAINT `FKl6ouong92tejq8kx5sha0s1ka` FOREIGN KEY (`id_tariffa`) REFERENCES `tariffanoleggiopromozione` (`id`),
+  ADD CONSTRAINT `FKp7wsaj9irlpaooysrieufe8nh` FOREIGN KEY (`stallo_partenza_id`) REFERENCES `stallo` (`id`);
 
 --
 -- Constraints for table `prenotazione`
