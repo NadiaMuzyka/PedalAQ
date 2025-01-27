@@ -69,11 +69,11 @@ public class NoleggioVeicoloHandler {
     }
 
     //PUNTO 4 DEL CASO D'USO
-    public static boolean noleggiaVeicolo(Prenotazione prenotazione) {
+    public static boolean noleggiaVeicolo(Prenotazione prenotazione, Stallo stalloPartenza) {
         //controllo sulla scadenza della prenotazione
         if(prenotazione.controllaPrenotazione()){
             //se la prenotazione non è scaduta creiamo un noleggio
-            Noleggio noleggio = new Noleggio(prenotazione);
+            Noleggio noleggio = new Noleggio(prenotazione, stalloPartenza);
             prenotazione.getVeicolo().NoleggiaVeicolo();
             HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo(), prenotazione);
             //SALVATAGGIO NOLEGGIO E CAMBIO DI STATO DEL VEICOLO
