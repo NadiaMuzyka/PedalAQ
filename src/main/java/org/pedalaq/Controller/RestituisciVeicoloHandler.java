@@ -1,6 +1,7 @@
 package org.pedalaq.Controller;
 
 import org.pedalaq.Model.*;
+import org.pedalaq.Services.HibernateUtil;
 
 import java.util.List;
 
@@ -37,7 +38,12 @@ public class RestituisciVeicoloHandler {
         return false;
     }
 
-
+    //per il menu dinamico controllo se il cittadino ha almeno un noleggio non terminato
+    //si prende quella con la scadenza maggiore
+    public static boolean menurestituzione(Cittadino cittadino) {
+        Long num_noleggi_in_corso = HibernateUtil.countByParameterIsNull(Noleggio.class, "fineCorsa");
+        return (num_noleggi_in_corso>0);
+    }
 
 
 

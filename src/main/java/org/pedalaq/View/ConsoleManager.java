@@ -1,5 +1,6 @@
 package org.pedalaq.View;
 import org.pedalaq.Controller.NoleggioVeicoloHandler;
+import org.pedalaq.Controller.RestituisciVeicoloHandler;
 import org.pedalaq.Model.*;
 import org.pedalaq.Services.DistanceUtil;
 import org.pedalaq.Services.HibernateUtil;
@@ -145,15 +146,16 @@ public class ConsoleManager {
         }
     }
 
+    //MENU DINAMICO SULL'UTENTE
     private void showMenu(Cittadino utente_loggato) {
-        //SHOW MENU DOVREBBE DIVENTARE UNA FUNZIONE DINAMICA SULL'UTENTE
-
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
         if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){
             System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
         }
-        System.out.println("3. Effettua la restituzione di un veicolo"); //TODO CONTROLLO MENU DINAMICO
+        if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)){
+            System.out.println("3. Effettua la restituzione di un veicolo");
+        }
         System.out.println("4. Esci");
     }
 
