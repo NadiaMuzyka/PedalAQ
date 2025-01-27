@@ -199,6 +199,39 @@ public class HibernateUtil {
         return result;
     }
 
+
+    public static <T> Long countByParameterIsNull(Class<T> entityClass, String paramName) {
+        Transaction transaction = null;
+        Long count = 0L;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Inizia la transazione
+            transaction = session.beginTransaction();
+
+            // Crea la query HQL dinamica per il conteggio
+            String hql = "select count(*) from " + entityClass.getSimpleName() +
+                    " where " + paramName + " is null";
+
+            // Crea la query
+            Query<Long> query = session.createQuery(hql, Long.class);
+
+            // Ottieni il conteggio
+            count = query.uniqueResult();
+
+            // Esegui il commit della transazione
+            transaction.commit();
+        } catch (Exception e) {
+            // Rollback in caso di errore
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
     /**
      * Metodo generalizzato per salvare o aggiornare un'entità nel database con gestione di sessione e transazione.
      *

@@ -24,6 +24,8 @@ public class Noleggio {
     @JoinColumn(name = "id_prenotazione")
     private Prenotazione prenotazione;
 
+    public Noleggio(){}
+
     public Stallo getStalloPartenza() {
         return stalloPartenza;
     }

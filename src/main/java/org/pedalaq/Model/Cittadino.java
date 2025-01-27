@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.*;
 import org.pedalaq.Model.Abbonamento;
 import org.pedalaq.Services.Config;
+import org.pedalaq.Services.HibernateUtil;
 
 @Entity
 public class Cittadino extends Utente {
@@ -152,6 +153,30 @@ public class Cittadino extends Utente {
 
             return true;
         }
+        return false;
+    }
+
+    //controllo se ha almeno una prenotazione non associata ad un noleggio
+    public boolean hasactiveprenotazione(){
+        for (Prenotazione prenotazione : this.prenotazioni) {
+            if(HibernateUtil.findByParameter(Noleggio.class,"prenotazione",prenotazione) == null
+                && prenotazione.controllaPrenotazione()){
+                return true;  //PRENOTAZIONE ASSOCIATA
+            }
+        }
+        //System.out.println("Prenotazione non trovato");
+        return false;
+    }
+
+    //controllo se ha almeno una prenotazione non associata ad un noleggio
+    public boolean getveicolinoleggiati(){
+        for (Prenotazione prenotazione : this.prenotazioni) {
+            if(HibernateUtil.findByParameter(Noleggio.class,"prenotazione",prenotazione) == null
+                    && prenotazione.controllaPrenotazione()){
+                return true;  //PRENOTAZIONE ASSOCIATA
+            }
+        }
+        //System.out.println("Prenotazione non trovato");
         return false;
     }
 
