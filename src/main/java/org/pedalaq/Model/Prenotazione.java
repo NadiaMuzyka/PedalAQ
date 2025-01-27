@@ -17,7 +17,7 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime scadenza;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_veicolo")
     private Veicolo veicolo;
     @OneToOne
@@ -30,11 +30,8 @@ public class Prenotazione {
     public Prenotazione(Veicolo veicolo, Cittadino cittadino) {
         this.scadenza = LocalDateTime.now().plusMinutes(10); //la prenotazione dura 10 minuti (spostabile nel config)
         veicolo.setStato("Prenotato"); //bisogna implementare un meccanismo che riporta lo stato a libero
-        //sarebbe comodo inserirlo nel metodo che restituisce i veicoli liberi dello stallo
         this.veicolo = veicolo;
         this.cittadino = cittadino;
-        //Salvo la prenotazione in persistenza
-        //this.savePrenotazione();  //TODO metodo rilocato
     }
 
     public Prenotazione getPrenotazioneby_veicolo(Veicolo veicolo) {

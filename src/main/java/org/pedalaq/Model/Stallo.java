@@ -18,8 +18,8 @@ public class Stallo {
     private double lon;
     private int maxPosti;
     private String descrizione;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_stallo")
+    @OneToMany(mappedBy = "stallo",fetch = FetchType.EAGER)
+    //@JoinColumn(name = "id_stallo")
     private List<Veicolo> veicoli;
 
     public Stallo() {}
@@ -103,7 +103,7 @@ public class Stallo {
                 Prenotazione prenotazione_da_controllare = HibernateUtil.getprenotazionefromidveicolo(veicolo.getId());
                 if(!prenotazione_da_controllare.controllaPrenotazione())
                 {//allora setta il veicolo come libero e aggiungilo all'array
-                    NoleggioVeicoloHandler.cancellaprenotazione(HibernateUtil.getprenotazionefromidveicolo(veicolo.getId()));
+                    //NoleggioVeicoloHandler.cancellaprenotazione(HibernateUtil.getprenotazionefromidveicolo(veicolo.getId()));
                     veicolo.setStato("Libero");
                     NoleggioVeicoloHandler.aggiornaveicolo(veicolo);
                     veicoli_disp.add(veicolo);

@@ -45,6 +45,10 @@ public class Cittadino extends Utente {
         this.CF = CF;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setPosizione(double lat, double lng){
         this.lat = Config.LAT;
         this.lng = Config.LNG;  //per simulare la localizzazione
@@ -79,7 +83,7 @@ public class Cittadino extends Utente {
     }
 
     public boolean controllaAbbonamento(){
-        System.out.println(this.abbonamentoAttivo);
+        //System.out.println(this.abbonamentoAttivo);
         if (this.abbonamentoAttivo == null) { //Se è null va gestito
             return false;
         } else if (!this.abbonamentoAttivo.validaAbbonamento()) { //se è scaduto si setta a null

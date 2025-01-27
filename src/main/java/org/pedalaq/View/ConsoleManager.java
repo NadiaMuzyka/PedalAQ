@@ -1,10 +1,9 @@
 package org.pedalaq.View;
-import org.hibernate.type.descriptor.jdbc.internal.DelayedStructJdbcType;
 import org.pedalaq.Controller.NoleggioVeicoloHandler;
 import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 //ConsoleManager si occupa solo di input/output.
 public class ConsoleManager {
@@ -20,7 +19,7 @@ public class ConsoleManager {
     // METODO GET CITTA BY ID dal database
     //Cittadino utente_loggato = new Cittadino();
 
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public void start(Citta citta_selezionata, Cittadino utente_loggato) {
         System.out.println("Benvenuto!");
@@ -33,7 +32,7 @@ public class ConsoleManager {
                 case 1:
                     //passo 1 del controllore
                     //System.out.println("Esegui operazione 1...");
-                    int raggio = readInt("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
+                    double raggio = readDouble("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
 
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
@@ -73,11 +72,11 @@ public class ConsoleManager {
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {
-                        System.out.println("codice prenotazione:" + nuova_prenotazione.getId() +
+                        System.out.println("codice prenotazione: " + nuova_prenotazione.getId() +
                                             "\ncodice veicolo: " + veicolo_sel.getId() +
                                             "\ncodice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
-                                            "\nscadenza prenotazione: " + nuova_prenotazione.getScadenza() +
-                                            "\nProcedi al veicolo e completa il noleggio");
+                                            "\nscadenza prenotazione: " + nuova_prenotazione.getScadenza().format(formatter) +
+                                            "\n\nProcedi al veicolo e completa il noleggio");
                         //session.save(nuova_prenotazione);  TODO DA METTERE QUESTO SALVATAGGIO
                     }
                     else{
@@ -87,21 +86,39 @@ public class ConsoleManager {
                     break;
                 case 2:
                     //PASSO 4 DEL CONTROLLORE
-                    Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
-                    //ricerco la prenotazione tra quelle del cittadino
-                    //Prenotazione prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
-
-                    //TEST
-                    //Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
-                    Prenotazione prenotazione_noleggio = HibernateUtil.findByParameter(
-                            Prenotazione.class,"Id",id_prenotazione);
-                    if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){ //TODO aggiungere stallo partenza
-                        System.out.println("Noleggio iniziato, il veicolo è sbloccato");
+                    Prenotazione prenotazione_noleggio = null;
+                    while(prenotazione_noleggio == null){
+                        Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
+                        prenotazione_noleggio = HibernateUtil.findByParameter(
+                                Prenotazione.class,"Id",id_prenotazione);
+                        if(prenotazione_noleggio == null) {
+                            System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
+                        } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
+                            System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
+                        } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())) {
+                            System.out.println("!!!Inserire il codice della propria prenotazione!!!");
+                        } else {
+                            Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
+                                    Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
+                            Stallo stallo_partenza = veicolo_noleggio.getStallo();
+                            if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
+                                System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
+                            }
+                            else{
+                                System.out.println("Errore nel noleggio"); //TODO da gestire
+                            }
+                        }
                     }
-                    else{
-                        System.out.println("Errore nel noleggio"); //TODO da gestire
-                    }
 
+//                    Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
+//                            Veicolo.class,"Id",prenotazione_noleggio.getVeicolo().getId());
+//                    Stallo stallo_partenza = veicolo_noleggio.getStallo();
+//                    if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio,stallo_partenza)){ //TODO aggiungere stallo partenza
+//                        System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
+//                    }
+//                    else{
+//                        System.out.println("Errore nel noleggio"); //TODO da gestire
+//                    }
                     break;
                 case 3:
                     System.out.println("Uscita dal programma.");
@@ -116,7 +133,7 @@ public class ConsoleManager {
     private void showMenu() {
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
-        System.out.println("2. Effettua il noleggio di un veicolo (ho già effettuato la prenotazione):");
+        System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
         //-Dfile.encoding=UTF-8 nella VM options per sistemare i caratteri non visibili
         System.out.println("3. Esci");
     }
@@ -137,6 +154,15 @@ public class ConsoleManager {
             scanner.next(); // Scarta l'input non valido
         }
         return scanner.nextLong();
+    }
+
+    private Double readDouble(String prompt) {
+        System.out.print(prompt);
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Input non valido. Inserisci un numero.");
+            scanner.next(); // Scarta l'input non valido
+        }
+        return scanner.nextDouble();
     }
 
     public String readString(String prompt) {

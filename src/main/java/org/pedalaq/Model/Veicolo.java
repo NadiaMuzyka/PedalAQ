@@ -23,10 +23,20 @@ public abstract class Veicolo {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_veicolo")
     protected List<Accessorio> accessori;
-    @OneToOne(mappedBy = "veicolo") // This side is the inverse of the relationship
-    private Prenotazione prenotazione;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_veicolo")
+    protected List<Prenotazione> prenotazioni;
+    @ManyToOne
+    @JoinColumn(name = "id_stallo")
+    private Stallo stallo;
 
+    public Stallo getStallo() {
+        return stallo;
+    }
 
+    public void setStallo(Stallo stallo) {
+        this.stallo = stallo;
+    }
 
     public Veicolo() {
 
@@ -82,7 +92,7 @@ public abstract class Veicolo {
         if (Objects.equals(this.stato, "Libero"))
         {
             this.stato = "Prenotato";
-            System.out.println("Prenotato");
+            //System.out.println("Prenotato");
             this.aggiornaVeicolo();
             return true;
         }
@@ -95,7 +105,7 @@ public abstract class Veicolo {
         if (Objects.equals(this.stato, "Prenotato"))
         {
             this.stato = "Noleggiato";
-            System.out.println("Noleggiato");
+            //System.out.println("Noleggiato");
             this.aggiornaVeicolo();
             return true;
         }

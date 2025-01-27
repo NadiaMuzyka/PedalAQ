@@ -60,12 +60,11 @@ public class HibernateUtil {
 
     }
 
-    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo, Prenotazione prenotazione) {
+    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(veicolo); //merge è l'update
-            //session.delete(prenotazione); //TODO da sistemare l'integrità referenziale
             session.save(noleggio);
             session.getTransaction().commit();
         }
@@ -79,9 +78,9 @@ public class HibernateUtil {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String sql = "SELECT id FROM prenotazione WHERE id_veicolo = :cf"; // Esempio di query SQL
+            String sql = "SELECT id FROM prenotazione WHERE id_veicolo = :id ORDER BY scadenza DESC LIMIT 1"; // Esempio di query SQL
             Query query = session.createNativeQuery(sql);
-            query.setParameter("cf", id_veicolo);  // Impostazione del parametro
+            query.setParameter("id", id_veicolo);  // Impostazione del parametro
 
 
             //Citta citta_sel = new Citta();
