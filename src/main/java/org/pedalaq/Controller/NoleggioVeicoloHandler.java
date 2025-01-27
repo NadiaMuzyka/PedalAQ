@@ -92,6 +92,12 @@ public class NoleggioVeicoloHandler {
         return true;
     }
 
+    //per il menu dinamico controllo se il cittadino ha almeno una prenotazione non scaduta
+    //si prende quella con la scadenza maggiore
+    public static boolean menunoleggio(Cittadino cittadino) {
+        Prenotazione prenotazione_max = HibernateUtil.findByParameterWithMaxValue(Prenotazione.class, "cittadino", cittadino,"scadenza");
+        return prenotazione_max.controllaPrenotazione();
+    }
 
 
 }

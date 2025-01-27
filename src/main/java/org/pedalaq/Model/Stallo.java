@@ -2,6 +2,7 @@ package org.pedalaq.Model;
 
 import jakarta.persistence.*;
 import org.pedalaq.Controller.NoleggioVeicoloHandler;
+import org.pedalaq.Services.DistanceUtil;
 import org.pedalaq.Services.HibernateUtil;
 
 import java.time.LocalDateTime;
@@ -99,7 +100,6 @@ public class Stallo {
                 veicoli_disp.add(veicolo);
             } else if (Objects.equals(veicolo.getStato(), "Prenotato")) {
                 //controllo se la prenotazione è scaduta (probabilmente va spostato)
-
                 Prenotazione prenotazione_da_controllare = HibernateUtil.getprenotazionefromidveicolo(veicolo.getId());
                 if(!prenotazione_da_controllare.controllaPrenotazione())
                 {//allora setta il veicolo come libero e aggiungilo all'array
@@ -128,9 +128,9 @@ public class Stallo {
     }
 
     private boolean verificaPosizione(double lat, double lon) {
-        //TODO fare la verifica della posizione
-
-        return true;
+        //distanza tra stallo e veicolo che deve essere minore di 15 metri
+        double dist = DistanceUtil.calculateDistance(this.getLat(),this.getLon(),lat,lon);
+        return (dist<0.015);//True se è vicino allo stallo
     }
 
     //TODO da implementare
