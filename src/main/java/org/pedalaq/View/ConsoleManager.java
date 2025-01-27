@@ -124,12 +124,12 @@ public class ConsoleManager {
 
 
                         //PASSO 2.1
-                        double raggio = readDouble("Inserisci la distanza massima alla quale vuoi " +
+                        double raggio_ric = readDouble("Inserisci la distanza massima alla quale vuoi " +
                                 "effettuare la restituzione del veicolo noleggiato (Km): ");
                         //QUI SI SCEGLIE LO STALLO
                         Stallo stallo_rest = null;
                         while(stallo_rest == null){
-                            for (Stallo stallo : RestituisciVeicoloHandler.listaStalliRestituzione(raggio,
+                            for (Stallo stallo : RestituisciVeicoloHandler.listaStalliRestituzione(raggio_ric,
                                     citta_selezionata,utente_loggato)) {
                                 System.out.println(stallo.getId()+ ") " + stallo.getDescrizione() + " con "
                                         + (long)(stallo.getMaxPosti() - stallo.getVeicolidisp_Stallo().size())  + " posti disponibili per la restituzione, "
