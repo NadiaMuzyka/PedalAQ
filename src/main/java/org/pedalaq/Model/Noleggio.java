@@ -17,6 +17,9 @@ public class Noleggio {
     @ManyToOne
     @JoinColumn(name = "id_stallo_partenza")
     private Stallo stalloPartenza;
+    @ManyToOne
+    @JoinColumn(name = "id_stallo_arrivo")
+    private Stallo stalloArrivo;
     @OneToOne
     @JoinColumn(name = "id_prenotazione")
     private Prenotazione prenotazione;
@@ -27,6 +30,10 @@ public class Noleggio {
 
     public void setStalloPartenza(Stallo stalloPartenza) {
         this.stalloPartenza = stalloPartenza;
+    }
+
+    public void setStalloArrivo(Stallo stalloArrivo) {
+        this.stalloArrivo = stalloArrivo;
     }
 
     public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza) {

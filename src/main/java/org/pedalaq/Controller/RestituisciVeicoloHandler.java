@@ -22,13 +22,19 @@ public class RestituisciVeicoloHandler {
         return noleggio.calcolaCosto(punti, citta);
     }
 
-    public boolean paga(int puntiUtilizzabili, double totale, Noleggio noleggio, Stallo stalloArrivo, Cittadino cittadino) {
+    public boolean paga(int puntiUtilizzabili, double totale, Noleggio noleggio, Stallo stalloArrivo, Cittadino cittadino, Veicolo veicolo) {
 
         if(cittadino.sottraiSaldo(totale, puntiUtilizzabili)){
             Stallo stalloPartenza = noleggio.getStalloPartenza();
 
+            if(stalloPartenza.rimuoviVeicolo(veicolo)){
+                stalloArrivo.aggiungiVeicolo(veicolo);
+            }
 
+            noleggio.setStalloArrivo(stalloArrivo);
+
+            return true;
         }
-        return true;
+        return false;
     }
 }
