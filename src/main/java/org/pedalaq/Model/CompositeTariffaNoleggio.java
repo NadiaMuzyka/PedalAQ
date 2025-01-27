@@ -1,17 +1,19 @@
 package org.pedalaq.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeTariffaNoleggio implements InterfacciaTariffaNoleggio {
 
-    private List<InterfacciaTariffaNoleggio> tariffe;
+    private ArrayList<InterfacciaTariffaNoleggio> tariffe;
 
     public void aggiungiTariffa(InterfacciaTariffaNoleggio tariffa) {
+
         this.tariffe.add(tariffa);
     }
 
     public CompositeTariffaNoleggio(TariffaNoleggioStandard tariffaStandard) {
-        this.tariffe.add(tariffaStandard);
+        this.aggiungiTariffa(tariffaStandard);
     }
 
     @Override
