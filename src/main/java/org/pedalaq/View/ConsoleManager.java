@@ -94,7 +94,7 @@ public class ConsoleManager {
                     //Prenotazione prenotazione_noleggio = HibernateUtil.getprenotazionefromid(id_prenotazione);
                     Prenotazione prenotazione_noleggio = HibernateUtil.findByParameter(
                             Prenotazione.class,"Id",id_prenotazione);
-                    if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){
+                    if(NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio)){ //TODO aggiungere stallo partenza
                         System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
                     }
                     else{
