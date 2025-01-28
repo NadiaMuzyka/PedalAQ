@@ -37,8 +37,9 @@ public class Noleggio {
         this.stalloPartenza = stalloPartenza;
     }
 
-    public void setStalloArrivo(Stallo stalloArrivo) {
+    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa) {
         this.stalloArrivo = stalloArrivo;
+        this.fineCorsa = fineCorsa;
     }
 
     public Prenotazione getPrenotazione() {

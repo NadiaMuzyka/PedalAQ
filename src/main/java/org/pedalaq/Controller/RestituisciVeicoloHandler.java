@@ -3,6 +3,7 @@ package org.pedalaq.Controller;
 import org.pedalaq.Model.*;
 import org.pedalaq.Services.HibernateUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +56,7 @@ public class RestituisciVeicoloHandler {
 
             if(stalloPartenza.rimuoviVeicolo(veicolo)){
                 stalloArrivo.aggiungiVeicolo(veicolo);
-                noleggio.setStalloArrivo(stalloArrivo);
+                noleggio.aggiornaNoleggio(stalloArrivo, LocalDateTime.now());
 
                 HibernateUtil.saveOrUpdateWithTransaction(veicolo);
                 HibernateUtil.saveOrUpdateWithTransaction(stalloPartenza);
