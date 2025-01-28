@@ -136,7 +136,7 @@ public abstract class Veicolo {
     }
 
     public boolean rendiDisponibile(){
-        this.stato = "Disponibile";
+        this.stato = "Libero";
         return true;
     }
 
