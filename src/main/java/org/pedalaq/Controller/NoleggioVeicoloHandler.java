@@ -62,7 +62,8 @@ public class NoleggioVeicoloHandler {
             if (stallo.bloccaVeicolo(veicolo)) {
                 //Se il veicolo è stato bloccato con successo
                 Prenotazione p = new Prenotazione(veicolo, cittadino); //questa non ha l'id
-                HibernateUtil.saveprenotazione_bloccaveicolo(p,veicolo);
+                cittadino.addPrenotazione(p);//TODO controllare che salvi nel db
+                HibernateUtil.saveprenotazione_bloccaveicolo(p,veicolo,cittadino);
                 //Ora la riprendo dal db per poter mostrare all'utente il codice della prenotazione
                 p = HibernateUtil.getprenotazionefromidveicolo(p.getVeicolo().getId()); //questa ha l'id
                 return p;
@@ -75,13 +76,17 @@ public class NoleggioVeicoloHandler {
     }
 
     //PUNTO 4 DEL CASO D'USO
-    public static boolean noleggiaVeicolo(Prenotazione prenotazione, Stallo stalloPartenza) {
+    public static boolean noleggiaVeicolo(Prenotazione prenotazione, Stallo stalloPartenza ,Cittadino cittadino) {
         //controllo sulla scadenza della prenotazione
         if(prenotazione.controllaPrenotazione()){
             //se la prenotazione non è scaduta creiamo un noleggio
-            Noleggio noleggio = new Noleggio(prenotazione, stalloPartenza);
+            Noleggio noleggio = new Noleggio(prenotazione, stalloPartenza,cittadino);
+            //TODO aggiungere il noleggio al cittadino DA TESTARE
+            cittadino.addNoleggioAttivo(noleggio);
+            prenotazione.setNoleggio(noleggio);
+
             prenotazione.getVeicolo().NoleggiaVeicolo();
-            HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo());
+            HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo(), prenotazione);
             //SALVATAGGIO NOLEGGIO E CAMBIO DI STATO DEL VEICOLO
             prenotazione.getCittadino().addNoleggioAttivo(noleggio);
             return true;
@@ -99,6 +104,7 @@ public class NoleggioVeicoloHandler {
     //per il menu dinamico controllo se il cittadino ha almeno una prenotazione non scaduta E NON ASSOCIATA AD UN NOLEGGIO
     //si prende quella con la scadenza maggiore
     public static boolean menunoleggio(Cittadino cittadino) {
+        System.out.println(cittadino.hasactiveprenotazione());
         return cittadino.hasactiveprenotazione();
     }
 

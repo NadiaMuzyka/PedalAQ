@@ -49,23 +49,26 @@ public class HibernateUtil {
         return properties;
     }
 
-    public static void saveprenotazione_bloccaveicolo(Prenotazione prenotazione, Veicolo veicolo) {
+    public static void saveprenotazione_bloccaveicolo(Prenotazione prenotazione, Veicolo veicolo, Cittadino cittadino) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(veicolo); //merge è l'update
-            session.merge(prenotazione);
+            session.saveOrUpdate(prenotazione);
+            session.merge(cittadino);
             session.getTransaction().commit();
         }
 
     }
 
-    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo) {
+    public static void savenoleggio_noleggiaaveicolo(Noleggio noleggio, Veicolo veicolo, Prenotazione prenotazione) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(veicolo); //merge è l'update
             session.save(noleggio);
+            //TODO AGGIUNGERE LA PRENOTAZIONE QUI
+            session.saveOrUpdate(prenotazione);
             session.getTransaction().commit();
         }
 

@@ -91,6 +91,14 @@ public class Cittadino extends Utente {
         return puntiClassifica;
     }
 
+    public List<Prenotazione> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public void addPrenotazione(Prenotazione prenotazione) {
+        this.prenotazioni.add(prenotazione);
+    }
+
     public boolean controllaAbbonamento(){
         //System.out.println(this.abbonamentoAttivo);
         if (this.abbonamentoAttivo == null) { //Se è null va gestito
@@ -167,13 +175,26 @@ public class Cittadino extends Utente {
     //controllo se ha almeno una prenotazione non associata ad un noleggio
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
-            if(HibernateUtil.findByParameter(Prenotazione.class,"cittadino",this) != null
-                && prenotazione.controllaPrenotazione()){
-                return true;  //PRENOTAZIONE ASSOCIATA
+            //NON dovrebbe servire il DB
+            //controllo sul db se esiste e non è scaduta
+//            System.out.println("exist :" + HibernateUtil.findByParameter(Prenotazione.class,"id",prenotazione.getId()) != null);
+//            System.out.println("scaduta :" + prenotazione.controllaPrenotazione());
+//            if(HibernateUtil.findByParameter(Prenotazione.class,"id",prenotazione.getId()) != null
+//                && prenotazione.controllaPrenotazione()){
+//                return true;  //PRENOTAZIONE ASSOCIATA
+//            }
+            //NON è scaduta e NON ha un noleggio collegato
+            if(prenotazione.controllaPrenotazione() && prenotazione.getNoleggio() == null){
+                return true;
             }
         }
         //System.out.println("Prenotazione non trovato");
         return false;
+    }
+
+    //controllo se ha almeno una prenotazione non associata ad un noleggio
+    public boolean hasactivenoleggio(){
+        return (!this.noleggiAttivi.isEmpty());  //TRUE SE HA ALMENO UN NOLEGGIO ATTIVO
     }
 
     //controllo se ha almeno una prenotazione non associata ad un noleggio

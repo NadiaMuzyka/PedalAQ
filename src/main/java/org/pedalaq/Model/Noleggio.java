@@ -15,6 +15,9 @@ public class Noleggio {
     private LocalDateTime inizioCorsa;
     private LocalDateTime fineCorsa;
     @ManyToOne
+    @JoinColumn(name = "id_cittadino")
+    private Cittadino cittadino;
+    @ManyToOne
     @JoinColumn(name = "id_stallo_partenza")
     private Stallo stalloPartenza;
     @ManyToOne
@@ -38,12 +41,13 @@ public class Noleggio {
         this.stalloArrivo = stalloArrivo;
     }
 
-    public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza) {
+    public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza, Cittadino cittadino) {
         this.inizioCorsa = LocalDateTime.now();
         //TODO il noleggio dovrebbe cambiare anche lo stato del veicolo
         //TODO il noleggio ha lo stallo di partenza e di arrivo
         this.prenotazione = prenotazione;
         this.stalloPartenza = stalloPartenza;
+        this.cittadino = cittadino;
 
     }
 

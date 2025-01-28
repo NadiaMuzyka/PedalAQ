@@ -46,8 +46,9 @@ public class RestituisciVeicoloHandler {
     //per il menu dinamico controllo se il cittadino ha almeno un noleggio non terminato
     //si prende quella con la scadenza maggiore
     public static boolean menurestituzione(Cittadino cittadino) {
-        Long num_noleggi_in_corso = HibernateUtil.countByParameterIsNull(Noleggio.class, "fineCorsa");
-        return (num_noleggi_in_corso>0);
+//        Long num_noleggi_in_corso = HibernateUtil.countByParameterIsNull(Noleggio.class, "fineCorsa");
+//        return (num_noleggi_in_corso>0);
+        return cittadino.hasactivenoleggio();
     }
 
 
