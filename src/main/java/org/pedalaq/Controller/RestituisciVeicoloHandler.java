@@ -57,7 +57,7 @@ public class RestituisciVeicoloHandler {
             if(stalloPartenza.rimuoviVeicolo(veicolo)){
                 stalloArrivo.aggiungiVeicolo(veicolo);
                 noleggio.aggiornaNoleggio(stalloArrivo, LocalDateTime.now(), veicolo.getVeicoloType());
-
+                //System.out.println(noleggio);
                 cittadino.rimuoviNoleggioAttivo(noleggio);
 
                 HibernateUtil.saveOrUpdateWithTransaction(veicolo);
@@ -65,12 +65,13 @@ public class RestituisciVeicoloHandler {
                 HibernateUtil.saveOrUpdateWithTransaction(stalloArrivo);
                 HibernateUtil.saveOrUpdateWithTransaction(noleggio);
                 HibernateUtil.saveOrUpdateWithTransaction(cittadino);
-
+                //System.out.println("Suca");
 
             }else return false;
 
             return true;
         }
+        //System.out.println("Sei povero");
         return false;
     }
 

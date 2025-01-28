@@ -168,10 +168,16 @@ public class ConsoleManager {
                         }
                         //PASSO 2.2 posso procedere solo se il veicolo è all'interno dello stallo
                         if(RestituisciVeicoloHandler.selezionaStallo(stallo_rest, veicolo_ric)){
-                            System.out.println("Hai " + utente_loggato.getPuntiUtilizzabili() + " punti");
                             double Totale = RestituisciVeicoloHandler.selezionaPagamento(noleggio_sel,utente_loggato,citta_selezionata);
                             System.out.println("Devi pagarci un sacco di soldi: " + Totale + " $");
-                            if(RestituisciVeicoloHandler.paga(utente_loggato.getPuntiUtilizzabili(),
+                            long punti_da_usare = 99999999;
+                            //System.out.println("Hai " + utente_loggato.getPuntiUtilizzabili() + " punti");
+                            while(punti_da_usare > utente_loggato.getPuntiUtilizzabili()) {
+                                punti_da_usare = readLong("Inseririre il numero di punti da utilizzare (disponibili: " +
+                                        + utente_loggato.getPuntiUtilizzabili() + "): ");
+                            }
+
+                            if(RestituisciVeicoloHandler.paga((int) punti_da_usare,
                                     Totale,noleggio_sel,stallo_rest,utente_loggato,veicolo_ric)){
                                 System.out.println("Pagamento con successo!");
                             }

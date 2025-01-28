@@ -105,7 +105,7 @@ public class NoleggioVeicoloHandler {
     //per il menu dinamico controllo se il cittadino ha almeno una prenotazione non scaduta E NON ASSOCIATA AD UN NOLEGGIO
     //si prende quella con la scadenza maggiore
     public static boolean menunoleggio(Cittadino cittadino) {
-        System.out.println(cittadino.hasactiveprenotazione());
+        //System.out.println(cittadino.hasactiveprenotazione());
         return cittadino.hasactiveprenotazione();
     }
 

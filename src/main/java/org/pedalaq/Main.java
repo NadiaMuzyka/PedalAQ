@@ -44,7 +44,7 @@ public class Main {
         //Citta citta_sel = HibernateUtil.getcittafromnome("L'Aquila");
         Citta citta_sel = HibernateUtil.findByParameter(Citta.class,"nome","L'Aquila");
         //System.out.println(citta_sel + "aaa");
-        System.out.println(citta_sel.getTariffa_standard());
+        //System.out.println(citta_sel.getTariffa_standard());
         //ATTUALMENTE NON PRESENTE CONTROLLO SULL'ABBONAMENTO
         //Cittadino loggato = HibernateUtil.getcittadinofromcf("MZYNDA02P55A345F");
         Cittadino loggato = HibernateUtil.findByParameter(Cittadino.class,"CF","MZYNDA02P55A345F");

@@ -206,6 +206,8 @@ public class Cittadino extends Utente {
 
     //controllo se ha almeno una prenotazione non associata ad un noleggio
     public boolean hasactivenoleggio(){
+        //for (Noleggio noleggio : this.noleggiAttivi) {System.out.println(noleggio);}
+        //System.out.println(!this.noleggiAttivi.isEmpty());
         return (!this.noleggiAttivi.isEmpty());  //TRUE SE HA ALMENO UN NOLEGGIO ATTIVO
     }
 
@@ -222,8 +224,10 @@ public class Cittadino extends Utente {
     }
 
     //rimozione del noleggio attivo
-    public void rimuoviNoleggioAttivo(Noleggio noleggio){
-        this.noleggiAttivi.remove(noleggio);
+    public void rimuoviNoleggioAttivo(Noleggio noleggio_del){
+        //System.out.println(noleggio);
+        this.noleggiAttivi.removeIf(noleggio -> noleggio.getId() == noleggio_del.getId());
+
     }
 
     //aggiunta del noleggio attivo
