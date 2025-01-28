@@ -93,8 +93,6 @@ public class Noleggio {
 
     public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza, Cittadino cittadino) {
         this.inizioCorsa = LocalDateTime.now();
-        //TODO il noleggio dovrebbe cambiare anche lo stato del veicolo
-        //TODO il noleggio ha lo stallo di partenza e di arrivo
         this.prenotazione = prenotazione;
         this.stalloPartenza = stalloPartenza;
         this.cittadino = cittadino;

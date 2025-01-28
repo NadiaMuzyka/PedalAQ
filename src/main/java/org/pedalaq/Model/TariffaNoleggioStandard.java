@@ -28,7 +28,6 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
 
     @Override
     public double calcolaCosto() {
-        //TODO da implementare
         return costoAlMinuto;
     }
 

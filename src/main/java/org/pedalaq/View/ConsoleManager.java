@@ -37,7 +37,7 @@ public class ConsoleManager {
                 case 1:
                     //passo 1 del controllore
                     //System.out.println("Esegui operazione 1...");
-                    double raggio = readDouble("Inserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
+                    double raggio = readDouble("\nInserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
 
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
@@ -84,10 +84,11 @@ public class ConsoleManager {
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {
-                        System.out.println("codice prenotazione: " + nuova_prenotazione.getId() +
-                                            "\ncodice veicolo: " + veicolo_sel.getId() +
-                                            "\ncodice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
-                                            "\nscadenza prenotazione: " + nuova_prenotazione.getScadenza().format(formatter) +
+                        System.out.println("\n --------------------------------------" +
+                                            "Codice prenotazione: " + nuova_prenotazione.getId() +
+                                            "\nCodice veicolo: " + veicolo_sel.getId() +
+                                            "\nCodice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
+                                            "\nScadenza prenotazione: " + nuova_prenotazione.getScadenza().format(formatter) +
                                             "\n\nProcedi al veicolo e completa il noleggio");
                         //session.save(nuova_prenotazione);  TODO DA METTERE QUESTO SALVATAGGIO
                     }
@@ -114,7 +115,7 @@ public class ConsoleManager {
                                 Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
                                         Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
                                 Stallo stallo_partenza = veicolo_noleggio.getStallo();
-                                if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) { //TODO aggiungere stallo partenza
+                                if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) {
                                     System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
                                 } else {
                                     System.out.println("Errore nel noleggio"); //TODO da gestire
@@ -169,7 +170,7 @@ public class ConsoleManager {
                         //PASSO 2.2 posso procedere solo se il veicolo è all'interno dello stallo
                         if(RestituisciVeicoloHandler.selezionaStallo(stallo_rest, veicolo_ric)){
                             double Totale = RestituisciVeicoloHandler.selezionaPagamento(noleggio_sel,utente_loggato,citta_selezionata);
-                            System.out.println("Devi pagarci un sacco di soldi: " + Totale + " $");
+                            System.out.println("Totale noleggio: " + Totale + " $");
                             long punti_da_usare = 99999999;
                             //System.out.println("Hai " + utente_loggato.getPuntiUtilizzabili() + " punti");
                             while(punti_da_usare > utente_loggato.getPuntiUtilizzabili()) {

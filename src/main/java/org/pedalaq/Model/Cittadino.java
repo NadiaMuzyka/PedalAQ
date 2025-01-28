@@ -20,7 +20,7 @@ public class Cittadino extends Utente {
     private double lat = 0;
     private double lng = 0;
     private double saldo = 0;
-    private int puntiClassifica; //TODO vedere dove settare
+    private int puntiClassifica;
     private int puntiUtilizzabili;
 
     @OneToMany(fetch = FetchType.EAGER)

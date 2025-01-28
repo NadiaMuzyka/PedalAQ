@@ -63,7 +63,7 @@ public class NoleggioVeicoloHandler {
             if (stallo.bloccaVeicolo(veicolo)) {
                 //Se il veicolo è stato bloccato con successo
                 Prenotazione p = new Prenotazione(veicolo, cittadino); //questa non ha l'id
-                cittadino.addPrenotazione(p);//TODO controllare che salvi nel db
+                cittadino.addPrenotazione(p);
                 veicolo.addprenotazione(p);
                 HibernateUtil.saveprenotazione_bloccaveicolo(p,veicolo,cittadino);
                 //Ora la riprendo dal db per poter mostrare all'utente il codice della prenotazione

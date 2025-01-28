@@ -15,7 +15,7 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private String codice;
-    private int puntiRichiesti; //TODO vedere dove settare
+    private int puntiRichiesti;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
     private List<Noleggio> noleggi;
