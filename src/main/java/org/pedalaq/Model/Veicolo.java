@@ -142,6 +142,7 @@ public abstract class Veicolo {
 
     public Noleggio findnoleggioattivo() {
         for (Prenotazione p : this.prenotazioni){
+            System.out.println(p.getNoleggio());
             if(p.getNoleggio().getFineCorsa() == null){
                 return p.getNoleggio();
             }
@@ -149,4 +150,7 @@ public abstract class Veicolo {
         return null;
     }
 
+    public void addprenotazione(Prenotazione prenotazione) {
+        this.prenotazioni.add(prenotazione);
+    }
 }
