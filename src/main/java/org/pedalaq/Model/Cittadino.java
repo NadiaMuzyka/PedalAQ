@@ -171,6 +171,7 @@ public class Cittadino extends Utente {
 
         //Calcolo totale senza punti
         double tot = totale - (puntiDaScalare / Config.SCONTO);
+        tot = Math.round(tot*100.00)/100.00;
 
         //Se ho abbastanza soldi pago
         if (tot <= this.saldo) {
