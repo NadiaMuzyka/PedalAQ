@@ -193,4 +193,9 @@ public class Cittadino extends Utente {
         this.noleggiAttivi.remove(noleggio);
     }
 
+    //aggiunta del noleggio attivo
+    public void addNoleggioAttivo(Noleggio noleggio){
+        this.noleggiAttivi.add(noleggio);
+    }
+
 }
