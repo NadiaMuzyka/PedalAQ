@@ -187,14 +187,6 @@ public class Cittadino extends Utente {
     //controllo se ha almeno una prenotazione non associata ad un noleggio
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
-            //NON dovrebbe servire il DB
-            //controllo sul db se esiste e non è scaduta
-//            System.out.println("exist :" + HibernateUtil.findByParameter(Prenotazione.class,"id",prenotazione.getId()) != null);
-//            System.out.println("scaduta :" + prenotazione.controllaPrenotazione());
-//            if(HibernateUtil.findByParameter(Prenotazione.class,"id",prenotazione.getId()) != null
-//                && prenotazione.controllaPrenotazione()){
-//                return true;  //PRENOTAZIONE ASSOCIATA
-//            }
             //NON è scaduta e NON ha un noleggio collegato
             if(prenotazione.controllaPrenotazione() && prenotazione.getNoleggio() == null){
                 return true;
