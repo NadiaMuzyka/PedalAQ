@@ -136,4 +136,13 @@ public abstract class Veicolo {
         return true;
     }
 
+    public Noleggio findnoleggioattivo() {
+        for (Prenotazione p : this.prenotazioni){
+            if(p.getNoleggio().getFineCorsa() == null){
+                return p.getNoleggio();
+            }
+        }
+        return null;
+    }
+
 }

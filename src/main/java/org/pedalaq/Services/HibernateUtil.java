@@ -203,6 +203,58 @@ public class HibernateUtil {
     }
 
 
+    /**
+     * Metodo generalizzato per eseguire una query Hibernate con un parametro dinamico e un parametro con valore massimo.
+     *
+     * @param entityClass  La classe dell'entità da interrogare.
+     * @param paramName    Il nome del parametro nella query.
+     * @param paramValue   Il valore del parametro.
+     * @param <T>          Il tipo generico dell'entità.
+     * @return L'oggetto risultato della query o null se non trovato.
+     */
+    public static <T> T findByParameterWithNull(
+            Class<T> entityClass,
+            String paramName,
+            Object paramValue,
+            String nullParamName
+    ) {
+        Transaction transaction = null;
+        T result = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Inizia la transazione
+            transaction = session.beginTransaction();
+
+            // Crea la query HQL dinamica con ORDER BY e LIMIT 1
+            String hql = "from " + entityClass.getSimpleName() +
+                    " where " + paramName + " = :" + paramName +
+                    " and " + nullParamName + " is null";;
+
+            // Crea la query
+            Query<T> query = session.createQuery(hql, entityClass);
+
+            // Imposta il parametro
+            query.setParameter(paramName, paramValue);
+
+            // Imposta il limite a 1 (prendi solo l'entità con il valore più alto)
+            query.setMaxResults(1);
+
+            // Ottieni il risultato
+            result = query.uniqueResult();
+
+            // Esegui il commit della transazione
+            transaction.commit();
+        } catch (Exception e) {
+            // Rollback in caso di errore
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static <T> Long countByParameterIsNull(Class<T> entityClass, String paramName) {
         Transaction transaction = null;
         Long count = 0L;

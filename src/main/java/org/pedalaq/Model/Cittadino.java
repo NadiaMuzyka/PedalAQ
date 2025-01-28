@@ -99,6 +99,18 @@ public class Cittadino extends Utente {
         this.prenotazioni.add(prenotazione);
     }
 
+    public void setPuntiClassifica(int puntiClassifica) {
+        this.puntiClassifica = puntiClassifica;
+    }
+
+    public int getPuntiUtilizzabili() {
+        return puntiUtilizzabili;
+    }
+
+    public void setPuntiUtilizzabili(int puntiUtilizzabili) {
+        this.puntiUtilizzabili = puntiUtilizzabili;
+    }
+
     public boolean controllaAbbonamento(){
         //System.out.println(this.abbonamentoAttivo);
         if (this.abbonamentoAttivo == null) { //Se è null va gestito

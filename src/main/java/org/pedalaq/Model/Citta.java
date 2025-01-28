@@ -22,7 +22,7 @@ public class Citta {
     @JoinColumn(name = "id_citta")
     private List<Stallo> stalli;
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_citta")
+    @JoinColumn(name = "id_tariffa")
     private TariffaNoleggioStandard tariffa_standard;
 
     public List<TariffaNoleggioPromozione> getTariffe_promo() {

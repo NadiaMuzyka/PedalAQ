@@ -42,13 +42,14 @@ public class NoleggioVeicoloHandler {
         return veicoli;
     }
 
+    //se il veicolo è effettivamente selezionabile lo ritorno
     public static Veicolo selezionaveicolo(Stallo stallo, Long id_veicolo) {
         Veicolo veicolo_sel = stallo.veicolo_by_id(id_veicolo);
-        if (veicolo_sel != null && !Objects.equals(veicolo_sel.getStato(), "Libero")) {
-            return null;
+        if (veicolo_sel != null && Objects.equals(veicolo_sel.getStato(), "Libero")) {
+            return veicolo_sel; //Se esiste ed è libero è selezionabile
         }
         else {
-            return veicolo_sel;
+            return null;
         }
     }
 
