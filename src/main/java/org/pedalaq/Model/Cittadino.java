@@ -231,4 +231,26 @@ public class Cittadino extends Utente {
         this.noleggiAttivi.add(noleggio);
     }
 
+    public void aggiornaPunti(long durata, String veicoloType){
+
+        switch(veicoloType){
+            case "Bici":
+                this.puntiUtilizzabili += durata * Config.PUNTI_BIKE;
+                this.puntiClassifica += durata * Config.PUNTI_BIKE;
+
+                break;
+
+            case "BiciElettrica":
+                this.puntiUtilizzabili += durata * Config.PUNTI_EBIKE;
+                this.puntiClassifica += durata * Config.PUNTI_EBIKE;
+
+                break;
+
+            case "Monopattino":
+                this.puntiUtilizzabili += durata * Config.PUNTI_MONOPATTINO;
+                this.puntiClassifica += durata * Config.PUNTI_MONOPATTINO;
+                break;
+        }
+    }
+
 }

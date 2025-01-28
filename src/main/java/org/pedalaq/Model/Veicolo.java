@@ -46,6 +46,10 @@ public abstract class Veicolo {
         return stato;
     }
 
+    public String getVeicoloType(){
+        return this.getClass().getSimpleName();
+    }
+
     public Long getId() {
         return id;
     }

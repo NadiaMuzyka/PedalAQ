@@ -8,5 +8,10 @@ public class Config {
     //1000 punti = 1 euro di sconto
     public static final int SCONTO = 1000;
 
+    //punti per minuto
+    public static final int PUNTI_BIKE = 3;
+    public static final int PUNTI_EBIKE = 2;
+    public static final int PUNTI_MONOPATTINO = 1;
+
 
 }

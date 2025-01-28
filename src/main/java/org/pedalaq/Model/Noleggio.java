@@ -37,9 +37,14 @@ public class Noleggio {
         this.stalloPartenza = stalloPartenza;
     }
 
-    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa) {
+    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa, String veicoloType) {
         this.stalloArrivo = stalloArrivo;
         this.fineCorsa = fineCorsa;
+
+        Duration durata = Duration.between(this.inizioCorsa, LocalDateTime.now());
+
+        this.cittadino.aggiornaPunti(durata.toMinutes(), veicoloType);
+
     }
 
     public Prenotazione getPrenotazione() {
