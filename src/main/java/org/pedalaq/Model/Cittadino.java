@@ -22,6 +22,10 @@ public class Cittadino extends Utente {
     private double saldo = 0;
     private int puntiClassifica; //TODO vedere dove settare
     private int puntiUtilizzabili;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_cittadino")
+    private List<Noleggio> noleggiAttivi;
     @OneToOne
     @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
@@ -77,6 +81,10 @@ public class Cittadino extends Utente {
 
     public String getCF() {
         return CF;
+    }
+
+    public List<Noleggio> getNoleggiAttivi() {
+        return noleggiAttivi;
     }
 
     public int getPuntiClassifica() {
@@ -178,6 +186,11 @@ public class Cittadino extends Utente {
         }
         //System.out.println("Prenotazione non trovato");
         return false;
+    }
+
+    //rimozione del noleggio attivo
+    public void rimuoviNoleggioAttivo(Noleggio noleggio){
+        this.noleggiAttivi.remove(noleggio);
     }
 
 }
