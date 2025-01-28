@@ -71,9 +71,9 @@ public class Stallo {
         this.veicoli.add(veicolo);
     }
 
-    public ArrayList<Veicolo> getVeicoli(){
+    public List<Veicolo> getVeicoli(){
 
-        return (ArrayList<Veicolo>) this.veicoli;
+        return this.veicoli;
     }
 
     public boolean controllaPresenza(Veicolo veicolo){

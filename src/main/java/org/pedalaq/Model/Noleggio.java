@@ -15,6 +15,9 @@ public class Noleggio {
     private LocalDateTime inizioCorsa;
     private LocalDateTime fineCorsa;
     @ManyToOne
+    @JoinColumn(name = "id_cittadino")
+    private Cittadino cittadino;
+    @ManyToOne
     @JoinColumn(name = "id_stallo_partenza")
     private Stallo stalloPartenza;
     @ManyToOne
@@ -34,16 +37,62 @@ public class Noleggio {
         this.stalloPartenza = stalloPartenza;
     }
 
-    public void setStalloArrivo(Stallo stalloArrivo) {
+    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa) {
         this.stalloArrivo = stalloArrivo;
+        this.fineCorsa = fineCorsa;
     }
 
-    public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza) {
+    public Prenotazione getPrenotazione() {
+        return prenotazione;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getInizioCorsa() {
+        return inizioCorsa;
+    }
+
+    public void setInizioCorsa(LocalDateTime inizioCorsa) {
+        this.inizioCorsa = inizioCorsa;
+    }
+
+    public LocalDateTime getFineCorsa() {
+        return fineCorsa;
+    }
+
+    public void setFineCorsa(LocalDateTime fineCorsa) {
+        this.fineCorsa = fineCorsa;
+    }
+
+    public Cittadino getCittadino() {
+        return cittadino;
+    }
+
+    public void setCittadino(Cittadino cittadino) {
+        this.cittadino = cittadino;
+    }
+
+    public Stallo getStalloArrivo() {
+        return stalloArrivo;
+    }
+
+    public void setPrenotazione(Prenotazione prenotazione) {
+        this.prenotazione = prenotazione;
+    }
+
+    public Noleggio(Prenotazione prenotazione, Stallo stalloPartenza, Cittadino cittadino) {
         this.inizioCorsa = LocalDateTime.now();
         //TODO il noleggio dovrebbe cambiare anche lo stato del veicolo
         //TODO il noleggio ha lo stallo di partenza e di arrivo
         this.prenotazione = prenotazione;
         this.stalloPartenza = stalloPartenza;
+        this.cittadino = cittadino;
 
     }
 
@@ -51,9 +100,12 @@ public class Noleggio {
         TariffaNoleggioFactory tnf = TariffaNoleggioFactory.getInstance();
 
         double costo = tnf.creaCompositeTariffa(citta.getTariffa_standard(), punti, citta);
-
-        Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
+        Duration durata = Duration.between(this.inizioCorsa, LocalDateTime.now());
+        //Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
+        //System.out.println("durata: " + durata);
         double totale  = costo * durata.toMinutes();
         return Math.round(totale*100.0)/100.0;
     }
+
+
 }

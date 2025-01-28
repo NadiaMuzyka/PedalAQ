@@ -13,6 +13,7 @@ public class CompositeTariffaNoleggio implements InterfacciaTariffaNoleggio {
 
     public CompositeTariffaNoleggio(TariffaNoleggioStandard tariffaStandard) {
         this.aggiungiTariffa(tariffaStandard);
+        //System.out.println("vai a fanculo" + tariffaStandard);
     }
 
     @Override

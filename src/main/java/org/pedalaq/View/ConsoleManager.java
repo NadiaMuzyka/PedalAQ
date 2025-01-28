@@ -5,6 +5,8 @@ import org.pedalaq.Model.*;
 import org.pedalaq.Services.DistanceUtil;
 import org.pedalaq.Services.HibernateUtil;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
@@ -112,7 +114,7 @@ public class ConsoleManager {
                                 Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
                                         Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
                                 Stallo stallo_partenza = veicolo_noleggio.getStallo();
-                                if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza)) { //TODO aggiungere stallo partenza
+                                if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) { //TODO aggiungere stallo partenza
                                     System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
                                 } else {
                                     System.out.println("Errore nel noleggio"); //TODO da gestire
@@ -124,14 +126,27 @@ public class ConsoleManager {
                     break;
                 case 3:
                     if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)) {
-                        //PASSAGGIO PRELIMINARE (Ho bisogno del veicolo)
-                        //Scelta del veicolo da restituire
-
-
-
-
-
-
+                        //PASSO 2.0
+                        Noleggio noleggio_sel = null;
+                        Veicolo veicolo_ric = null;
+                        while(veicolo_ric == null){
+                            List<Noleggio> noleggi_att= RestituisciVeicoloHandler.mostraNoleggiAttivi(utente_loggato);
+                            System.out.println("I tuoi veicoli attualmente noleggiati sono: ");
+                            for (Noleggio noleggio : noleggi_att) {
+                                Veicolo veicolo = noleggio.getPrenotazione().getVeicolo();
+                                Duration duration = Duration.between(LocalDateTime.now(), noleggio.getInizioCorsa());
+                                System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo() + " durata noleggio: "
+                                        + duration);
+                            }
+                            Long id_veicolo = readLong("Inserire il codice numerico del veicolo da restituire: ");
+                            veicolo_ric = RestituisciVeicoloHandler.selezionaveicolo_ric(utente_loggato, id_veicolo);
+                            if(veicolo_ric == null){
+                                System.out.println("!!!Inserire il codice di un veicolo tra quelli noleggiati!!!");
+                            }
+                            else{
+                                noleggio_sel = veicolo_ric.findnoleggioattivo();
+                            }
+                        }
                         //PASSO 2.1
                         double raggio_ric = readDouble("Inserisci la distanza massima alla quale vuoi " +
                                 "effettuare la restituzione del veicolo noleggiato (Km): ");
@@ -146,16 +161,24 @@ public class ConsoleManager {
                                         stallo.getLat(),stallo.getLon()))) + " Km da te");
                             }
                             Long id_stallo = readLong("Inserire il codice numerico dello stallo desiderato per la riconsegna: ");
-                            stallo_sel = citta_selezionata.stallo_by_id(id_stallo);
-                            if(stallo_sel == null){
+                            stallo_rest = citta_selezionata.stallo_by_id(id_stallo);
+                            if(stallo_rest == null){
                                 System.out.println("!!!Inserire il codice di uno stallo tra quelli disponibili!!!");
                             }
                         }
-
-                        //PASSO 2.2
-                        //Mi serve il veicolo, ma lo posso prendere al massimo dal codice del noleggio
-                        //Bisogna istanziarlo prima
-
+                        //PASSO 2.2 posso procedere solo se il veicolo è all'interno dello stallo
+                        if(RestituisciVeicoloHandler.selezionaStallo(stallo_rest, veicolo_ric)){
+                            System.out.println("Hai " + utente_loggato.getPuntiUtilizzabili() + " punti");
+                            double Totale = RestituisciVeicoloHandler.selezionaPagamento(noleggio_sel,utente_loggato,citta_selezionata);
+                            System.out.println("Devi pagarci un sacco di soldi: " + Totale + " $");
+                            if(RestituisciVeicoloHandler.paga(utente_loggato.getPuntiUtilizzabili(),
+                                    Totale,noleggio_sel,stallo_rest,utente_loggato,veicolo_ric)){
+                                System.out.println("Pagamento con successo!");
+                            }
+                            else {
+                                System.out.println("Pagamento con un error!");
+                            }
+                        }
                     }
                     else System.out.println("\n!!!Inizia un noleggio prima di effettuare la restituzione del veicolo!!!");
                     break;

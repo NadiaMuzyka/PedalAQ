@@ -23,6 +23,8 @@ public class Prenotazione {
     @OneToOne
     @JoinColumn(name = "id_cittadino")
     private Cittadino cittadino;
+    @OneToOne(mappedBy = "prenotazione")
+    private Noleggio noleggio;
 
 
     public Prenotazione(){}
@@ -86,6 +88,14 @@ public class Prenotazione {
 
     public void setCittadino(Cittadino cittadino) {
         this.cittadino = cittadino;
+    }
+
+    public Noleggio getNoleggio() {
+        return noleggio;
+    }
+
+    public void setNoleggio(Noleggio noleggio) {
+        this.noleggio = noleggio;
     }
 
     private void savePrenotazione(){
