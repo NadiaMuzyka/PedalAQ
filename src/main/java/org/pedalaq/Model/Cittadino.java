@@ -159,7 +159,7 @@ public class Cittadino extends Utente {
     //controllo se ha almeno una prenotazione non associata ad un noleggio
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
-            if(HibernateUtil.findByParameter(Noleggio.class,"prenotazione",prenotazione) == null
+            if(HibernateUtil.findByParameter(Prenotazione.class,"cittadino",this) != null
                 && prenotazione.controllaPrenotazione()){
                 return true;  //PRENOTAZIONE ASSOCIATA
             }
