@@ -54,6 +54,6 @@ public class Noleggio {
 
         Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
         double totale  = costo * durata.toMinutes();
-        return totale;
+        return Math.round(totale*100.0)/100.0;
     }
 }
