@@ -104,8 +104,6 @@ public class Noleggio {
 
         double costo = tnf.creaCompositeTariffa(citta.getTariffa_standard(), punti, citta);
         Duration durata = Duration.between(this.inizioCorsa, LocalDateTime.now());
-        //Duration durata = Duration.between(this.inizioCorsa, this.fineCorsa);
-        //System.out.println("durata: " + durata);
         double totale  = costo * durata.toMinutes();
 //        System.out.println("durata: "+ durata.toMinutes() +"\n"+Math.round(totale*100.0));
         return Math.round(totale*100.0)/100.0;

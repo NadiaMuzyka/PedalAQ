@@ -77,7 +77,6 @@ public class HibernateUtil {
     }
 
     public static Prenotazione getprenotazionefromidveicolo(Long id_veicolo) {
-        //System.out.println("id_veicolo: " + id_veicolo);
         Prenotazione prenotazione_sel = new Prenotazione();
         //SessionFactory sessionFactory1 = HibernateUtil.getSessionFactory();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -86,23 +85,14 @@ public class HibernateUtil {
             String sql = "SELECT id FROM prenotazione WHERE id_veicolo = :id ORDER BY scadenza DESC LIMIT 1"; // Esempio di query SQL
             Query query = session.createNativeQuery(sql);
             query.setParameter("id", id_veicolo);  // Impostazione del parametro
-
-
-            //Citta citta_sel = new Citta();
-            //session.getTransaction().commit();
             try {
-                //prenotazione_sel = query.getSingleResult();
                 long id = (long) query.getSingleResult();
-                //System.out.println(id); //OOOOOOK
                 prenotazione_sel = HibernateUtil.findByParameter(Prenotazione.class,"id",id);
                 session.getTransaction().commit();
-//              System.out.println();
             } catch (NoResultException e) {
                 session.getTransaction().commit();
-                //System.out.println("No match found.");
             } catch (NonUniqueResultException e) {
                 session.getTransaction().commit();
-                //System.out.println("Multiple matches found.");
             }
         }
         finally {

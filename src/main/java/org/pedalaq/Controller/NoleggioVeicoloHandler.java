@@ -55,10 +55,9 @@ public class NoleggioVeicoloHandler {
 
     //PUNTO 3 DEL CASO D'USO
     public static Prenotazione prenotaVeicolo(Veicolo veicolo, Stallo stallo, Cittadino cittadino) {
-        //System.out.println("veicolo_sel + stallo_sel + utente_loggato");
         //Se il cittadino ha un abbonamento attivo
         if (cittadino.controllaAbbonamento()) {
-            //System.out.println("Bloccato");
+
             //Se il cittadino possiede un abbonamento valido
             if (stallo.bloccaVeicolo(veicolo)) {
                 //Se il veicolo è stato bloccato con successo
@@ -83,14 +82,11 @@ public class NoleggioVeicoloHandler {
         if(prenotazione.controllaPrenotazione()){
             //se la prenotazione non è scaduta creiamo un noleggio
             Noleggio noleggio = new Noleggio(prenotazione, stalloPartenza,cittadino);
-            //TODO aggiungere il noleggio al cittadino DA TESTARE
             cittadino.addNoleggioAttivo(noleggio);
             prenotazione.setNoleggio(noleggio);
-            //System.out.println("veicolo noleggiato: " + prenotazione.getVeicolo()); //CORRETTO
             prenotazione.getVeicolo().NoleggiaVeicolo();
             HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo(), prenotazione);
             //SALVATAGGIO NOLEGGIO E CAMBIO DI STATO DEL VEICOLO
-            //prenotazione.getCittadino().addNoleggioAttivo(noleggio);
             return true;
         }
         //qui ci dovrebbe essere solo la prenotazione scaduta da gestire
@@ -106,7 +102,6 @@ public class NoleggioVeicoloHandler {
     //per il menu dinamico controllo se il cittadino ha almeno una prenotazione non scaduta E NON ASSOCIATA AD UN NOLEGGIO
     //si prende quella con la scadenza maggiore
     public static boolean menunoleggio(Cittadino cittadino) {
-        //System.out.println(cittadino.hasactiveprenotazione());
         return cittadino.hasactiveprenotazione();
     }
 

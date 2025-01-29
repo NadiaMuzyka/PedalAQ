@@ -22,7 +22,6 @@ public class DistanceUtil {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         // Calcolo la distanza
-        //System.out.println(EARTH_RADIUS_KM * c + "KM");
         return EARTH_RADIUS_KM * c;
 
     }

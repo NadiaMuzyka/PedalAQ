@@ -122,7 +122,6 @@ public class Cittadino extends Utente {
     }
 
     public boolean controllaAbbonamento(){
-        //System.out.println(this.abbonamentoAttivo);
         if (this.abbonamentoAttivo == null) { //Se è null va gestito
             return false;
         } else if (!this.abbonamentoAttivo.validaAbbonamento()) { //se è scaduto si setta a null
@@ -199,20 +198,15 @@ public class Cittadino extends Utente {
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
             //NON è scaduta e NON ha un noleggio collegato
-            //System.out.println("Non scaduta: " + prenotazione.controllaPrenotazione());
-            //System.out.println(prenotazione.getNoleggio());
             if(prenotazione.controllaPrenotazione() && prenotazione.getNoleggio() == null){
                 return true;
             }
         }
-        //System.out.println("Prenotazione non trovato");
         return false;
     }
 
     //controllo se ha almeno una prenotazione non associata ad un noleggio
     public boolean hasactivenoleggio(){
-        //for (Noleggio noleggio : this.noleggiAttivi) {System.out.println(noleggio);}
-        //System.out.println(!this.noleggiAttivi.isEmpty());
         for (Noleggio n : this.noleggi) {
             if(n.getFineCorsa() == null){
                 return true;
@@ -229,13 +223,11 @@ public class Cittadino extends Utente {
                 return true;  //PRENOTAZIONE ASSOCIATA
             }
         }
-        //System.out.println("Prenotazione non trovato");
         return false;
     }
 
     //rimozione del noleggio attivo
     public void rimuoviNoleggioAttivo(Noleggio noleggio_del){
-        //System.out.println(noleggio);
         this.noleggi.removeIf(noleggio -> noleggio.getId() == noleggio_del.getId());
 
     }

@@ -36,10 +36,7 @@ public class ConsoleManager {
             switch (choice) {
                 case 1:
                     //passo 1 del controllore
-                    //System.out.println("Esegui operazione 1...");
                     double raggio = readDouble("\nInserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
-                    //long id = 1;   //TODO DA TOGLIERE
-                    //System.out.println(citta_selezionata.stallo_by_id(id).getVeicoli() + "aaa");
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
                     while(stallo_sel == null){
@@ -121,11 +118,7 @@ public class ConsoleManager {
                                 Veicolo veicolo_noleggio_temp = HibernateUtil.findByParameter(
                                         Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
                                 Stallo stallo_partenza_temp = veicolo_noleggio_temp.getStallo();
-                                //System.out.println("Stallo temp " + stallo_partenza_temp);
                                 Stallo stallo_partenza = citta_selezionata.stallo_by_id(stallo_partenza_temp.getId()); //STALLO VERO
-                                //System.out.println("Stallo true" + stallo_partenza);
-                                //Veicolo veicolo_noleggio = stallo_partenza.veicolo_by_id(veicolo_noleggio_temp.getId());
-                                //TODO questo metodo usa un accesso al db, va cambiato
                                 if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) {
                                     System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
                                 } else {
@@ -188,7 +181,6 @@ public class ConsoleManager {
                             double Totale = RestituisciVeicoloHandler.selezionaPagamento(noleggio_sel,utente_loggato,citta_selezionata);
                             System.out.println("Totale noleggio: " + Totale + " $");
                             long punti_da_usare = 99999999;
-                            //System.out.println("Hai " + utente_loggato.getPuntiUtilizzabili() + " punti");
                             while(punti_da_usare > utente_loggato.getPuntiUtilizzabili()) {
                                 punti_da_usare = readLong("Inseririre il numero di punti da utilizzare (disponibili: " +
                                         + utente_loggato.getPuntiUtilizzabili() + "): ");
@@ -219,12 +211,9 @@ public class ConsoleManager {
     private void showMenu(Cittadino utente_loggato) {
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
-        if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){  //TODO non funziona appena effettui il noleggio
-            //todo con una sola prenotazione senza riavviare il programma (inconsistenza in ram?)
+        if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){
             System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
         }
-        //todo non va se ho appena restituito un veicolo
-        //System.out.println(utente_loggato.getNoleggi());
         if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)){
             System.out.println("3. Effettua la restituzione di un veicolo");
         }

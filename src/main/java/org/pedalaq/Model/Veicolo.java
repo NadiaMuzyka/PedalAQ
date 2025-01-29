@@ -92,11 +92,9 @@ public abstract class Veicolo {
     }
 
     public boolean bloccaVeicolo(){
-        //System.out.println("Bloccato1");
         if (Objects.equals(this.stato, "Libero"))
         {
             this.stato = "Prenotato";
-            //System.out.println("Prenotato");
             this.aggiornaVeicolo();
             return true;
         }
@@ -105,11 +103,9 @@ public abstract class Veicolo {
 
 
     public boolean NoleggiaVeicolo(){
-        //System.out.println("Bloccato1");
         if (Objects.equals(this.stato, "Prenotato"))
         {
             this.stato = "Noleggiato";
-            //System.out.println("Noleggiato");
             this.aggiornaVeicolo();
             return true;
         }
@@ -147,7 +143,6 @@ public abstract class Veicolo {
 
     public Noleggio findnoleggioattivo() {
         for (Prenotazione p : this.prenotazioni){
-            //System.out.println(p.getNoleggio());
             if(p.getNoleggio().getFineCorsa() == null){
                 return p.getNoleggio();
             }
