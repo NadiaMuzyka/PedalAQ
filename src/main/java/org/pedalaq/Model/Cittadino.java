@@ -189,6 +189,8 @@ public class Cittadino extends Utente {
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
             //NON è scaduta e NON ha un noleggio collegato
+            System.out.println("Non scaduta: " + prenotazione.controllaPrenotazione());
+            System.out.println(prenotazione.getNoleggio());
             if(prenotazione.controllaPrenotazione() && prenotazione.getNoleggio() == null){
                 return true;
             }

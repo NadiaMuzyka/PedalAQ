@@ -103,8 +103,11 @@ public class ConsoleManager {
                         Prenotazione prenotazione_noleggio = null;
                         while(prenotazione_noleggio == null) {
                             Long id_prenotazione = readLong("Per completare il noleggio inserire il codice della prenotazione: ");
-                            prenotazione_noleggio = HibernateUtil.findByParameter(
-                                    Prenotazione.class, "Id", id_prenotazione);
+//                            prenotazione_noleggio = HibernateUtil.findByParameter(
+//                                    Prenotazione.class, "Id", id_prenotazione);
+                            prenotazione_noleggio = utente_loggato.prenotazione_by_id(id_prenotazione);
+                            //TODO prenderlo dal db crea una inconsistenza in ram e il menù dinamico non viene corretto
+
                             if (prenotazione_noleggio == null) {
                                 System.out.println("!!!Inserire il codice della prenotazione effettuata!!!");
                             } else if (!(prenotazione_noleggio.getCittadino().getId() == utente_loggato.getId())) {
@@ -133,7 +136,7 @@ public class ConsoleManager {
                         while(veicolo_ric == null){
                             List<Noleggio> noleggi_att= RestituisciVeicoloHandler.mostraNoleggiAttivi(utente_loggato);
                             System.out.println("I tuoi veicoli attualmente noleggiati sono: ");
-                            for (Noleggio noleggio : noleggi_att) {
+                            for (Noleggio noleggio : noleggi_att) {  //TODO con 1 veicolo solo ne escono 2 sul display
                                 Veicolo veicolo = noleggio.getPrenotazione().getVeicolo();
                                 Duration duration = Duration.between(LocalDateTime.now(), noleggio.getInizioCorsa());
                                 System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo() + " durata noleggio: "
