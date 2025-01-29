@@ -203,7 +203,8 @@ public class ConsoleManager {
     private void showMenu(Cittadino utente_loggato) {
         System.out.println("\nMenu:");
         System.out.println("1. Prenota un veicolo");
-        if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){
+        if(NoleggioVeicoloHandler.menunoleggio(utente_loggato)){  //TODO non funziona appena effettui il noleggio
+            //todo con una sola prenotazione senza riavviare il programma (inconsistenza in ram?)
             System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
         }
         if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)){
