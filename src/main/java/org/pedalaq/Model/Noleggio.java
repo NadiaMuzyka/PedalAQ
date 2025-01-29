@@ -37,13 +37,13 @@ public class Noleggio {
         this.stalloPartenza = stalloPartenza;
     }
 
-    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa, String veicoloType) {
+    public void aggiornaNoleggio(Stallo stalloArrivo, LocalDateTime fineCorsa, String veicoloType, Cittadino cittadino) {
         this.stalloArrivo = stalloArrivo;
         this.fineCorsa = fineCorsa;
 
         Duration durata = Duration.between(this.inizioCorsa, LocalDateTime.now());
 
-        this.cittadino.aggiornaPunti(durata.toMinutes(), veicoloType);
+        cittadino.aggiornaPunti(durata.toMinutes(), veicoloType);
 
     }
 

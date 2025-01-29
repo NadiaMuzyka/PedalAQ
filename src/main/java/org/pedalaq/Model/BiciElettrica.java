@@ -13,6 +13,11 @@ public class BiciElettrica extends Veicolo{
         return "Bici Elettrica batteria al " + this.getBatteria() + "%";
     }
 
+    @Override
+    public String displayveicolotype() {
+        return "BiciElettrica";
+    }
+
     public BiciElettrica() {
     }
 

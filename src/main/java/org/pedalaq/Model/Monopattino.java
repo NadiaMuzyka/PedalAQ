@@ -13,6 +13,11 @@ public class Monopattino extends Veicolo{
         return "Monopattino batteria al " + this.getBatteria() + "%";
     }
 
+    @Override
+    public String displayveicolotype() {
+        return "Monopattino";
+    }
+
     public Monopattino() {
     }
 

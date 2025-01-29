@@ -51,12 +51,13 @@ public class HibernateUtil {
 
     public static void saveprenotazione_bloccaveicolo(Prenotazione prenotazione, Veicolo veicolo, Cittadino cittadino) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //try (Session session = sessionFactory.openSession()) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(prenotazione);
-            session.merge(veicolo); //merge è l'update
+            session.saveOrUpdate(veicolo); //merge è l'update //CACCIA UN ERRORE SE SI PROVA A RIPRENOTARLO
 
-            session.merge(cittadino);
+            session.saveOrUpdate(cittadino);
             session.getTransaction().commit();
         }
 

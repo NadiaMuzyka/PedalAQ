@@ -38,7 +38,8 @@ public class ConsoleManager {
                     //passo 1 del controllore
                     //System.out.println("Esegui operazione 1...");
                     double raggio = readDouble("\nInserisci la distanza massima alla quale vuoi noleggiare il veicolo (Km): ");
-
+                    //long id = 1;   //TODO DA TOGLIERE
+                    //System.out.println(citta_selezionata.stallo_by_id(id).getVeicoli() + "aaa");
                     //QUI SI SCEGLIE LO STALLO
                     Stallo stallo_sel = null;
                     while(stallo_sel == null){
@@ -84,8 +85,9 @@ public class ConsoleManager {
                     Prenotazione nuova_prenotazione = NoleggioVeicoloHandler.prenotaVeicolo
                                                         (veicolo_sel,stallo_sel,utente_loggato);
                     if(nuova_prenotazione != null) {
-                        System.out.println("\n --------------------------------------" +
+                        System.out.println("\n ----------------- " +
                                             "Codice prenotazione: " + nuova_prenotazione.getId() +
+                                            " -----------------" +
                                             "\nCodice veicolo: " + veicolo_sel.getId() +
                                             "\nCodice sblocco veicolo: " + veicolo_sel.getCodiceSblocco() +
                                             "\nScadenza prenotazione: " + nuova_prenotazione.getScadenza().format(formatter) +
@@ -115,9 +117,15 @@ public class ConsoleManager {
                             } else if (!(prenotazione_noleggio.controllaPrenotazione())) {
                                 System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
                             } else {
-                                Veicolo veicolo_noleggio = HibernateUtil.findByParameter(
+                                //PRESO L'ID DEL VEICOLO, TORNO ALLO STALLO, POI ALLA CITTà E POI DEVO RISCENDERE
+                                Veicolo veicolo_noleggio_temp = HibernateUtil.findByParameter(
                                         Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
-                                Stallo stallo_partenza = veicolo_noleggio.getStallo();
+                                Stallo stallo_partenza_temp = veicolo_noleggio_temp.getStallo();
+                                //System.out.println("Stallo temp " + stallo_partenza_temp);
+                                Stallo stallo_partenza = citta_selezionata.stallo_by_id(stallo_partenza_temp.getId()); //STALLO VERO
+                                //System.out.println("Stallo true" + stallo_partenza);
+                                //Veicolo veicolo_noleggio = stallo_partenza.veicolo_by_id(veicolo_noleggio_temp.getId());
+                                //TODO questo metodo usa un accesso al db, va cambiato
                                 if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) {
                                     System.out.println("Noleggio iniziato, il veicolo e' sbloccato");
                                 } else {
@@ -148,7 +156,13 @@ public class ConsoleManager {
                                 System.out.println("!!!Inserire il codice di un veicolo tra quelli noleggiati!!!");
                             }
                             else{
+                                //QUI SONO SICURO CHE IL VEICOLO CI SIA E PRENDO QUELLO VERO
+                                //System.out.println("stallo tempo " + veicolo_ric.getStallo().getVeicoli()); //STALLO SBAGLIATO
+                                Stallo stallo_partenza = citta_selezionata.stallo_by_id(veicolo_ric.getStallo().getId());
+                                //System.out.println("stallo corretto " + stallo_partenza.getVeicoli());
+                                veicolo_ric = stallo_partenza.veicolo_by_id(veicolo_ric.getId());
                                 noleggio_sel = veicolo_ric.findnoleggioattivo();
+                                noleggio_sel = utente_loggato.noleggio_by_id(noleggio_sel.getId());
                             }
                         }
                         //PASSO 2.1
@@ -210,6 +224,8 @@ public class ConsoleManager {
             //todo con una sola prenotazione senza riavviare il programma (inconsistenza in ram?)
             System.out.println("2. Effettua il noleggio di un veicolo (ho gia' effettuato la prenotazione):");
         }
+        //todo non va se ho appena restituito un veicolo
+        //System.out.println(utente_loggato.getNoleggi());
         if(RestituisciVeicoloHandler.menurestituzione(utente_loggato)){
             System.out.println("3. Effettua la restituzione di un veicolo");
         }

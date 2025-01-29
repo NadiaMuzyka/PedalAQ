@@ -5,7 +5,6 @@ import org.pedalaq.Services.HibernateUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 public class RestituisciVeicoloHandler {
 
@@ -53,25 +52,20 @@ public class RestituisciVeicoloHandler {
 
         if(cittadino.sottraiSaldo(totale, puntiDaUtilizzare)) {
             Stallo stalloPartenza = noleggio.getStalloPartenza();
-
             if(stalloPartenza.rimuoviVeicolo(veicolo)){
                 stalloArrivo.aggiungiVeicolo(veicolo);
-                noleggio.aggiornaNoleggio(stalloArrivo, LocalDateTime.now(), veicolo.getVeicoloType());
-                //System.out.println(noleggio);
-                cittadino.rimuoviNoleggioAttivo(noleggio);
-
+                veicolo.setStallo(stalloArrivo);
+                noleggio.aggiornaNoleggio(stalloArrivo, LocalDateTime.now(), veicolo.displayveicolotype(), cittadino);
                 HibernateUtil.saveOrUpdateWithTransaction(veicolo);
                 HibernateUtil.saveOrUpdateWithTransaction(stalloPartenza);
                 HibernateUtil.saveOrUpdateWithTransaction(stalloArrivo);
                 HibernateUtil.saveOrUpdateWithTransaction(noleggio);
                 HibernateUtil.saveOrUpdateWithTransaction(cittadino);
-                //System.out.println("Suca");
 
             }else return false;
 
             return true;
         }
-        //System.out.println("Sei povero");
         return false;
     }
 

@@ -135,6 +135,11 @@ public abstract class Veicolo {
         return "";
     }
 
+    public String displayveicolotype(){
+        return "";
+    }
+
+
     public boolean rendiDisponibile(){
         this.stato = "Libero";
         return true;
@@ -142,7 +147,7 @@ public abstract class Veicolo {
 
     public Noleggio findnoleggioattivo() {
         for (Prenotazione p : this.prenotazioni){
-            System.out.println(p.getNoleggio());
+            //System.out.println(p.getNoleggio());
             if(p.getNoleggio().getFineCorsa() == null){
                 return p.getNoleggio();
             }

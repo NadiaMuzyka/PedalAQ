@@ -2,9 +2,9 @@ package org.pedalaq.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.*;
-import org.pedalaq.Model.Abbonamento;
+
 import org.pedalaq.Services.Config;
 import org.pedalaq.Services.HibernateUtil;
 
@@ -25,7 +25,7 @@ public class Cittadino extends Utente {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cittadino")
-    private List<Noleggio> noleggiAttivi;
+    private List<Noleggio> noleggi;
     @OneToOne
     @JoinColumn(name = "id_abbonamento_attivo")
     private Abbonamento abbonamentoAttivo;
@@ -83,7 +83,17 @@ public class Cittadino extends Utente {
         return CF;
     }
 
+    public List<Noleggio> getNoleggi() {
+        return noleggi;
+    }
+
     public List<Noleggio> getNoleggiAttivi() {
+        List<Noleggio> noleggiAttivi = new ArrayList<>();
+        for (Noleggio n : this.noleggi) {
+            if(n.getFineCorsa() == null){
+                noleggiAttivi.add(n);
+            }
+        }
         return noleggiAttivi;
     }
 
@@ -189,8 +199,8 @@ public class Cittadino extends Utente {
     public boolean hasactiveprenotazione(){
         for (Prenotazione prenotazione : this.prenotazioni) {
             //NON è scaduta e NON ha un noleggio collegato
-            System.out.println("Non scaduta: " + prenotazione.controllaPrenotazione());
-            System.out.println(prenotazione.getNoleggio());
+            //System.out.println("Non scaduta: " + prenotazione.controllaPrenotazione());
+            //System.out.println(prenotazione.getNoleggio());
             if(prenotazione.controllaPrenotazione() && prenotazione.getNoleggio() == null){
                 return true;
             }
@@ -203,7 +213,12 @@ public class Cittadino extends Utente {
     public boolean hasactivenoleggio(){
         //for (Noleggio noleggio : this.noleggiAttivi) {System.out.println(noleggio);}
         //System.out.println(!this.noleggiAttivi.isEmpty());
-        return (!this.noleggiAttivi.isEmpty());  //TRUE SE HA ALMENO UN NOLEGGIO ATTIVO
+        for (Noleggio n : this.noleggi) {
+            if(n.getFineCorsa() == null){
+                return true;
+            }
+        }
+        return false;  //TRUE SE HA ALMENO UN NOLEGGIO ATTIVO
     }
 
     //controllo se ha almeno una prenotazione non associata ad un noleggio
@@ -221,17 +236,27 @@ public class Cittadino extends Utente {
     //rimozione del noleggio attivo
     public void rimuoviNoleggioAttivo(Noleggio noleggio_del){
         //System.out.println(noleggio);
-        this.noleggiAttivi.removeIf(noleggio -> noleggio.getId() == noleggio_del.getId());
+        this.noleggi.removeIf(noleggio -> noleggio.getId() == noleggio_del.getId());
 
     }
 
     //aggiunta del noleggio attivo
     public void addNoleggioAttivo(Noleggio noleggio){
-        this.noleggiAttivi.add(noleggio);
+        if(noleggio.getFineCorsa() == null){
+            this.noleggi.add(noleggio);
+        }
+    }
+
+    public Noleggio noleggio_by_id(Long id_noleggio){
+        for (Noleggio n : this.noleggi) {
+            if(n.getId() == id_noleggio){
+                return n;
+            }
+        }
+        return null;
     }
 
     public void aggiornaPunti(long durata, String veicoloType){
-
         switch(veicoloType){
             case "Bici":
                 this.puntiUtilizzabili += durata * Config.PUNTI_BIKE;

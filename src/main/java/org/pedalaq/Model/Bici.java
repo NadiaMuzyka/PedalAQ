@@ -14,4 +14,9 @@ public class Bici extends Veicolo{
     public String displayveicolo() {
         return "Bici";
     }
+
+    @Override
+    public String displayveicolotype() {
+        return "Bici";
+    }
 }

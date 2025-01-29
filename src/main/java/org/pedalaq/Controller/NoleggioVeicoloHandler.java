@@ -86,11 +86,11 @@ public class NoleggioVeicoloHandler {
             //TODO aggiungere il noleggio al cittadino DA TESTARE
             cittadino.addNoleggioAttivo(noleggio);
             prenotazione.setNoleggio(noleggio);
-
+            //System.out.println("veicolo noleggiato: " + prenotazione.getVeicolo()); //CORRETTO
             prenotazione.getVeicolo().NoleggiaVeicolo();
             HibernateUtil.savenoleggio_noleggiaaveicolo(noleggio, prenotazione.getVeicolo(), prenotazione);
             //SALVATAGGIO NOLEGGIO E CAMBIO DI STATO DEL VEICOLO
-            prenotazione.getCittadino().addNoleggioAttivo(noleggio);
+            //prenotazione.getCittadino().addNoleggioAttivo(noleggio);
             return true;
         }
         //qui ci dovrebbe essere solo la prenotazione scaduta da gestire
