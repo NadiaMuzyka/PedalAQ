@@ -6,7 +6,8 @@ All'interno dell'app sono inoltre presenti eventi a cui l'utente può partecipar
 
 ## Tecnologie utilizzate  
 - **Java**  
-- **MariaDB**  
+- **MariaDB**
+- **Hibernate** 
 
 ## Installazione  
 Prima di installare l'applicazione, assicurati di aver creato un database **"pedalaq"** e importa il file **"pedalaq.sql"** disponibile nella cartella `resources`.  
