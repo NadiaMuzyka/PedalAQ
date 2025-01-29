@@ -1,4 +1,4 @@
-# PedalaQ 🚲  
+# PedalAQ 🚲  
 
 Questa applicazione supporta gli utenti nel noleggio di veicoli (biciclette, biciclette elettriche e monopattini) disponibili sul suolo cittadino.  
 
