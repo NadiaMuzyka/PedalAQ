@@ -150,6 +150,7 @@ public abstract class Veicolo {
         return null;
     }
 
+
     public void addprenotazione(Prenotazione prenotazione) {
         this.prenotazioni.add(prenotazione);
     }

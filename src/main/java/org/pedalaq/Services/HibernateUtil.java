@@ -56,7 +56,6 @@ public class HibernateUtil {
             session.beginTransaction();
             session.saveOrUpdate(prenotazione);
             session.saveOrUpdate(veicolo); //merge è l'update //CACCIA UN ERRORE SE SI PROVA A RIPRENOTARLO
-
             session.saveOrUpdate(cittadino);
             session.getTransaction().commit();
         }
@@ -67,8 +66,8 @@ public class HibernateUtil {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.merge(veicolo); //merge è l'update
-            session.save(noleggio);
+            session.saveOrUpdate(veicolo); //merge è l'update
+            session.saveOrUpdate(noleggio);
             //TODO AGGIUNGERE LA PRENOTAZIONE QUI
             //session.saveOrUpdate(prenotazione);
             session.getTransaction().commit();

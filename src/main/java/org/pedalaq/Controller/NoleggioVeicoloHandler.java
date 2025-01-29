@@ -93,6 +93,10 @@ public class NoleggioVeicoloHandler {
         return false;
     }
 
+    public static Veicolo getVeicolofromprenotazione_DB(Prenotazione prenotazione_noleggio) {
+        return HibernateUtil.findByParameter(Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
+    }
+
     //GESTIONE AGGIORNAMENTO VEICOLI
     public static boolean aggiornaveicolo(Veicolo veicolo) {
         HibernateUtil.saveOrUpdateWithTransaction(veicolo);

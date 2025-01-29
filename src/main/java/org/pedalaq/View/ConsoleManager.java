@@ -115,8 +115,7 @@ public class ConsoleManager {
                                 System.out.println("!!!Prenotazione scaduta!!!\nRieffettuare la prenotazione del veicolo");
                             } else {
                                 //PRESO L'ID DEL VEICOLO, TORNO ALLO STALLO, POI ALLA CITTà E POI DEVO RISCENDERE
-                                Veicolo veicolo_noleggio_temp = HibernateUtil.findByParameter(
-                                        Veicolo.class, "Id", prenotazione_noleggio.getVeicolo().getId());
+                                Veicolo veicolo_noleggio_temp = NoleggioVeicoloHandler.getVeicolofromprenotazione_DB(prenotazione_noleggio);
                                 Stallo stallo_partenza_temp = veicolo_noleggio_temp.getStallo();
                                 Stallo stallo_partenza = citta_selezionata.stallo_by_id(stallo_partenza_temp.getId()); //STALLO VERO
                                 if (NoleggioVeicoloHandler.noleggiaVeicolo(prenotazione_noleggio, stallo_partenza, utente_loggato)) {
