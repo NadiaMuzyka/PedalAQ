@@ -1,7 +1,14 @@
-Questa applicazione supporta gli utenti nel noleggio di veicoli (biciclette, biciclette elettiche e monopattini) dislocati sul suolo cittadino. 
-Inolre, nell'app sono presenti degli eventi ai quali l'utente può partecipare, e in base ai punti accumulati durante i noleggi precedenti, il cittadino riceverà degli sconti esclusivi.
+PedalAQ 🚲
+Questa applicazione supporta gli utenti nel noleggio di veicoli (biciclette, biciclette elettriche e monopattini) disponibili sul suolo cittadino.
 
-!Questa applicazione utilizza Java e MariaDB.
+All'interno dell'app sono inoltre presenti eventi a cui l'utente può partecipare. In base ai punti accumulati durante i noleggi precedenti, il cittadino riceverà sconti esclusivi.
 
-Prima della installazione assicurati di aver creato un database "pedalaq" e importa il file "pedalaq.sql" disponibile nella cartella resources.
-Inoltre, non ti dimenticare di scrivere la tua password di MariaDB all'interno del file "confg.properties", sempre all'interno della cartella resources.
+Tecnologie utilizzate
+Java
+MariaDB
+Installazione
+Prima di installare l'applicazione, assicurati di aver creato un database "pedalaq" e importa il file "pedalaq.sql" disponibile nella cartella resources.
+
+Inoltre, non dimenticare di configurare la tua password di MariaDB all'interno del file "config.properties", situato sempre nella cartella resources.
+
+
