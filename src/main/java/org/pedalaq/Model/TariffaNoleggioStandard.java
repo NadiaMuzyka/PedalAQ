@@ -13,7 +13,7 @@ public class TariffaNoleggioStandard implements InterfacciaTariffaNoleggio {
     private double costoAlMinuto;
     private LocalDate dataInizio;
     @OneToOne
-    @JoinColumn(name = "id_tariffa")
+    @JoinColumn(name = "id_citta")
     private Citta citta;
 
     @Override

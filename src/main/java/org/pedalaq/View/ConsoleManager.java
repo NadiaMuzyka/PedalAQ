@@ -146,9 +146,11 @@ public class ConsoleManager {
                             System.out.println("I tuoi veicoli attualmente noleggiati sono: ");
                             for (Noleggio noleggio : noleggi_att) {  //TODO con 1 veicolo solo ne escono 2 sul display
                                 Veicolo veicolo = noleggio.getPrenotazione().getVeicolo();
-                                Duration duration = Duration.between(LocalDateTime.now(), noleggio.getInizioCorsa());
+                                Duration duration = Duration.between(noleggio.getInizioCorsa(),LocalDateTime.now());
+                                long ore = duration.toHours();
+                                long minuti = duration.toMinutes() % 60;
                                 System.out.println(veicolo.getId()+ ") " + veicolo.displayveicolo() + " durata noleggio: "
-                                        + duration);
+                                        + ore + ":" + minuti);
                             }
                             Long id_veicolo = readLong("Inserire il codice numerico del veicolo da restituire: ");
                             veicolo_ric = RestituisciVeicoloHandler.selezionaveicolo_ric(utente_loggato, id_veicolo);
@@ -156,10 +158,7 @@ public class ConsoleManager {
                                 System.out.println("!!!Inserire il codice di un veicolo tra quelli noleggiati!!!");
                             }
                             else{
-                                //QUI SONO SICURO CHE IL VEICOLO CI SIA E PRENDO QUELLO VERO
-                                //System.out.println("stallo tempo " + veicolo_ric.getStallo().getVeicoli()); //STALLO SBAGLIATO
                                 Stallo stallo_partenza = citta_selezionata.stallo_by_id(veicolo_ric.getStallo().getId());
-                                //System.out.println("stallo corretto " + stallo_partenza.getVeicoli());
                                 veicolo_ric = stallo_partenza.veicolo_by_id(veicolo_ric.getId());
                                 noleggio_sel = veicolo_ric.findnoleggioattivo();
                                 noleggio_sel = utente_loggato.noleggio_by_id(noleggio_sel.getId());

@@ -14,7 +14,6 @@ public class TariffaNoleggioPromozione implements InterfacciaTariffaNoleggio {
     private float costoAlMinuto;
     private LocalDate dataInizio;
     private LocalDate dataFine;
-    private String codice;
     private int puntiRichiesti;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tariffa")
